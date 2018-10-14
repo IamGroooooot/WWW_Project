@@ -41,4 +41,19 @@ public class WPGameCommon : MonoBehaviour
 
         Debug.Log(str);
     }
+
+    /// <summary>
+    /// Obj 널체크용 함수.
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <returns></returns>
+    public static GameObject _WPAssert(GameObject obj)
+    {
+        if (null == obj)
+        {
+            _WPDebug("Null 인 GameObejct가 있습니다! 확인이 필요합니다! : " + obj.ToString());
+        }
+
+        return obj;
+    }
 }

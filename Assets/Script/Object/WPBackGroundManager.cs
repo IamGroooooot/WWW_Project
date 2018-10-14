@@ -8,6 +8,8 @@ public class WPBackGroundManager : MonoBehaviour
     // Varaibles
     public static WPBackGroundManager instance = null;      // singleton
 
+    public GameObject _baseObject;                      // baseobject. 인스펙터에서 초기화
+
     /////////////////////////////////////////////////////////////////////////
     // Methods
 
