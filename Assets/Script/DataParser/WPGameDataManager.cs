@@ -70,10 +70,11 @@ public class WPGameDataManager : MonoBehaviour {
     //Enum값으로 Seed 찾을 수 있도록 구현
     public Seed FindSeedByID(int id)
     {
-        if (id == -1)
+        if (id < 0 || id >= SeedDB.Count)
         {
             return null;
         }
+       
         for (int i = 0; i < SeedDB.Count; i++)
         {
             if (SeedDB[i].ID == id)
@@ -84,7 +85,6 @@ public class WPGameDataManager : MonoBehaviour {
 
         return null;
     }
-
 }
 
 [System.Serializable]
