@@ -13,4 +13,7 @@ public class WPVariable
 	// 현재 가능한 필드 사이즈. WPBackGroundManager 에서 초기화 되어야할것 같다.
 	public static float currentFieldSizeX = 18f;
 	public static float currentFieldSizeY = 18f;
+
+    //현재 (게임 상의)시간
+    public static WPDateTime currentDateTime;
 }
