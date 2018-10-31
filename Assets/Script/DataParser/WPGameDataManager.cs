@@ -91,35 +91,36 @@ public class WPGameDataManager : MonoBehaviour {
 public class Seed
 {
     public int ID { get; set; }
-    public string Specialization;
-    public string Title { get; set; }
-    public int Time { get; set; }
-    public int PurchasePrice { get; set; }
-    public int SalePrice { get; set; }
-    public int SelfDebuffRatio { get; set; }
-    public int DebuffIncreasmentRatio0 { get; set; }
-    public int DebuffIncreasmentRatio1 { get; set; }
-    public int DebuffIncreasmentRatio2 { get; set; }
-    public string Description { get; set; }
-    public int UnlockLevel { get; set; }
-    public string Slug { get; set; }// 여기에 이미지 파일 path저장 
+    public string specialization;
+    public string title { get; set; }
+    public int time { get; set; }
+    public int purchasePrice { get; set; }
+    public int salePrice { get; set; }
+    public int selfDebuffRatio { get; set; }
+    public int debuffIncreasmentRatio0 { get; set; }
+    public int debuffIncreasmentRatio1 { get; set; }
+    public int debuffIncreasmentRatio2 { get; set; }
+    public string description { get; set; }
+    public int unlockLevel { get; set; }
+    public string slug { get; set; }// 여기에 이미지 파일 path저장 
 
 
     public Seed(int _id, string _specialization, string _title,int _time, int _purchasePrice,int _salePrice, int _selfDebuffRatio, int _debuffIncreasmentRatio0, int _debuffIncreasmentRatio1, int _debuffIncreasmentRatio2, string _description,int _unlockLevel, string _slug)
     {
         this.ID = _id;
-        this.Specialization = _specialization;
-        this.Title = _title;
-        this.Time = _time;
-        this.PurchasePrice = _purchasePrice;
-        this.SalePrice = _salePrice;
-        this.SelfDebuffRatio = _selfDebuffRatio;
-        this.DebuffIncreasmentRatio0 = _debuffIncreasmentRatio0;
-        this.DebuffIncreasmentRatio1 = _debuffIncreasmentRatio1;
-        this.DebuffIncreasmentRatio2 = _debuffIncreasmentRatio2;
-        this.Description = _description;
-        this.UnlockLevel = _unlockLevel;
-        this.Slug = _slug;
+        this.specialization = _specialization;
+        this.title = _title;
+        this.time = _time;
+        this.purchasePrice = _purchasePrice;
+        this.salePrice = _salePrice;
+        this.selfDebuffRatio = _selfDebuffRatio;
+        this.debuffIncreasmentRatio0 = _debuffIncreasmentRatio0;
+        this.debuffIncreasmentRatio1 = _debuffIncreasmentRatio1;
+        this.debuffIncreasmentRatio2 = _debuffIncreasmentRatio2;
+        this.description = _description;
+        this.unlockLevel = _unlockLevel;
+        this.slug = _slug;
+        
     }
 
     public Seed()
