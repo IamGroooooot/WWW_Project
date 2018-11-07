@@ -40,4 +40,21 @@ public class WPEnum {
 		eActorStateIdle = 1,            // 대기상태
 		eActorStateMoving = 2,			// 움직이는 상태
 	}
+
+    // 계절
+    public enum Season
+    {
+        eSpring = 1,
+        eSummer,
+        eAutumn,
+        eWinter
+    }
+
+    public enum Weather
+    {
+        eSunny,
+        eDrought,
+        eRain,
+        eCold
+    }
 }
