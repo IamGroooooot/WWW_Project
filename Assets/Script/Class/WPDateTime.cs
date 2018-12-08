@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 //게임상의 시간에 대한 Class
-
+//초기화 시점 
 public class WPDateTime {
 
     public int Year { get; private set; }

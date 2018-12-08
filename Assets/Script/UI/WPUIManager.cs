@@ -54,3 +54,4 @@ public class WPUIManager : MonoBehaviour
         this.gameObject.GetComponentInChildren<Text>().text = "Count : " + m_playerMoney.ToString();
     }
 }
+   
