@@ -45,7 +45,8 @@ public class WPEnum {
 	// 액터키 모음. 추후 이걸 데이터로 빼는작업 필요.
 	public enum ActorKey
 	{
-		eActorWorkerTemp = 100,			// 임시 워커
+		eActorWorkerTemp = 10,			// 임시 워커
+		eActorField = 20,				// 밭
 	}
 
 	// 현재 액터의 상태를 정의해놓음.
