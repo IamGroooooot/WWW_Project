@@ -11,7 +11,22 @@ public class WPEnum {
         eUserTerritory = 100,           // 영지 개수
 
         eUserWorkerCount = 200,         // 일꾼 개수
-    }
+
+		eUserDebt = 300,				// 빚
+
+		eUserDate_Year  = 400,          // 게임 상의 시간 년
+
+		eUserDate_Month = 500,          // 게임 상의 시간 월
+
+		eUserDate_Day = 600,			// 게임 상의 시간 일
+	}
+
+	// 재정 상태
+	public enum Financial_State
+	{
+		eBankStable = 0,
+		eBankruptcy = 1,
+	}
 
 	// 액터 움직입 타입
     public enum ActorMoveType
@@ -47,14 +62,24 @@ public class WPEnum {
         eSpring = 1,
         eSummer,
         eAutumn,
-        eWinter
+        eWinter,
     }
 
-    public enum Weather
+	// 기후 
+    public enum Weather					//버프 (일 당 +점수), 디버프 (일 당 -점수)
     {
-        eSunny,
-        eDrought,
-        eRain,
-        eCold
+        eSunny,							//화창 버프2, 디버프 1  
+        eDrought,						//가뭄 버프4, 디버프 3
+        eRain,							//비   버프3, 디버프 3
+        eCold,							//눈   버프4, 디버프 3
     }
+
+	// Initial Date(게임 시작했을 때 날짜)
+	public enum InitialDate
+	{
+		eInitYear = 2019,
+		eInitMonth = 3,
+		eInitDay = 1,
+	}
+
 }
