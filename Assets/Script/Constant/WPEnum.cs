@@ -19,13 +19,15 @@ public class WPEnum {
 		eUserDate_Month = 500,          // 게임 상의 시간 월
 
 		eUserDate_Day = 600,            // 게임 상의 시간 일
+
+		eQuest1 = 700,					// 퀘스트 달성량. 최대 퀘스트 수락량?? - 지호묻기
 	}
 
 	// 재정 상태
 	public enum Financial_State
 	{
-		eBankStable = 0,
-		eBankruptcy = 1,
+		eBankStable = 0,				//안파산
+		eBankruptcy = 1,				//파산
 	}
 
 	// 액터 움직입 타입
@@ -46,7 +48,8 @@ public class WPEnum {
 	public enum ActorKey
 	{
 		eActorWorkerTemp = 10,			// 임시 워커
-		eActorFarmField = 20,				// 밭
+		eActorFarmField = 20,			// 밭
+
 	}
 
 	// 현재 액터의 상태를 정의해놓음.
@@ -60,10 +63,10 @@ public class WPEnum {
     // 계절
     public enum Season
     {
-        eSpring = 1,
-        eSummer,
-        eAutumn,
-        eWinter,
+        eSpring = 1,					//봄
+        eSummer,						//여름
+        eAutumn,						//가을
+        eWinter,						//겨울
     }
 
 	// 기후 
@@ -75,12 +78,67 @@ public class WPEnum {
         eCold,							//눈   버프4, 디버프 3
     }
 
-	// Initial Date(게임 시작했을 때 날짜)
+	// Initial Date(게임 시작했을 때의 날짜)
 	public enum InitialDate
 	{
-		eInitYear = 2019,
-		eInitMonth = 3,
+		eInitYear = 2019,		
+		eInitMonth = 3,			
 		eInitDay = 1,
 	}
 
+	/// <summary>
+	/// 이벤트에 대한 ENUM////////////////////////////////////////////////////
+	/// http://www.cien.or.kr/pages/viewpage.action?pageId=15761543
+	/// </summary>
+
+	// Special Event
+	public enum SpecialEvent
+	{
+		eChristmas = 1,					//크리스마스
+		eThanksgiving,					//추석
+		eNewYear,						//설날
+		eDano,                          //단오 Celebration_of_spring_and_farming
+	}
+
+	// Farm Event
+	public enum FarmEvent
+	{
+		eTimeDecrease,                  //시간 감소 - 단비
+		eNoFertilizer,                  //비료 불가 - 홍수, 태풍, 우박, 장마, 가뭄
+		eFreeFertilizer,                //비료 공짜 - 소가 쉬다감, 비료회사 판촉행사
+	}
+
+	// Bank Event
+	public enum BankEvent
+	{
+		eDebtIncrease,					//빚 증가 - 은행장 서류 찾아냄
+		eDebtDecrease,					//빚 탕감 - 빚 일부분??(얼마큼인지 안명시) - 은행장 서류 잃어버림
+		eInterestExemption,				//이자 면제 - 은행장 로또 당첨
+		eNoLoan,						//대출 불가 - 은행휴가
+		eInterestChanged,				//이자율 변동 - 경기활성화, 경기 불황
+	}
+
+	// Shop Event
+	public enum ShopEvent
+	{
+		eCropPriceUp,					//작물 가격 업
+		eWorkerSale,					//일꾼 세일 
+		eWorkerPerectageUp,				//일꾼 확률 업
+		eFertilizerSale,				//비료 세일
+	}
+
+	// Worker Event
+	public enum WorkerEvent
+	{
+		eFreeUpgrade,					//일꾼 무료 성장
+		eFreeExp,						//일꾼 경험치 증가
+	}
+
+	// Crop Event
+	public enum CropEvent
+	{
+		eExpensive,						//작물 비싸짐
+		eCropMastered,					//작물 마스터
+	}
+	///////////////////////////////////////////////////////////////////////////
 }
