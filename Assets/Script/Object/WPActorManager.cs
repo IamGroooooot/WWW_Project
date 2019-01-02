@@ -13,6 +13,9 @@ public class WPActorManager : MonoBehaviour
 	public GameObject _pfTempWorker;					// 임시 워커 프리팹
 
     private int _workerCount;                           // 일꾼 개수. init 초기화
+
+    private int _farmFieldCount;                        // 밭 개수. init 초기화
+
 	private List<GameObject> _actorList;				// 액터 게임오브젝트를 들고있는 리스트.
 
     /////////////////////////////////////////////////////////////////////////
@@ -37,6 +40,8 @@ public class WPActorManager : MonoBehaviour
 		this._actorList = new List<GameObject>();
 
         this._workerCount = WPGameVariableManager.instance.LoadIntVariable(WPEnum.VaraibleType.eUserWorkerCount);
+        this._farmFieldCount = WPGameVariableManager.instance.LoadIntVariable(WPEnum.VaraibleType.eFarmFieldCount);
+
     }
 
     /// <summary>
@@ -51,7 +56,14 @@ public class WPActorManager : MonoBehaviour
         {
 			this.SpawnActor((int)WPEnum.ActorKey.eActorWorkerTemp);
         }
-    }
+		/*
+		// 밭 세팅 파트, 최대 밭 몇개??
+		for (int i = 0; i < this._farmFieldCount; i++)
+        {
+			this.SpawnActor((int)WPEnum.ActorKey.eActorFarmField);
+        }
+		*/
+	}
 
 	/// <summary>
 	/// Actor 타입에 맞게 스폰시키는 함수.
@@ -61,26 +73,60 @@ public class WPActorManager : MonoBehaviour
 	/// <returns></returns>
 	public int SpawnActor(int actorKey)
 	{
-		// 현재는 actorkey 상관없이 그냥 생성시키고 배치만 해줌.
-		GameObject go = Instantiate(this._pfTempWorker, this._baseObject);
-
-		if (null == go)
+		if ((int)WPEnum.ActorKey.eActorWorkerTemp == actorKey)
 		{
-			WPGameCommon._WPDebug("Actor 스폰에 문제발생!!");
+			// 현재는 actorkey 상관없이 그냥 생성시키고 배치만 해줌.
+			GameObject go = Instantiate(this._pfTempWorker, this._baseObject);
+
+			if (null == go)
+			{
+				WPGameCommon._WPDebug("Actor 스폰에 문제발생!!");
+				return (int)WPEnum.rvType.eTypeFail;
+			}
+
+			float xPos = Random.Range(-WPVariable.currentFieldSizeX / 2f, WPVariable.currentFieldSizeX / 2f);
+			float yPos = Random.Range(-WPVariable.currentFieldSizeY / 2f, WPVariable.currentFieldSizeY / 2f);
+
+			// 포지션 세팅, 액터키 세팅
+			go.GetComponent<WPActor>().SetActorPos(xPos, yPos);
+			go.GetComponent<WPActor>().SetActorKey(actorKey);
+
+			// 리스트에 반영
+			this._actorList.Add(go);
+
+			return (int)WPEnum.rvType.eTypeSuccess;
+		}
+		else if((int)WPEnum.ActorKey.eActorFarmField == actorKey)
+		{
+			//여기에 밭 스폰 짜야됨 grid? UI어떻게
+
+			return (int)WPEnum.rvType.eTypeSuccess;
+		}
+		else
+		{
 			return (int)WPEnum.rvType.eTypeFail;
 		}
+	}
 
-		float xPos = Random.Range(-WPVariable.currentFieldSizeX / 2f, WPVariable.currentFieldSizeX / 2f);
-		float yPos = Random.Range(-WPVariable.currentFieldSizeY / 2f, WPVariable.currentFieldSizeY / 2f);
+	/// <summary>
+	/// 밭 증가시키기. 임시함수. 아직 안만듬.
+	/// </summary>
+	public void IncreaseField()
+	{
+		// 임시워커 스폰 시도
+		int rv = this.SpawnActor((int)WPEnum.ActorKey.eActorFarmField);
 
-		// 포지션 세팅, 액터키 세팅
-		go.GetComponent<WPActor>().SetActorPos(xPos, yPos);
-		go.GetComponent<WPActor>().SetActorKey(actorKey);
+		// 스폰에 문제가 있나?
+		if (0 != rv)
+		{
+			return;
+		}
 
-		// 리스트에 반영
-		this._actorList.Add(go);
+		// 매니저 메모리에 반영 시도
+		this._farmFieldCount++;
 
-		return (int)WPEnum.rvType.eTypeSuccess;
+		// 유저데이터에 작성.
+		WPGameVariableManager.instance.SaveVariable(WPEnum.VaraibleType.eFarmFieldCount, this._farmFieldCount);
 	}
 
 	/// <summary>

@@ -8,9 +8,9 @@ public class WPEnum {
     {
         eUserMoney = 0,                 // 돈
 
-        eUserTerritory = 100,           // 영지 개수
+		eFarmFieldCount = 100,          // FarmField 개수 
 
-        eUserWorkerCount = 200,         // 일꾼 개수
+		eUserWorkerCount = 200,         // 일꾼 개수
 
 		eUserDebt = 300,				// 빚
 
@@ -18,7 +18,7 @@ public class WPEnum {
 
 		eUserDate_Month = 500,          // 게임 상의 시간 월
 
-		eUserDate_Day = 600,			// 게임 상의 시간 일
+		eUserDate_Day = 600,            // 게임 상의 시간 일
 	}
 
 	// 재정 상태
@@ -46,7 +46,7 @@ public class WPEnum {
 	public enum ActorKey
 	{
 		eActorWorkerTemp = 10,			// 임시 워커
-		eActorField = 20,				// 밭
+		eActorFarmField = 20,				// 밭
 	}
 
 	// 현재 액터의 상태를 정의해놓음.
