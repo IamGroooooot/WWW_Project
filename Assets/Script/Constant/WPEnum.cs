@@ -3,8 +3,19 @@ using System.Collections.Generic;
 
 public class WPEnum {
 
-    // 게임데이터 저장 타입
-    public enum VaraibleType
+	// 비교연산자 타입
+	public enum CompareType
+	{
+		eEqual = 0,                     // 같음
+		eLess = 1,                      // 이하
+		eMore = 2,                      // 이상
+		eUnder = 3,                     // 미만
+		eOver = 4,                      // 초과
+		eNot = 5                        // 다름
+	}
+
+	// 게임데이터 저장 타입
+	public enum VaraibleType
     {
         eUserMoney = 0,                 // 돈
 
