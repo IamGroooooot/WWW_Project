@@ -30,8 +30,8 @@ public class WPGameCommon : MonoBehaviour
     /// WWWProject 에서 사용할 debug 함수.
     /// 개발버전일 때만 디버그를 찍어준다.
     /// </summary>
-    /// <param name="str"></param>
-    public static void _WPDebug(string str)
+    /// <param name="target"></param>
+    public static void _WPDebug(object target)
     {
         // 개발버전이 아니면 debug 를 찍지 않는다.
         if (false == WPVariable.isDevelopment)
@@ -39,7 +39,7 @@ public class WPGameCommon : MonoBehaviour
             return;
         }
 
-        Debug.Log(str);
+        Debug.Log(target);
     }
 
     /// <summary>
