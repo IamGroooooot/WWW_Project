@@ -14,6 +14,4 @@ public class WPVariable
 	public static float currentFieldSizeX = 18f;
 	public static float currentFieldSizeY = 18f;
 
-    //현재 (게임 상의)시간
-    public static WPDateTime currentDateTime;
 }

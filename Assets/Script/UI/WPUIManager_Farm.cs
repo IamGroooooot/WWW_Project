@@ -14,6 +14,8 @@ public class WPUIManager_Farm : MonoBehaviour
     private float newsDelay = 2f;                               // 뉴스 사이의 간격 ( 출현할 때 대기하고 애니메이션이 끝날 때 대기합니다. )
     private float newsSpeed = 400f;                             // 뉴스가 움직이는 속도 ( pixel per second )
 
+    private Text timeText;
+
     /////////////////////////////////////////////////////////////////////////
     // Methods
 
@@ -25,7 +27,8 @@ public class WPUIManager_Farm : MonoBehaviour
     private void Start()
     {
         Init();
-        StartCoroutine(newsRoutine());
+        StartCoroutine(NewsRoutine());
+        StartCoroutine(TimeRoutine());
     }
 
     // 초기 설정을 합니다.
@@ -36,6 +39,7 @@ public class WPUIManager_Farm : MonoBehaviour
         this.transform.Find("Button_Shop").GetComponent<Button>().onClick.AddListener(OnClick_Shop);
         this.transform.Find("Button_Choose").GetComponent<Button>().onClick.AddListener(OnClick_Choose);
         newsMask = transform.Find("Image_News");
+        timeText = transform.Find("Image_Time").GetComponentInChildren<Text>();
         AddNews("테스트 뉴스 1");
         AddNews("테스트 뉴스 2");
         AddNews("테스트 뉴스 33333333333333333 테스트 뉴스 33333333333333333");
@@ -65,8 +69,21 @@ public class WPUIManager_Farm : MonoBehaviour
 
     }
 
+    // Event와 Delegate 공부해서 이런 X같은 코드 없에버리자!
+    private IEnumerator TimeRoutine()
+    {
+        for(; ; )
+        {
+            if(timeText != null)
+            {
+                timeText.text = WPDateTime.ToString();
+            }
+            yield return null;
+        }
+    }
+
     // News 애니메이션을 위한 Coroutine입니다.
-    private IEnumerator newsRoutine()
+    private IEnumerator NewsRoutine()
     {
         if (newsMask == null) yield break;
         for(; ; )

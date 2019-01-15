@@ -12,12 +12,13 @@ public class WPEvent : MonoBehaviour {
 
     protected class Condition
     {
-        WPEnum.VaraibleType variableType;
+        WPEnum.VariableType variableType;
         WPEnum.CompareType compareType;
         object value;
         System.Type type;
+        
 
-        public Condition(WPEnum.VaraibleType _variableType, WPEnum.CompareType _compareType, object _value)
+        public Condition(WPEnum.VariableType _variableType, WPEnum.CompareType _compareType, object _value)
         {
             variableType = _variableType;
             compareType = _compareType;
@@ -107,7 +108,7 @@ public class WPEvent : MonoBehaviour {
         }
     }
 
-    protected void SetCondition<T>(WPEnum.VaraibleType varaibleType, WPEnum.CompareType compareType, object value)
+    protected void SetCondition<T>(WPEnum.VariableType varaibleType, WPEnum.CompareType compareType, object value)
     {
         if(typeof(T) == typeof(string))
         {

@@ -36,8 +36,8 @@ public class WPUIManager : MonoBehaviour
     /// </summary>
     private void InitValue()
     {
-        m_playerMoney = WPGameVariableManager.instance.LoadIntVariable(WPEnum.VaraibleType.eUserMoney);
-		m_playerDeft = WPGameVariableManager.instance.LoadIntVariable(WPEnum.VaraibleType.eUserDebt);
+        m_playerMoney = WPGameVariableManager.instance.LoadIntVariable(WPEnum.VariableType.eUserMoney);
+		m_playerDeft = WPGameVariableManager.instance.LoadIntVariable(WPEnum.VariableType.eUserDebt);
 		//m_playerDate_Year = WPGameVariableManager.instance.LoadIntVariable(WPEnum.VaraibleType.eUserDate_Year);
 		//m_playerDate_Month = WPGameVariableManager.instance.LoadIntVariable(WPEnum.VaraibleType.eUserDate_Month);
 		//m_playerDate_Day = WPGameVariableManager.instance.LoadIntVariable(WPEnum.VaraibleType.eUserDate_Day);
@@ -56,8 +56,8 @@ public class WPUIManager : MonoBehaviour
 
         this.UpdateMoney();
 		this.UpdateDebt();
-        WPGameVariableManager.instance.SaveVariable(WPEnum.VaraibleType.eUserMoney, m_playerMoney);
-        WPGameVariableManager.instance.SaveVariable(WPEnum.VaraibleType.eUserDebt, m_playerDeft);
+        WPGameVariableManager.instance.SaveVariable(WPEnum.VariableType.eUserMoney, m_playerMoney);
+        WPGameVariableManager.instance.SaveVariable(WPEnum.VariableType.eUserDebt, m_playerDeft);
     }
 
     /// <summary>

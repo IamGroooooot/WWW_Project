@@ -1,41 +1,53 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-//게임상의 시간에 대한 Class
-//초기화 시점 
+// 게임상의 시간에 대한 Class
+// 초기화 시점 
 public class WPDateTime {
 
-    public int Year { get; private set; }
-
+    private int year;
     private int month;
-    public int Month
+    private int day;
+    private int hour;
+
+    public static int Year
     {
         get
         {
-            return month;
+            if (wpDateTime == null) return 0;
+            return wpDateTime.year;
+        }
+    }
+    public static int Month
+    {
+        get
+        {
+            if (wpDateTime == null) return 0;
+            return wpDateTime.month;
         }
         set
         {
-            month = value;
-            if(month > 12)
+            if (wpDateTime == null) return;
+            wpDateTime.month = value;
+            if(wpDateTime.month > 12)
             {
-                Year++;
-                month = 1;
+                wpDateTime.year++;
+                wpDateTime.month = 1;
             }
         }
     }
-
-    private int day;
-    public int Day
+    public static int Day
     {
         get
         {
-            return day;
+            if (wpDateTime == null) return 0;
+            return wpDateTime.day;
         }
         set
         {
-            day = value;
-            switch (month)
+            if (wpDateTime == null) return;
+            wpDateTime.day = value;
+            switch (wpDateTime.month)
             {
                 case 1:
                 case 3:
@@ -46,7 +58,7 @@ public class WPDateTime {
                 case 12:
                     if (value > 31)
                     {
-                        day -= 31;
+                        wpDateTime.day -= 31;
                         Month++;
                     }
                     break;
@@ -56,55 +68,77 @@ public class WPDateTime {
                 case 11:
                     if (value > 30)
                     {
-                        day -= 30;
+                        wpDateTime.day -= 30;
                         Month++;
                     }
                     break;
                 case 2:
                     if (value > 28)
                     {
-                        day -= 28;
+                        wpDateTime.day -= 28;
                         Month++;
                     }
                     break;
             }
         }
     }
-
-    //생성자
-    public WPDateTime(int _year, int _month, int _day)
+    public static int Hour
     {
-        Year = _year;
-        Month = _month;
-        Day = _day;
+        get
+        {
+            if (wpDateTime == null) return 0;
+            return wpDateTime.hour;
+        }
+        set
+        {
+            if (wpDateTime == null) return;
+            wpDateTime.hour = value;
+            if(wpDateTime.hour >= 24)
+            {
+                wpDateTime.hour = 0;
+                Day++;
+            }
+        }
     }
 
-    public override string ToString()
+    private static WPDateTime wpDateTime = null;
+
+    // 생성자
+    private WPDateTime(int _year, int _month, int _day, int _hour)
     {
-        return "DateTime(" + Year + ":" + Month + ":" + Day + ")";
+        year = _year;
+        month = _month;
+        day = _day;
+        hour = _hour;
     }
 
-    public WPEnum.Season GetSeason()
+    public new static string ToString()
+    {
+        string dateString = string.Format("{0} / {1} / {2} ", Year, Month, Day);
+        string timeString = string.Empty;
+        if(0 == Hour)
+        {
+            timeString = "12 : 00 AM";
+        }
+        else if(1 <= Hour && Hour < 12)
+        {
+            timeString = string.Format("{0} : 00 AM", Hour);
+        }
+        else if(12 == Hour)
+        {
+            timeString = "12 : 00 PM";
+        }
+        else if(13 <= Hour && Hour < 24)
+        {
+            timeString = string.Format("{0} : 00 PM", Hour);
+        }
+
+        return string.Concat(dateString, timeString);
+    }
+
+    public static WPEnum.Season GetSeason()
     {
         return GetSeason(Month);
-    }
-
-    //Convert String that is time to int32
-    public static WPDateTime ParseData(string data)
-    {
-        //split String
-        string[] data_1 = data.Split('(');
-        //simple integrity check
-        if (data_1[0] != "DateTime") return null;
-
-        string[] dateString = data_1[1].Replace(")", "").Split(':');
-
-        //convert string to int32
-        int _year = System.Convert.ToInt32(dateString[0]);
-        int _month = System.Convert.ToInt32(dateString[1]);
-        int _day = System.Convert.ToInt32(dateString[2]);
-
-        return new WPDateTime(_year, _month, _day);
     }
 
     public static WPEnum.Season GetSeason(int _month)
@@ -131,4 +165,49 @@ public class WPDateTime {
                 return 0;
         }
     }
+
+    public static WPDateTime ParseData(string data)
+    {
+        // split String
+        string[] data_1 = data.Split('(');
+        // simple integrity check
+        if (data_1[0] != "DateTime") return null;
+
+        string[] dateString = data_1[1].Replace(")", "").Split(':');
+
+        // convert string to int32
+        int _year = System.Convert.ToInt32(dateString[0]);
+        int _month = System.Convert.ToInt32(dateString[1]);
+        int _day = System.Convert.ToInt32(dateString[2]);
+        int _hour = System.Convert.ToInt32(dateString[3]);
+
+        return new WPDateTime(_year, _month, _day, _hour);
+    }
+
+    private static string ToData()
+    {
+        return string.Format("DateTime({0}:{1}:{2}:{3})", Year, Month, Day, Hour);
+    }
+
+    public static void Init()
+    {
+        string data = WPGameVariableManager.instance.LoadStringVariable(WPEnum.VariableType.eUserDate);
+        if (string.IsNullOrEmpty(data))
+        {
+            wpDateTime = new WPDateTime(
+                (int)WPEnum.InitialDate.eInitYear,
+                (int)WPEnum.InitialDate.eInitMonth,
+                (int)WPEnum.InitialDate.eInitDay,
+                (int)WPEnum.InitialDate.eInitHour);
+            return;
+        }
+        wpDateTime = ParseData(data);
+    }
+
+    public static void Save()
+    {
+        if (wpDateTime == null) return;
+        WPGameVariableManager.instance.SaveVariable(WPEnum.VariableType.eUserDate, ToString());
+    }
+
 }

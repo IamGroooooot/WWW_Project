@@ -15,7 +15,7 @@ public class WPEnum {
 	}
 
 	// 게임데이터 저장 타입
-	public enum VaraibleType
+	public enum VariableType
     {
         eUserMoney = 0,                 // 돈
 
@@ -25,11 +25,7 @@ public class WPEnum {
 
 		eUserDebt = 300,				// 빚
 
-		eUserDate_Year  = 400,          // 게임 상의 시간 년
-
-		eUserDate_Month = 500,          // 게임 상의 시간 월
-
-		eUserDate_Day = 600,            // 게임 상의 시간 일
+		eUserDate = 400,                // 게임 상의 시간
 
 		eQuest1 = 700,					// 퀘스트 달성량. 최대 퀘스트 수락량?? - 지호묻기
 	}
@@ -95,6 +91,7 @@ public class WPEnum {
 		eInitYear = 2019,		
 		eInitMonth = 3,			
 		eInitDay = 1,
+        eInitHour = 6,
 	}
 
 	/// <summary>

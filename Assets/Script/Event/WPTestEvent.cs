@@ -7,7 +7,7 @@ public class WPTestEvent : WPEvent {
 
     protected override void Init()
     {
-        SetCondition<int>(WPEnum.VaraibleType.eUserMoney, WPEnum.CompareType.eMore, 50);
+        SetCondition<int>(WPEnum.VariableType.eUserMoney, WPEnum.CompareType.eMore, 50);
     }
 
     protected override void Execution()

@@ -20,7 +20,7 @@ public class WPGameVariableManager : MonoBehaviour
     /// 타입 이넘값으로 값을 저장해준다.
     /// string value 전용
     /// </summary>
-    public void SaveVariable(WPEnum.VaraibleType type, string value)
+    public void SaveVariable(WPEnum.VariableType type, string value)
     {
         // 이넘값 변환
         string key = type.ToString();
@@ -33,7 +33,7 @@ public class WPGameVariableManager : MonoBehaviour
     /// 타입 이넘값으로 값을 저장해준다.
     /// Int value 전용
     /// </summary>
-    public void SaveVariable(WPEnum.VaraibleType type, int value)
+    public void SaveVariable(WPEnum.VariableType type, int value)
     {
         // 이넘값 변환
         string key = type.ToString();
@@ -46,7 +46,7 @@ public class WPGameVariableManager : MonoBehaviour
     /// 타입 이넘값으로 값을 저장해준다.
     /// Float value 전용
     /// </summary>
-    public void SaveVariable(WPEnum.VaraibleType type, float value)
+    public void SaveVariable(WPEnum.VariableType type, float value)
     {
         // 이넘값 변환
         string key = type.ToString();
@@ -58,7 +58,7 @@ public class WPGameVariableManager : MonoBehaviour
     /// <summary>
     /// 타입 이넘값을 바탕으로 저장된 값을 불러온다.
     /// </summary>
-    public string LoadStringVariable(WPEnum.VaraibleType type)
+    public string LoadStringVariable(WPEnum.VariableType type)
     {
         // 이넘값 변환
         string key = type.ToString();
@@ -74,7 +74,7 @@ public class WPGameVariableManager : MonoBehaviour
     /// <summary>
     /// 타입 이넘값을 바탕으로 저장된 값을 불러온다.
     /// </summary>
-    public int LoadIntVariable(WPEnum.VaraibleType type)
+    public int LoadIntVariable(WPEnum.VariableType type)
     {
         // 이넘값 변환
         string key = type.ToString();
@@ -90,7 +90,7 @@ public class WPGameVariableManager : MonoBehaviour
     /// <summary>
     /// 타입 이넘값을 바탕으로 저장된 값을 불러온다.
     /// </summary>
-    public float LoadFloatVariable(WPEnum.VaraibleType type)
+    public float LoadFloatVariable(WPEnum.VariableType type)
     {
         // 이넘값 변환
         string key = type.ToString();

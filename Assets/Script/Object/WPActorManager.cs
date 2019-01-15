@@ -39,8 +39,8 @@ public class WPActorManager : MonoBehaviour
     {
 		this._actorList = new List<GameObject>();
 
-        this._workerCount = WPGameVariableManager.instance.LoadIntVariable(WPEnum.VaraibleType.eUserWorkerCount);
-        this._farmFieldCount = WPGameVariableManager.instance.LoadIntVariable(WPEnum.VaraibleType.eFarmFieldCount);
+        this._workerCount = WPGameVariableManager.instance.LoadIntVariable(WPEnum.VariableType.eUserWorkerCount);
+        this._farmFieldCount = WPGameVariableManager.instance.LoadIntVariable(WPEnum.VariableType.eFarmFieldCount);
 
     }
 
@@ -126,7 +126,7 @@ public class WPActorManager : MonoBehaviour
 		this._farmFieldCount++;
 
 		// 유저데이터에 작성.
-		WPGameVariableManager.instance.SaveVariable(WPEnum.VaraibleType.eFarmFieldCount, this._farmFieldCount);
+		WPGameVariableManager.instance.SaveVariable(WPEnum.VariableType.eFarmFieldCount, this._farmFieldCount);
 	}
 
 	/// <summary>
@@ -148,7 +148,7 @@ public class WPActorManager : MonoBehaviour
 		this._workerCount++;
 
 		// 유저데이터에 작성.
-		WPGameVariableManager.instance.SaveVariable(WPEnum.VaraibleType.eUserWorkerCount, this._workerCount);
+		WPGameVariableManager.instance.SaveVariable(WPEnum.VariableType.eUserWorkerCount, this._workerCount);
     }
 
 	/// <summary>
@@ -167,6 +167,6 @@ public class WPActorManager : MonoBehaviour
 		this._workerCount = 0;
 
 		// 유저데이터에 작성.
-		WPGameVariableManager.instance.SaveVariable(WPEnum.VaraibleType.eUserWorkerCount, this._workerCount);
+		WPGameVariableManager.instance.SaveVariable(WPEnum.VariableType.eUserWorkerCount, this._workerCount);
 	}
 }
