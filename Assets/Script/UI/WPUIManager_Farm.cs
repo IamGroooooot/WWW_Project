@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class WPUIManager_Farm : MonoBehaviour
@@ -28,7 +29,22 @@ public class WPUIManager_Farm : MonoBehaviour
     {
         Init();
         StartCoroutine(NewsRoutine());
-        StartCoroutine(TimeRoutine());
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (!EventSystem.current.IsPointerOverGameObject())
+            {
+                Vector2 castPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                RaycastHit2D raycastHit2D = Physics2D.Raycast(castPos, Vector2.zero, 0f);
+                if(raycastHit2D.collider != null)
+                {
+                    WPGameCommon._WPDebug(raycastHit2D.transform.name);
+                }
+            }
+        }
     }
 
     // 초기 설정을 합니다.
@@ -43,6 +59,7 @@ public class WPUIManager_Farm : MonoBehaviour
         AddNews("테스트 뉴스 1");
         AddNews("테스트 뉴스 2");
         AddNews("테스트 뉴스 33333333333333333 테스트 뉴스 33333333333333333");
+        TimeUIUpdate();
     }
 
     // News 버튼을 클릭했을 때 호출합니다.
@@ -69,16 +86,26 @@ public class WPUIManager_Farm : MonoBehaviour
 
     }
 
-    // Event와 Delegate 공부해서 이런 X같은 코드 없에버리자!
-    private IEnumerator TimeRoutine()
+    /// <summary>
+	/// Time UI를 WPDateTime으로 업데이트합니다.
+	/// </summary>
+    public void TimeUIUpdate()
     {
-        for(; ; )
+        if (timeText != null)
         {
-            if(timeText != null)
-            {
-                timeText.text = WPDateTime.ToString();
-            }
-            yield return null;
+            timeText.text = WPDateTime.ToString();
+        }
+    }
+
+    /// <summary>
+	/// Time UI를 content로 업데이트합니다.
+	/// </summary>
+	/// <param name="content"></param>
+    public void TimeUIUpdate(string content)
+    {
+        if (timeText != null)
+        {
+            timeText.text = content;
         }
     }
 
