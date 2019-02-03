@@ -23,6 +23,7 @@ public class WPGameDataManager : MonoBehaviour {
     /////////////////////////////////////////////////////////////////////////
     // Methods
 
+    
     private void Awake()
     {
         instance = this;
@@ -50,16 +51,14 @@ public class WPGameDataManager : MonoBehaviour {
             SeedDB.Add(
                 new Seed(
                     (int)seedJsonData[i]["id"],
-                    seedJsonData[i]["specialization"].ToString(),
-                    seedJsonData[i]["title"].ToString(), 
-                    (int)seedJsonData[i]["time"],
-                    (int)seedJsonData[i]["purchasePrice"],
-                    (int)seedJsonData[i]["salePrice"],
-                    (int)seedJsonData[i]["selfDebuffRatio"],
-                    (int)seedJsonData[i]["debuffIncreasmentRatio"][0],
-                    (int)seedJsonData[i]["debuffIncreasmentRatio"][1],
-                    (int)seedJsonData[i]["debuffIncreasmentRatio"][2],
-                    seedJsonData[i]["description"].ToString(), 
+                    seedJsonData[i]["specie"].ToString(), 
+                    (int)seedJsonData[i]["growthTime"],
+                    (int)seedJsonData[i]["comparePrice"],
+                    //(int)seedJsonData[i]["salePrice"],  기준 판매가 * 0.8 ,(반올림)
+                    //(int)seedJsonData[i]["scoreIncreaseRatio"],
+                    seedJsonData[i]["buffWeather"].ToString(), 
+                    seedJsonData[i]["debuffWeather"].ToString(), 
+                    seedJsonData[i]["description"].ToString(),
                     (int)seedJsonData[i]["unlockLevel"],
                     seedJsonData[i]["slug"].ToString()));
             
@@ -91,38 +90,57 @@ public class WPGameDataManager : MonoBehaviour {
 public class Seed
 {
     public int ID { get; set; }
-    public string specialization;
-    public string title { get; set; }
-    public int time { get; set; }
-    public int purchasePrice { get; set; }
+    public string specie { get; set; }
+    public int growthTime { get; set; }
+    public int comparePrice { get; set; }
     public int salePrice { get; set; }
-    public int selfDebuffRatio { get; set; }
-    public int debuffIncreasmentRatio0 { get; set; }
-    public int debuffIncreasmentRatio1 { get; set; }
-    public int debuffIncreasmentRatio2 { get; set; }
+    public int scoreIncreaseRatio { get; set; }
+    public string buffWeather { get; set; }
+    public string debuffWeather { get; set; }
     public string description { get; set; }
     public int unlockLevel { get; set; }
     public string slug { get; set; }// 여기에 이미지 파일 path저장 
+    /// <summary>
+    /// ID : 작물 순서대로 번호 부여
+    /// specie : 종목
+    /// growthTime : 성장기간
+    /// comparePrice : 기준판매가(비교용)
+    /// salePrice : 모종 가격 == Round(기준판매가 * 0.8)
+    /// scoreIncreaseRatio : 1일 점수증가량 == (기준 판매가 / 일성장기간) - 이거 1개월 성장기간 오타난듯 (컨플 밭-작물), 애초에 1일 점수 증가량이 아니라 1개월 증가량인듯
+    /// buffWeather : 버프 날씨
+    /// debuffWeather : 디버프 날씨
+    /// description : 도감 설명
+    /// unlockLevel : 해금 렙
+    /// slug : 작물 이미지 경로
+    /// </summary>
+    /// <param name="_id"></param>
+    /// <param name="_specie"></param>
+    /// <param name="_growthTime"></param>
+    /// <param name="_comparePrice"></param>
+    /// <param name="_scoreIncreaseRatio"></param>
+    /// <param name="_buffWeather"></param>
+    /// <param name="_debuffWeather"></param>
+    /// <param name="_description"></param>
+    /// <param name="_unlockLevel"></param>
+    /// <param name="_slug"></param>
 
-
-    public Seed(int _id, string _specialization, string _title,int _time, int _purchasePrice,int _salePrice, int _selfDebuffRatio, int _debuffIncreasmentRatio0, int _debuffIncreasmentRatio1, int _debuffIncreasmentRatio2, string _description,int _unlockLevel, string _slug)
+    public Seed(int _id, string _specie, int _growthTime,int _comparePrice, string _buffWeather,string _debuffWeather,string _description,int _unlockLevel, string _slug)
     {
         this.ID = _id;
-        this.specialization = _specialization;
-        this.title = _title;
-        this.time = _time;
-        this.purchasePrice = _purchasePrice;
-        this.salePrice = _salePrice;
-        this.selfDebuffRatio = _selfDebuffRatio;
-        this.debuffIncreasmentRatio0 = _debuffIncreasmentRatio0;
-        this.debuffIncreasmentRatio1 = _debuffIncreasmentRatio1;
-        this.debuffIncreasmentRatio2 = _debuffIncreasmentRatio2;
+        this.specie = _specie;
+        this.growthTime = -growthTime;
+        this.comparePrice = _comparePrice;
+        this.salePrice = Mathf.RoundToInt(_comparePrice*0.8f); //반올림 이거 맞낭?
+        this.scoreIncreaseRatio = Mathf.RoundToInt(comparePrice/growthTime); 
+        this.buffWeather = _buffWeather;
+        this.debuffWeather = _debuffWeather;
         this.description = _description;
         this.unlockLevel = _unlockLevel;
         this.slug = _slug;
         
     }
 
+    //Empty Seed
     public Seed()
     {
         this.ID = -1;
