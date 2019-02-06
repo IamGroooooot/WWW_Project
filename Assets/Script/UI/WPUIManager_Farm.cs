@@ -65,13 +65,13 @@ public class WPUIManager_Farm : MonoBehaviour
     // News 버튼을 클릭했을 때 호출합니다.
     private void OnClick_News()
     {
-
+        WPUIManager_News.instance.SetActive(true);
     }
 
     // Bank 버튼을 클릭했을 때 호출합니다.
     private void OnClick_Bank()
     {
-
+        WPUIManager_Bank.instance.SetActive(true);
     }
 
     // Shop 버튼을 클릭했을 때 호출합니다.
@@ -213,6 +213,22 @@ public class WPUIManager_Farm : MonoBehaviour
         if (newsContent == null) return;
         newsContent.Clear();
         newsIndex = 0;
+    }
+
+    /// <summary>
+    /// UI를 화면에 param 값에 따라 표시합니다.
+    /// </summary>
+    /// <param name="param"></param>
+    public void SetActive(bool param)
+    {
+        if (param)
+        {
+            transform.localPosition = Vector2.zero;
+        }
+        else
+        {
+            transform.localPosition = new Vector2(10000, 0);
+        }
     }
 
 }

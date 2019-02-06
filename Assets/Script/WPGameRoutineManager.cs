@@ -26,9 +26,10 @@ public class WPGameRoutineManager : MonoBehaviour {
 
     IEnumerator MainRoutine()
     {
+        WaitForSeconds waitFiveSeconds = new WaitForSeconds(5f);
         for(; ; )
         {
-            yield return new WaitForSeconds(5f);
+            yield return waitFiveSeconds;
             WPDateTime.Hour++;
         }
     }
