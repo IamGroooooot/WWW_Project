@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class WPUIManager_Farm : MonoBehaviour
+public class WPUIManager_Farm : WPUIManager
 {
     /////////////////////////////////////////////////////////////////////////
     // Varaibles
@@ -25,12 +25,6 @@ public class WPUIManager_Farm : MonoBehaviour
         instance = this;
     }
 
-    private void Start()
-    {
-        Init();
-        StartCoroutine(NewsRoutine());
-    }
-
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -47,8 +41,7 @@ public class WPUIManager_Farm : MonoBehaviour
         }
     }
 
-    // 초기 설정을 합니다.
-    private void Init()
+    protected override void Init()
     {
         this.transform.Find("Button_News").GetComponent<Button>().onClick.AddListener(OnClick_News);
         this.transform.Find("Button_Bank").GetComponent<Button>().onClick.AddListener(OnClick_Bank);
@@ -60,6 +53,7 @@ public class WPUIManager_Farm : MonoBehaviour
         AddNews("테스트 뉴스 2");
         AddNews("테스트 뉴스 33333333333333333 테스트 뉴스 33333333333333333");
         TimeUIUpdate();
+        StartCoroutine(NewsRoutine());
     }
 
     // News 버튼을 클릭했을 때 호출합니다.
@@ -153,7 +147,7 @@ public class WPUIManager_Farm : MonoBehaviour
                     Destroy(newsMask.GetChild(index).gameObject);
                 }
             }
-            newsObject.transform.parent = newsMask;                                 // EndOfFrame 대기로 인해 발생하는 깜빡임 현상을 해결하기 위한 편법
+            newsObject.transform.SetParent(newsMask, false);                        // EndOfFrame 대기로 인해 발생하는 깜빡임 현상을 해결하기 위한 편법
 
             RectTransform newsRectTransform = newsText.rectTransform;
             newsRectTransform.pivot = new Vector2(0, 0.5f);                         // 텍스트 피봇 설정 ( 좌측 중간 )
@@ -213,22 +207,6 @@ public class WPUIManager_Farm : MonoBehaviour
         if (newsContent == null) return;
         newsContent.Clear();
         newsIndex = 0;
-    }
-
-    /// <summary>
-    /// UI를 화면에 param 값에 따라 표시합니다.
-    /// </summary>
-    /// <param name="param"></param>
-    public void SetActive(bool param)
-    {
-        if (param)
-        {
-            transform.localPosition = Vector2.zero;
-        }
-        else
-        {
-            transform.localPosition = new Vector2(10000, 0);
-        }
     }
 
 }

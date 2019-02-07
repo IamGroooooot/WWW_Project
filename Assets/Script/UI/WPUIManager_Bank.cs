@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WPUIManager_Bank : MonoBehaviour {
+public class WPUIManager_Bank : WPUIManager {
 
     /////////////////////////////////////////////////////////////////////////
     // Varaibles
@@ -22,13 +22,8 @@ public class WPUIManager_Bank : MonoBehaviour {
         instance = this;
     }
 
-    private void Start()
-    {
-        Init();
-    }
-
     // 초기 설정을 합니다.
-    private void Init()
+    protected override void Init()
     {
         text_Money = transform.Find("UI_Money").Find("Text").GetComponent<Text>();
         text_Debt = transform.Find("UI_Debt").Find("Text").GetComponent<Text>();
@@ -84,19 +79,4 @@ public class WPUIManager_Bank : MonoBehaviour {
         text_InterestRate.text = content;
     }
 
-    /// <summary>
-	/// UI를 화면에 param 값에 따라 표시합니다.
-	/// </summary>
-	/// <param name="param"></param>
-    public void SetActive(bool param)
-    {
-        if (param)
-        {
-            transform.localPosition = Vector2.zero;
-        }
-        else
-        {
-            transform.localPosition = new Vector2(10000, 0);
-        }
-    }
 }

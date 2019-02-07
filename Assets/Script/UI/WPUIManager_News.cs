@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WPUIManager_News : MonoBehaviour {
+public class WPUIManager_News : WPUIManager {
 
     /////////////////////////////////////////////////////////////////////////
     // Varaibles
@@ -20,13 +20,8 @@ public class WPUIManager_News : MonoBehaviour {
         instance = this;
     }
 
-    private void Start()
-    {
-        Init();
-    }
-
     // 초기 설정을 합니다.
-    private void Init()
+    protected override void Init()
     {
         text_Year = transform.Find("UI_Year").Find("Text").GetComponent<Text>();
         for(int month = 1; month <= 12; ++month)
@@ -62,22 +57,6 @@ public class WPUIManager_News : MonoBehaviour {
     {
         if (text_Year == null) return;
         text_Year.text = content;
-    }
-
-    /// <summary>
-    /// UI를 화면에 param 값에 따라 표시합니다.
-    /// </summary>
-    /// <param name="param"></param>
-    public void SetActive(bool param)
-    {
-        if (param)
-        {
-            transform.localPosition = Vector2.zero;
-        }
-        else
-        {
-            transform.localPosition = new Vector2(10000, 0);
-        }
     }
 
 }

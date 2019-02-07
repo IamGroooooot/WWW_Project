@@ -105,6 +105,7 @@ public class WPEnum {
         eCold,							//눈   버프4, 디버프 3
     }
 
+
 	// Initial Date(게임 시작했을 때의 날짜)
 	public enum InitialDate
 	{

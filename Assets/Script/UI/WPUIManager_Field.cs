@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WPUIManager_Field : MonoBehaviour {
+public class WPUIManager_Field : WPUIManager {
     /////////////////////////////////////////////////////////////////////////
     // Varaibles
     public static WPUIManager_Field instance = null;     // singleton
@@ -20,15 +20,9 @@ public class WPUIManager_Field : MonoBehaviour {
         instance = this;
     }
 
-    private void Start()
-    {
-        Init();
-    }
-
     // 초기 설정을 합니다.
-    private void Init()
+    protected override void Init()
     {
-        
         SetActive(false);
     }
 
@@ -38,15 +32,4 @@ public class WPUIManager_Field : MonoBehaviour {
         SetActive(false);
     }
 
-    void SetActive(bool param)
-    {
-        if (param)
-        {
-            transform.localPosition = Vector2.zero;
-        }
-        else
-        {
-            transform.localPosition = new Vector2(-10000, 0);
-        }
-    }
 }

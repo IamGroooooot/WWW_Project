@@ -15,11 +15,10 @@ public class WPGameDataManager : MonoBehaviour {
     // Varaibles
     public static WPGameDataManager instance = null;        // for singleton
 
-    private string path;                                    // for JSON 
-    private string jsonString;
-    private JsonData seedJsonData;
+    // rivate string jsonString;
+    // private JsonData seedJsonData;
 
-    private List<Seed> SeedDB = new List<Seed>();           // construct Seed Database
+    // private List<Seed> SeedDB = new List<Seed>();           // construct Seed Database
     /////////////////////////////////////////////////////////////////////////
     // Methods
 
@@ -27,11 +26,22 @@ public class WPGameDataManager : MonoBehaviour {
     private void Awake()
     {
         instance = this;
-        path = Application.streamingAssetsPath + "/Seed.json";
-        jsonString = File.ReadAllText(path,System.Text.Encoding.UTF8);
-        seedJsonData = JsonMapper.ToObject(jsonString);
-        ConstructSeedDatabase(); // Seed DB Construct하는 것은 Awake에서 돼야한가용??
+        // jsonString = File.ReadAllText(path,System.Text.Encoding.UTF8);
+        // seedJsonData = JsonMapper.ToObject(jsonString);
+        // ConstructSeedDatabase(); // Seed DB Construct하는 것은 Awake에서 돼야한가용??
     }
+
+    private void Start()
+    {
+        
+    }
+
+    private void Init()
+    {
+        
+    }
+
+    /*
 
     void Start()
     {
@@ -134,6 +144,6 @@ public class Seed
     public Seed()
     {
         this.ID = -1;
-    }
+    }*/
 
 }
