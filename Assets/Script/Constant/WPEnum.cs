@@ -21,8 +21,22 @@ public class WPEnum {
 		eNot = 5                        // 다름
 	}
 
-	// 게임데이터 저장 타입
-	public enum VariableType
+    public enum CSV_Index
+    {
+        eID,
+        eName,
+        eGrowthTime,
+        eComparePrice,
+        eSalePrice,
+        eScoreIncrease,
+        eBuffWeather,
+        eDebuffWeather,
+        eUnlockLV,
+        eDescription
+    }
+
+    // 게임데이터 저장 타입
+    public enum VariableType
     {
         eUserMoney = 0,                 // 돈
 
