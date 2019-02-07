@@ -27,6 +27,7 @@ public class WPUIManager_News : WPUIManager {
         for(int month = 1; month <= 12; ++month)
         {
             Button targetButton = transform.Find("UI_Month").Find("Button_" + month).GetComponent<Button>();
+            // targetButton.onClick.AddListener(delegate { OnClick_Month(month); });
             targetButton.onClick.AddListener(delegate { OnClick_Month(int.Parse(targetButton.transform.Find("Text").GetComponent<Text>().text)); });
             button_Month[month - 1] = targetButton;
         }
