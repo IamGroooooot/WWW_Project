@@ -25,22 +25,6 @@ public class WPUIManager_Farm : WPUIManager
         instance = this;
     }
 
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (!EventSystem.current.IsPointerOverGameObject())
-            {
-                Vector2 castPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                RaycastHit2D raycastHit2D = Physics2D.Raycast(castPos, Vector2.zero, 0f);
-                if(raycastHit2D.collider != null)
-                {
-                    WPGameCommon._WPDebug(raycastHit2D.transform.name);
-                }
-            }
-        }
-    }
-
     protected override void Init()
     {
         this.transform.Find("Button_News").GetComponent<Button>().onClick.AddListener(OnClick_News);
