@@ -12,6 +12,9 @@ public class WPFieldCtrl : WPActor
     int GrownPercent=0;
 
     Transform plantTrans;
+
+    WPField wpField = null; // 밭의 정보를 저장하는 변수입니다.
+
     /////////////////////////////////////////////////////////////////////////
     // Methods
 
@@ -28,6 +31,10 @@ public class WPFieldCtrl : WPActor
 
         // Empty 상태로 시작
         base._actorState = WPEnum.ActorState.eSeed_Empty;
+
+        //plant Transform
+        plantTrans = FindSeed();
+        
 
         //Sprite가져오기
         //getSprite();
@@ -58,18 +65,35 @@ public class WPFieldCtrl : WPActor
     {
         //밭 작업 중 창
         WPGameCommon._WPDebug("clicked");
-        //작업 중 작물, 남은 시간, 일하는 일꾼, 비료, 일꾼 정보,비료 정보, 골드 표시
         if (EventSystem.current.IsPointerOverGameObject()) return; // UI를 통과해 클릭하는 것을 방지
         StartCoroutine(OpenUI());
+
+        
     }
 
     private IEnumerator OpenUI()
     {
         WPGameCommon._WPDebug("밭을 클릭");
         // 작업 중 작물, 남은 시간, 일하는 일꾼, 비료, 일꾼 정보,비료 정보, 골드 표시
-        // UI의 업데이트, WPUIManager_Field를 참조
-        yield return null; // OnMouseDown을 통한 입력에서 버튼이 바로 눌리는 문제가 있기에 1 프레임 대기
-        WPUIManager_Field.instance.SetActive(true);
+        if(wpField == null) // 밭이 비어 있습니다.
+        {
+            WPUIManager_Field.instance.GetFieldData(null, this);
+            yield return null; // OnMouseDown을 통한 입력에서 버튼이 바로 눌리는 문제가 있기에 1 프레임 대기
+            WPUIManager_Field.instance.SetActive(true);
+        }
+        else
+        {
+            if (wpField.CheckIfCompleted()) // 작물이 완성되었습니다.
+            {
+                
+            }
+            else // 작물이 완성되지 않았습니다.
+            {
+                WPUIManager_Field.instance.GetFieldData(wpField, this);
+                yield return null; // OnMouseDown을 통한 입력에서 버튼이 바로 눌리는 문제가 있기에 1 프레임 대기
+                WPUIManager_Field.instance.SetActive(true);
+            }
+        }   
     }
 
     private void getSprite()
@@ -102,6 +126,18 @@ public class WPFieldCtrl : WPActor
         targetIMG.localScale = new Vector3(targetIMG.localScale.x, targetIMG.localScale.y * ratio, targetIMG.localScale.z);
         float Up = (ratio - 1) * curSize / 2f;
         targetIMG.localPosition += new Vector3(0, Up, 0);
+    }
+
+    private Transform FindSeed()
+    {
+        Transform transform =this.transform.Find("Graphic_Seed");
+        //WPGameCommon._WPAssert(transform);
+        return transform;
+    }
+
+    public void SetFieldData(WPField _wpField)
+    {
+        wpField = _wpField;
     }
 }
 

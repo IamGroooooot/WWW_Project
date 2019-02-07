@@ -9,8 +9,7 @@ public class WPUIManager_Field : WPUIManager {
     public static WPUIManager_Field instance = null;     // singleton
 
     //작업 중 작물, 남은 시간, 일하는 일꾼, 비료, 일꾼 정보,비료 정보, 골드 표시
-    string[] mSeeds = new string[6];
-
+   
     private WPUI_ImageText imageText_Time;              // 예상 시간 UI
     private WPUI_ImageText imageText_Money;             // 필요 금액 UI
 
@@ -20,6 +19,9 @@ public class WPUIManager_Field : WPUIManager {
     private Button button_Plant;                        // 식물 심기 버튼 ( 식물을 선택하지 않으면 비활성화? )
     private Button button_Worker;                       // 일꾼 선택 버튼
     private Button button_Fertilizer;                   // 비료 선택 버튼
+
+    private WPField targetField;                        
+    private WPFieldCtrl targetFieldCtrl;                // 활용할 밭 객체
 
     /////////////////////////////////////////////////////////////////////////
     // Methods
@@ -49,6 +51,18 @@ public class WPUIManager_Field : WPUIManager {
         button_Fertilizer.onClick.AddListener(OnClick_Fertilizer);
 
         SetActive(false);
+    }
+
+    public void GetFieldData(WPField wpField, WPFieldCtrl wpFieldCtrl)
+    {
+        if(wpField == null) // 이 경우 밭의 정보가 없는 것으로, 이 때 여기서 새로운 밭을 만들어 넘겨주어야 합니다.
+        {
+
+        }
+        else // 밭의 정보가 있습니다. 이 정보를 활용하여 UI로 표시합니다.
+        {
+
+        }
     }
 
     /// <summary>
@@ -81,6 +95,7 @@ public class WPUIManager_Field : WPUIManager {
     public void OnClick_Plant()
     {
         WPGameCommon._WPDebug("식물심기를 선택");
+        
     }
 
     // Worker 버튼을 클릭했을 때 호출합니다.

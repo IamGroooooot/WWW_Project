@@ -21,6 +21,22 @@ public class WPEnum {
 		eNot = 5                        // 다름
 	}
 
+    public enum Seed
+    {
+        eGreenOnion,    //파
+        eLettuce,       //양상추      
+        ePotato,        //감자
+        eSugarCane,     //사탕 수수
+        eTobacco,       //담배
+        eCoffee,        //커피
+        eKakao,         //카카오
+        eCorn,          //옥수수
+        eWheat,         //밀
+        eRicePlant,     //벼
+        eBarley,        //보리
+        eCabbage,       //배추
+    }
+
     public enum CSV_Index
     {
         eID,

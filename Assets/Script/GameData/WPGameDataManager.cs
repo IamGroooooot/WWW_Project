@@ -17,11 +17,12 @@ public class WPGameDataManager : MonoBehaviour {
     // Varaibles
 
     public static WPGameDataManager instance = null;        // for singleton
-    private static Dictionary<WPEnum.GameData, List<Dictionary<string, object>>> gameData = new Dictionary<WPEnum.GameData, List<Dictionary<string, object>>>();
 
     static string SPLIT_RE = @",(?=(?:[^""]*""[^""]*"")*(?![^""]*""))";
     static string LINE_SPLIT_RE = @"\r\n|\n\r|\n|\r";
     static char[] TRIM_CHARS = { '\"' };
+
+    private Dictionary<WPEnum.GameData, List<Dictionary<string, object>>> gameData = new Dictionary<WPEnum.GameData, List<Dictionary<string, object>>>();
 
     /////////////////////////////////////////////////////////////////////////
     // Methods
@@ -44,7 +45,7 @@ public class WPGameDataManager : MonoBehaviour {
         }
     }
 
-    public static List<Dictionary<string, object>> GetData(WPEnum.GameData _gameData)
+    public List<Dictionary<string, object>> GetData(WPEnum.GameData _gameData)
     {
         if (gameData != null)
         {

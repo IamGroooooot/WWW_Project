@@ -2,35 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct Field
-{
-    string CurrentCrop;
-    string StartedTime;
-    string Worker;
-    string Fertilizer;
-    int Gold;
-
-    public Field(string currentCrop, string startedTime, string worker, string fertilizer, int gold)
-    {
-        this.CurrentCrop = currentCrop;
-        this.StartedTime = startedTime;
-        this.Worker = worker;
-        this.Fertilizer = fertilizer;
-        this.Gold = gold;
-    }
-};
-
 public class WPField
 {
-    private Field[] testList = new Field[]
+    string currentCrop;
+    string startedTime;
+    string worker;
+    string fertilizer;
+    int gold;
+
+    public WPField(string _currentCrop, string _startedTime, string _worker, string _fertilizer, int _gold)
     {
-        new Field ("GreenOnion", "DateTime(2019:3:4:3)","지호1","버드나무표 비료",1 ),
-        new Field ("", "","","",0 ),
-        new Field ("", "","","",0 ),
-        new Field ("", "","","",0 ),
-        new Field ("", "","","",0 ),
-        new Field ("", "","","",0 ),
+        this.currentCrop = _currentCrop;
+        this.startedTime = _startedTime;
+        this.worker = _worker;
+        this.fertilizer = _fertilizer;
+        this.gold = _gold;
+    }
 
-    };
+    /// <summary>
+    /// 이 밭의 작물이 완성되었는지 확인합니다.
+    /// </summary>
+    public bool CheckIfCompleted()
+    {
+        List<Dictionary<string, object>> seedData = WPGameDataManager.instance.GetData(WPEnum.GameData.Seed);
+        // Dictionary<string, object> seedData = WPGameDataManager.instance.GetData(WPEnum.GameData.Seed)[0]; // 식물 이름만 따로 enum으로 저장해놓든가 해야할듯.
 
+        Debug.Log(seedData[0]["eName"]);
+
+        return false;
+    }
 }
