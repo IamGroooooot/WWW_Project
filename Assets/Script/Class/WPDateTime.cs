@@ -210,7 +210,11 @@ public class WPDateTime {
 
     public static void Save()
     {
-        if (wpDateTime == null) return;
+        if (wpDateTime == null)
+        {
+            WPGameCommon._WPDebug("wpDateTime == NULL!");
+            return;
+        }
         WPGameVariableManager.instance.SaveVariable(WPEnum.VariableType.eUserDate, ToString());
     }
 

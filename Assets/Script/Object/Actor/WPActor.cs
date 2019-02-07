@@ -112,4 +112,11 @@ public class WPActor : MonoBehaviour
 	/// actor 타입별 움직임 함수. 상속받는 actor 스크립트에서 재정의해서 쓰자.
 	/// </summary>
 	protected virtual void RoamingMoveFunc() {}
+
+    /// <summary>
+    /// 수확중인 작물 파기. 즉 밭 리셋
+    /// </summary>
+    protected virtual void DestroyField() { }
+
+
 }

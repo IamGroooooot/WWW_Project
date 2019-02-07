@@ -35,6 +35,13 @@ public class WPEnum {
 		eUserDate = 400,                // 게임 상의 시간
 
 		eQuest1 = 700,					// 퀘스트 달성량. 최대 퀘스트 수락량?? - 지호묻기
+
+        eField1,
+        eField2,
+        eField3,
+        eField4,
+        eField5,
+        eField6,
 	}
 
 	// 재정 상태
@@ -72,6 +79,12 @@ public class WPEnum {
 		eActorStateNone = 0,            // 아무상태도 아님
 		eActorStateIdle = 1,            // 대기상태
 		eActorStateMoving = 2,			// 움직이는 상태
+
+        eSeed_Empty,
+        eSeedGrowth_30,
+        eSeedGrowth_60,
+        eSeedGrowth_100,
+
 	}
 
     // 계절

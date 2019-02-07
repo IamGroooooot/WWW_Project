@@ -103,26 +103,16 @@ public class Seed
     /// <summary>
     /// ID : 작물 순서대로 번호 부여
     /// specie : 종목
-    /// growthTime : 성장기간
+    /// growthTime : 성장기간(개월)
     /// comparePrice : 기준판매가(비교용)
     /// salePrice : 모종 가격 == Round(기준판매가 * 0.8)
-    /// scoreIncreaseRatio : 1일 점수증가량 == (기준 판매가 / 일성장기간) - 이거 1개월 성장기간 오타난듯 (컨플 밭-작물), 애초에 1일 점수 증가량이 아니라 1개월 증가량인듯
+    /// scoreIncreaseRatio : 1일 점수증가량 == (기준 판매가 / 일성장기간)
     /// buffWeather : 버프 날씨
     /// debuffWeather : 디버프 날씨
     /// description : 도감 설명
     /// unlockLevel : 해금 렙
     /// slug : 작물 이미지 경로
     /// </summary>
-    /// <param name="_id"></param>
-    /// <param name="_specie"></param>
-    /// <param name="_growthTime"></param>
-    /// <param name="_comparePrice"></param>
-    /// <param name="_scoreIncreaseRatio"></param>
-    /// <param name="_buffWeather"></param>
-    /// <param name="_debuffWeather"></param>
-    /// <param name="_description"></param>
-    /// <param name="_unlockLevel"></param>
-    /// <param name="_slug"></param>
 
     public Seed(int _id, string _specie, int _growthTime,int _comparePrice, string _buffWeather,string _debuffWeather,string _description,int _unlockLevel, string _slug)
     {
@@ -131,7 +121,7 @@ public class Seed
         this.growthTime = -growthTime;
         this.comparePrice = _comparePrice;
         this.salePrice = Mathf.RoundToInt(_comparePrice*0.8f); //반올림 이거 맞낭?
-        this.scoreIncreaseRatio = Mathf.RoundToInt(comparePrice/growthTime); 
+        this.scoreIncreaseRatio = Mathf.RoundToInt(comparePrice/(30f*growthTime)); 
         this.buffWeather = _buffWeather;
         this.debuffWeather = _debuffWeather;
         this.description = _description;

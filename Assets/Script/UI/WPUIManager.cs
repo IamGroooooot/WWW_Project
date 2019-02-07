@@ -11,12 +11,7 @@ public class WPUIManager : MonoBehaviour
 
     protected int m_playerMoney = 0;				// 자금
 	protected int m_playerDeft = 0;                 // 빚
-	protected int m_playerDate_Year = (int)WPEnum.InitialDate.eInitYear;	// 게임 시간 : 년
-	protected int m_playerDate_Month = (int)WPEnum.InitialDate.eInitMonth;	// 게임 시간 : 월
-	protected int m_playerDate_Day = (int)WPEnum.InitialDate.eInitDay;	    // 게임 시간 : 일
-	int m_playerTime_Minute= 1;												// 임시 변수. 시간용 타이머	- 나중에 다시 만들어야함
-	int m_playerTimer = 1;                                                  // 임시 변수. 시간용 타이머	- 나중에 다시 만들어야함
-	int m_playerTime_Hour = 1;												// 임시 변수. 시간용 타이머 - 나중에 다시 만들어야함
+	
 	/////////////////////////////////////////////////////////////////////////
 	// Methods
 
@@ -28,7 +23,6 @@ public class WPUIManager : MonoBehaviour
     private void Start()
     {
         this.InitValue();
-		StartCoroutine(CountDate());	//임시로 만든 코루틴
     }
 
     /// <summary>
@@ -76,36 +70,5 @@ public class WPUIManager : MonoBehaviour
 		this.transform.Find("Debt").GetComponent<Text>().text = "빚 : " + m_playerDeft.ToString();
 	}
 
-	/// <summary>
-	/// 임시로 만든 코루틴. 임시 시간 용도.  
-	/// </summary>
-	/// <returns></returns>
-	IEnumerator CountDate()
-	{
-		for (; ; )
-		{
-			if (m_playerTimer == 60)
-			{
-				m_playerTimer = 1;
-				m_playerTime_Minute++;
-				if (m_playerTime_Minute == 60)
-				{
-					m_playerTime_Minute = 1;
-					m_playerTime_Hour++;
-					if (m_playerTime_Hour == 24)
-					{
-						m_playerTime_Hour = 0;
-						m_playerDate_Day++;
-					}
-				}
-			}
-
-			//시간 출력
-			this.transform.Find("Date").GetComponent<Text>().text = m_playerDate_Year.ToString() + "년" + m_playerDate_Month.ToString() + "월" + m_playerDate_Day.ToString() + "일" + m_playerTime_Hour.ToString() + "시" + m_playerTime_Minute.ToString() + "분" + m_playerTimer.ToString() + "초";
-
-			yield return new WaitForSeconds(0.25f);
-			m_playerTimer++;
-		}
-	}
 }
 
