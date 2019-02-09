@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Image))]
-public class WPUI_ImageText : MonoBehaviour {
+public class WPImageText : MonoBehaviour {
 
     private Image image;
     private Text text;

@@ -9,17 +9,17 @@ public class WPUIManager : MonoBehaviour
 {
     /////////////////////////////////////////////////////////////////////////
     // Varaibles
-    protected static Vector2 HIDEPOSITION = new Vector2(10000, 0);
+    private static Vector2 HIDEPOSITION = new Vector2(10000, 0);
     /////////////////////////////////////////////////////////////////////////
     // Methods
 
-    private void Start()
+    private void Awake()
     {
         Init();
     }
 
     /// <summary>
-    /// 초기화 과정울 수행합니다. override 할 수 있습니다.
+    /// 초기화 과정울 수행합니다. override 할 수 있습니다. 이 함수는 Awake()에서 호출합니다.
     /// </summary>
     protected virtual void Init()
     {

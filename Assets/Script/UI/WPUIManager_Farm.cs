@@ -20,22 +20,22 @@ public class WPUIManager_Farm : WPUIManager
     /////////////////////////////////////////////////////////////////////////
     // Methods
 
-    private void Awake()
-    {
-        instance = this;
-    }
-
     protected override void Init()
     {
+        instance = this;
+
         this.transform.Find("Button_News").GetComponent<Button>().onClick.AddListener(OnClick_News);
         this.transform.Find("Button_Bank").GetComponent<Button>().onClick.AddListener(OnClick_Bank);
         this.transform.Find("Button_Shop").GetComponent<Button>().onClick.AddListener(OnClick_Shop);
         this.transform.Find("Button_Choose").GetComponent<Button>().onClick.AddListener(OnClick_Choose);
+
         newsMask = transform.Find("Image_News");
         timeText = transform.Find("Image_Time").GetComponentInChildren<Text>();
+
         AddNews("테스트 뉴스 1");
         AddNews("테스트 뉴스 2");
         AddNews("테스트 뉴스 33333333333333333 테스트 뉴스 33333333333333333");
+
         TimeUIUpdate();
         StartCoroutine(NewsRoutine());
     }

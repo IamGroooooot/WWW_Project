@@ -9,27 +9,26 @@ public class WPUIManager_Bank : WPUIManager {
     // Varaibles
     public static WPUIManager_Bank instance = null;     // singleton
 
-    private WPUI_ImageText imageText_Money;                            // 자금
-    private WPUI_ImageText imageText_Debt;                             // 빚
-    private WPUI_ImageText imageText_Interest;                         // 이자
-    private WPUI_ImageText imageText_InterestRate;                     // 이자율
+    private WPImageText imageText_Money;                            // 자금
+    private WPImageText imageText_Debt;                             // 빚
+    private WPImageText imageText_Interest;                         // 이자
+    private WPImageText imageText_InterestRate;                     // 이자율
 
     /////////////////////////////////////////////////////////////////////////
     // Methods
 
-    private void Awake()
-    {
-        instance = this;
-    }
-
     // 초기 설정을 합니다.
     protected override void Init()
     {
-        imageText_Money = transform.Find("ImageText_Money").GetComponent<WPUI_ImageText>();
-        imageText_Debt = transform.Find("ImageText_Debt").GetComponent<WPUI_ImageText>();
-        imageText_Interest = transform.Find("ImageText_Interest").GetComponent<WPUI_ImageText>();
-        imageText_InterestRate = transform.Find("ImageText_InterestRate").GetComponent<WPUI_ImageText>();
+        instance = this;
+
+        imageText_Money = transform.Find("ImageText_Money").GetComponent<WPImageText>();
+        imageText_Debt = transform.Find("ImageText_Debt").GetComponent<WPImageText>();
+        imageText_Interest = transform.Find("ImageText_Interest").GetComponent<WPImageText>();
+        imageText_InterestRate = transform.Find("ImageText_InterestRate").GetComponent<WPImageText>();
+
         this.transform.Find("Button_Close").GetComponent<Button>().onClick.AddListener(OnClick_Close);
+
         SetActive(false);
     }
 

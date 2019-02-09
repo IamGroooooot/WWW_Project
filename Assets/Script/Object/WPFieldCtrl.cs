@@ -64,16 +64,13 @@ public class WPFieldCtrl : WPActor
     private void OnMouseDown()
     {
         //밭 작업 중 창
-        WPGameCommon._WPDebug("clicked");
         if (EventSystem.current.IsPointerOverGameObject()) return; // UI를 통과해 클릭하는 것을 방지
-        StartCoroutine(OpenUI());
-
-        
+        StartCoroutine(OpenUI()); 
     }
 
     private IEnumerator OpenUI()
     {
-        WPGameCommon._WPDebug("밭을 클릭");
+        WPGameCommon._WPDebug("밭을 클릭 : " + gameObject.name);
         // 작업 중 작물, 남은 시간, 일하는 일꾼, 비료, 일꾼 정보,비료 정보, 골드 표시
         if(wpField == null) // 밭이 비어 있습니다.
         {

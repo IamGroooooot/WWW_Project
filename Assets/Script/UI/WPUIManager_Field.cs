@@ -10,8 +10,8 @@ public class WPUIManager_Field : WPUIManager {
 
     //작업 중 작물, 남은 시간, 일하는 일꾼, 비료, 일꾼 정보,비료 정보, 골드 표시
    
-    private WPUI_ImageText imageText_Time;              // 예상 시간 UI
-    private WPUI_ImageText imageText_Money;             // 필요 금액 UI
+    private WPImageText imageText_Time;              // 예상 시간 UI
+    private WPImageText imageText_Money;             // 필요 금액 UI
 
     private ScrollRect scrollView_Select;               // 일꾼, 비료, 식물을 선택하는 데 필요한 스크롤 뷰
 
@@ -26,16 +26,13 @@ public class WPUIManager_Field : WPUIManager {
     /////////////////////////////////////////////////////////////////////////
     // Methods
 
-    private void Awake()
-    {
-        instance = this;
-    }
-
     // 초기 설정을 합니다.
     protected override void Init()
     {
-        imageText_Time = this.transform.Find("ImageText_Time").GetComponent<WPUI_ImageText>();
-        imageText_Money = this.transform.Find("ImageText_Money").GetComponent<WPUI_ImageText>();
+        instance = this;
+
+        imageText_Time = this.transform.Find("ImageText_Time").GetComponent<WPImageText>();
+        imageText_Money = this.transform.Find("ImageText_Money").GetComponent<WPImageText>();
 
         scrollView_Select = this.transform.Find("ScrollView_Select").GetComponent<ScrollRect>();
 

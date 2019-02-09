@@ -9,21 +9,18 @@ public class WPUIManager_News : WPUIManager {
     // Varaibles
     public static WPUIManager_News instance = null;     // singleton
 
-    private WPUI_ImageText imageText_Year;              // 년도
+    private WPImageText imageText_Year;              // 년도
     private Button[] button_Month = new Button[12];     // 월을 표시하는 버튼
 
     /////////////////////////////////////////////////////////////////////////
     // Methods
 
-    private void Awake()
-    {
-        instance = this;
-    }
-
     // 초기 설정을 합니다.
     protected override void Init()
     {
-        imageText_Year = transform.Find("ImageText_Year").GetComponent<WPUI_ImageText>();
+        instance = this;
+
+        imageText_Year = transform.Find("ImageText_Year").GetComponent<WPImageText>();
         for(int month = 1; month <= 12; ++month)
         {
             Button targetButton = transform.Find("UI_Month").Find("Button_" + month).GetComponent<Button>();
@@ -31,7 +28,9 @@ public class WPUIManager_News : WPUIManager {
             targetButton.onClick.AddListener(delegate { OnClick_Month(int.Parse(targetButton.transform.Find("Text").GetComponent<Text>().text)); });
             button_Month[month - 1] = targetButton;
         }
+
         this.transform.Find("Button_Close").GetComponent<Button>().onClick.AddListener(OnClick_Close);
+
         SetActive(false);
     }
 
