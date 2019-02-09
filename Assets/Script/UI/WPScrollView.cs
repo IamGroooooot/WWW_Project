@@ -29,18 +29,19 @@ public class WPScrollView : MonoBehaviour {
     /// Item을 추가합니다.
     /// </summary>
     /// <param name="item"></param>
-    protected void AddItem(WPScrollViewItem item)
+    public void AddItem(WPScrollViewItem item)
     {
         if (scrollView == null) return;
         RectTransform content = scrollView.content;
 
-        item.transform.SetParent(content);
+        GameObject newItem = Instantiate(item.gameObject) as GameObject;
+        newItem.transform.SetParent(content);
     }
 
     /// <summary>
     /// Item들을 정렬합니다.
     /// </summary>
-    protected void SortItem()
+    public void SortItem()
     {
         if (scrollView == null) return;
         RectTransform content = scrollView.content;

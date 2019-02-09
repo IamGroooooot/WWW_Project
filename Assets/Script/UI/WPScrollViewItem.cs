@@ -56,7 +56,11 @@ public class WPScrollViewItem : MonoBehaviour {
     public void SetPosition(Vector2 position)
     {
         if (rectTransform == null) return;
-        rectTransform.localPosition = position;
+
+        rectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, position.x, GetWidth());
+        rectTransform.offsetMax = new Vector2(rectTransform.offsetMax.x, 0);
+        rectTransform.offsetMin = new Vector2(rectTransform.offsetMin.x, 0);
+
     }
 
     /// <summary>
@@ -66,6 +70,15 @@ public class WPScrollViewItem : MonoBehaviour {
     {
         if (rectTransform == null) return 0;
         return rectTransform.sizeDelta.x;
+    }
+
+    /// <summary>
+    /// Item의 높이를 리턴합니다.
+    /// </summary>
+    public float GetHeight()
+    {
+        if (rectTransform == null) return 0;
+        return rectTransform.sizeDelta.y;
     }
 
 }

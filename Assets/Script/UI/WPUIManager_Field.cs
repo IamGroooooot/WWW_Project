@@ -9,11 +9,13 @@ public class WPUIManager_Field : WPUIManager {
     public static WPUIManager_Field instance = null;     // singleton
 
     //작업 중 작물, 남은 시간, 일하는 일꾼, 비료, 일꾼 정보,비료 정보, 골드 표시
+
+    public GameObject test;
    
     private WPImageText imageText_Time;              // 예상 시간 UI
     private WPImageText imageText_Money;             // 필요 금액 UI
 
-    private ScrollRect scrollView_Select;               // 일꾼, 비료, 식물을 선택하는 데 필요한 스크롤 뷰
+    private WPScrollView scrollView_Select;               // 일꾼, 비료, 식물을 선택하는 데 필요한 스크롤 뷰
 
     private Button button_Seed;                         // 식물 선택 버튼
     private Button button_Plant;                        // 식물 심기 버튼 ( 식물을 선택하지 않으면 비활성화? )
@@ -34,7 +36,7 @@ public class WPUIManager_Field : WPUIManager {
         imageText_Time = this.transform.Find("ImageText_Time").GetComponent<WPImageText>();
         imageText_Money = this.transform.Find("ImageText_Money").GetComponent<WPImageText>();
 
-        scrollView_Select = this.transform.Find("ScrollView_Select").GetComponent<ScrollRect>();
+        scrollView_Select = this.transform.Find("ScrollView_Select").GetComponent<WPScrollView>();
 
         button_Seed = this.transform.Find("Button_Seed").GetComponent<Button>();
         button_Plant = this.transform.Find("Button_Plant").GetComponent<Button>();
@@ -85,6 +87,8 @@ public class WPUIManager_Field : WPUIManager {
     // Seed 버튼을 클릭했을 때 호출합니다.
     public void OnClick_Seed()
     {
+        scrollView_Select.AddItem(test.GetComponent<WPScrollViewItem>());
+        scrollView_Select.SortItem();
         WPGameCommon._WPDebug("식물을 선택");
     }
 
