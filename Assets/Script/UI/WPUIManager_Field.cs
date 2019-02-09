@@ -8,6 +8,7 @@ public class WPUIManager_Field : WPUIManager {
     // Varaibles
     public static WPUIManager_Field instance = null;     // singleton
 
+    Sprite Empty, GreenOnion, Lettuce, Potato, SugarCane, Tabacco, Coffee, KaKao, Corn, Wheat, RicePlant, Barley, Cabbage;
     //작업 중 작물, 남은 시간, 일하는 일꾼, 비료, 일꾼 정보,비료 정보, 골드 표시
 
     public GameObject test;
@@ -48,6 +49,8 @@ public class WPUIManager_Field : WPUIManager {
         button_Plant.onClick.AddListener(OnClick_Plant);
         button_Worker.onClick.AddListener(OnClick_Worker);
         button_Fertilizer.onClick.AddListener(OnClick_Fertilizer);
+
+        getSprite();
 
         SetActive(false);
     }
@@ -117,4 +120,28 @@ public class WPUIManager_Field : WPUIManager {
         SetActive(false);
     }
 
+    /// <summary>
+    /// Resorces로부터 Sprite 불러옴
+    /// </summary>
+    private void getSprite()
+    {
+        Empty = Resources.Load<Sprite>("Image/null.png");
+        GreenOnion = Resources.Load<Sprite>("Image/UI/Farm/" + "GreenOnion");
+        Lettuce = Resources.Load<Sprite>("Image/UI/Farm/" + "Lettuce");
+        Potato = Resources.Load<Sprite>("Image/UI/Farm/" + "Potato");
+        SugarCane = Resources.Load<Sprite>("Image/UI/Farm/" + "SugarCane");
+        Tabacco = Resources.Load<Sprite>("Image/UI/Farm/" + "Tabacco");
+        Coffee = Resources.Load<Sprite>("Image/UI/Farm/" + "Coffee");
+        KaKao = Resources.Load<Sprite>("Image/UI/Farm/" + "KaKao");
+        Corn = Resources.Load<Sprite>("Image/UI/Farm/" + "Corn");
+        Wheat = Resources.Load<Sprite>("Image/UI/Farm/" + "Wheat");
+        RicePlant = Resources.Load<Sprite>("Image/UI/Farm/" + "RicePlant");
+        Barley = Resources.Load<Sprite>("Image/UI/Farm/" + "Barley");
+        Cabbage = Resources.Load<Sprite>("Image/UI/Farm/" + "Cabbage");
+
+        if (Empty || GreenOnion || Lettuce || Potato || SugarCane || Tabacco || Coffee || KaKao || Corn || Wheat || RicePlant || Barley || Cabbage)
+        {
+            WPGameCommon._WPDebug("Field에서 Sprite 못 불어옴 ㅠ");
+        }
+    }
 }

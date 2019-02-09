@@ -82,7 +82,8 @@ public class WPFieldCtrl : WPActor
         {
             if (wpField.CheckIfCompleted()) // 작물이 완성되었습니다.
             {
-                
+                // 보상 획득하는 코드 짤 것.
+                //CheckGold()
             }
             else // 작물이 완성되지 않았습니다.
             {

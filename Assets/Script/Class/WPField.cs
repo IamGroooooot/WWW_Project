@@ -32,7 +32,7 @@ public class WPField
         //짜야됨
 
         //StartedTime과 현재 시간 비교 
-        float TimePassed=10; //(단위는 Day로 할 것), 일단 임시로 10 넣어둠.
+        float TimePassed=TimeCompare(); //(단위는 Day로 할 것), 일단 임시로 10 넣어둠.
 
         //Find eID
         int targetID;
@@ -61,6 +61,33 @@ public class WPField
         }
 
         //Debug.Log(seedData[0][WPEnum.CSV_Index.eGrowthTime.ToString()]);
-                
+    }
+
+    /// <summary>
+    /// 축적된 Score를 이용하여
+    /// 밭의 보상을 획득하는 코드
+    /// </summary>
+    /// <returns>GOLD</returns>
+    public int CheckGold()
+    {
+        //returm gold
+        //불변 값 + 가변값
+        //gold에 비료나 날씨에 의한 버프 넣은 후 
+        //마직막에 불변값 계산해서 넣기
+        return 0;
+    }
+
+    /// <summary>
+    /// StartedTime이랑 현재 시각(게임상의 시간)과 비교
+    /// 주의할 것 : 단위는 DAY이다
+    /// 
+    /// 임시로 10일 반환하게 함. 수정해야됨 !!
+    /// </summary>
+    /// <returns></returns>
+    private int TimeCompare()
+    {
+
+
+        return 10;
     }
 }
