@@ -65,6 +65,7 @@ public class WPFieldCtrl : WPActor
     {
         //밭 작업 중 창
         if (EventSystem.current.IsPointerOverGameObject()) return; // UI를 통과해 클릭하는 것을 방지
+
         StartCoroutine(OpenUI()); 
     }
 

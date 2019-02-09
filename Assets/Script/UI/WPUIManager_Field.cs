@@ -26,6 +26,7 @@ public class WPUIManager_Field : WPUIManager {
     private WPField targetField;                        
     private WPFieldCtrl targetFieldCtrl;                // 활용할 밭 객체
 
+    private string SelectedSeed;                        //선택한 식물
     /////////////////////////////////////////////////////////////////////////
     // Methods
 
@@ -93,6 +94,8 @@ public class WPUIManager_Field : WPUIManager {
         scrollView_Select.AddItem(test.GetComponent<WPScrollViewItem>());
         scrollView_Select.SortItem();
         WPGameCommon._WPDebug("식물을 선택");
+        //SelectedSeed에 값 저장
+        SelectedSeed = "Potato";
     }
 
     // Plant 버튼을 클릭했을 때 호출합니다.
