@@ -17,7 +17,7 @@ public class WPScrollView_Select : WPScrollView {
     private int workerIndex = -1;           // 선택한 일꾼의 Index
     private int fertilizerIndex = -1;       // 선택한 비료의 Index
 
-    private int selectionState; // 0 = default, 1 = seed, 2 = worker, 3 = fertilizer
+    private int selectionState = 0;         // 0 = default, 1 = seed, 2 = worker, 3 = fertilizer
 
     protected override void Init()
     {
@@ -27,6 +27,19 @@ public class WPScrollView_Select : WPScrollView {
         seedSpriteData = LoadSeedData();
         workerSpriteData = LoadWorkerData();
         fertilizerSpriteData = LoadFertilizerData();
+    }
+
+    public void OnEnabled()
+    {
+        seedIndex = -1;
+        workerIndex = -1;
+        fertilizerIndex = -1;
+        selectionState = 0;
+    }
+
+    public void OnDisabled()
+    {
+        ClearList();
     }
 
     private List<Sprite> LoadSeedData()
@@ -107,5 +120,6 @@ public class WPScrollView_Select : WPScrollView {
     {
 
     }
+    
 
 }

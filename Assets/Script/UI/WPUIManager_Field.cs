@@ -143,11 +143,12 @@ public class WPUIManager_Field : WPUIManager {
         if (param)
         {
             SetSprite_Seed();
+            scrollView_Select.OnEnabled();
             scrollView_Select.CreateSeedList();
         }
         else
         {
-            scrollView_Select.ClearList();
+            scrollView_Select.OnDisabled();
         }
         base.SetActive(param);
     }
