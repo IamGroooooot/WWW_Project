@@ -10,13 +10,12 @@ public class WPUIManager_Field : WPUIManager {
 
     Sprite Empty, GreenOnion, Lettuce, Potato, SugarCane, Tabacco, Coffee, KaKao, Corn, Wheat, RicePlant, Barley, Cabbage;
     //작업 중 작물, 남은 시간, 일하는 일꾼, 비료, 일꾼 정보,비료 정보, 골드 표시
+    
 
-    public GameObject test;
-   
     private WPImageText imageText_Time;              // 예상 시간 UI
     private WPImageText imageText_Money;             // 필요 금액 UI
 
-    private WPScrollView scrollView_Select;               // 일꾼, 비료, 식물을 선택하는 데 필요한 스크롤 뷰
+    private WPScrollView_Select scrollView_Select;               // 일꾼, 비료, 식물을 선택하는 데 필요한 스크롤 뷰
 
     private Button button_Seed;                         // 식물 선택 버튼
     private Button button_Plant;                        // 식물 심기 버튼 ( 식물을 선택하지 않으면 비활성화? )
@@ -38,7 +37,7 @@ public class WPUIManager_Field : WPUIManager {
         imageText_Time = this.transform.Find("ImageText_Time").GetComponent<WPImageText>();
         imageText_Money = this.transform.Find("ImageText_Money").GetComponent<WPImageText>();
 
-        scrollView_Select = this.transform.Find("ScrollView_Select").GetComponent<WPScrollView>();
+        scrollView_Select = this.transform.Find("ScrollView_Select").GetComponent<WPScrollView_Select>();
 
         button_Seed = this.transform.Find("Button_Seed").GetComponent<Button>();
         button_Plant = this.transform.Find("Button_Plant").GetComponent<Button>();
@@ -50,8 +49,6 @@ public class WPUIManager_Field : WPUIManager {
         button_Plant.onClick.AddListener(OnClick_Plant);
         button_Worker.onClick.AddListener(OnClick_Worker);
         button_Fertilizer.onClick.AddListener(OnClick_Fertilizer);
-
-        getSprite();
 
         SetActive(false);
     }
@@ -91,11 +88,10 @@ public class WPUIManager_Field : WPUIManager {
     // Seed 버튼을 클릭했을 때 호출합니다.
     public void OnClick_Seed()
     {
-        scrollView_Select.AddItem(test.GetComponent<WPScrollViewItem>());
-        scrollView_Select.SortItem();
+        scrollView_Select.CreateSeedList();
         WPGameCommon._WPDebug("식물을 선택");
         //SelectedSeed에 값 저장
-        SelectedSeed = "Potato";
+        //SelectedSeed = "Potato";
     }
 
     // Plant 버튼을 클릭했을 때 호출합니다.
@@ -121,30 +117,5 @@ public class WPUIManager_Field : WPUIManager {
     public void OnClick_Close()
     {
         SetActive(false);
-    }
-
-    /// <summary>
-    /// Resorces로부터 Sprite 불러옴
-    /// </summary>
-    private void getSprite()
-    {
-        Empty = Resources.Load<Sprite>("Image/null.png");
-        GreenOnion = Resources.Load<Sprite>("Image/UI/Farm/" + "GreenOnion");
-        Lettuce = Resources.Load<Sprite>("Image/UI/Farm/" + "Lettuce");
-        Potato = Resources.Load<Sprite>("Image/UI/Farm/" + "Potato");
-        SugarCane = Resources.Load<Sprite>("Image/UI/Farm/" + "SugarCane");
-        Tabacco = Resources.Load<Sprite>("Image/UI/Farm/" + "Tabacco");
-        Coffee = Resources.Load<Sprite>("Image/UI/Farm/" + "Coffee");
-        KaKao = Resources.Load<Sprite>("Image/UI/Farm/" + "KaKao");
-        Corn = Resources.Load<Sprite>("Image/UI/Farm/" + "Corn");
-        Wheat = Resources.Load<Sprite>("Image/UI/Farm/" + "Wheat");
-        RicePlant = Resources.Load<Sprite>("Image/UI/Farm/" + "RicePlant");
-        Barley = Resources.Load<Sprite>("Image/UI/Farm/" + "Barley");
-        Cabbage = Resources.Load<Sprite>("Image/UI/Farm/" + "Cabbage");
-
-        if (Empty || GreenOnion || Lettuce || Potato || SugarCane || Tabacco || Coffee || KaKao || Corn || Wheat || RicePlant || Barley || Cabbage)
-        {
-            WPGameCommon._WPDebug("Field에서 Sprite 못 불어옴 ㅠ");
-        }
     }
 }

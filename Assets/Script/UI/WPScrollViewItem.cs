@@ -30,6 +30,15 @@ public class WPScrollViewItem : MonoBehaviour {
     }
 
     /// <summary>
+    /// GameObject의 이름을 content로 설정합니다. 이는 하나의 변수로 활용할 수 있습니다.
+    /// </summary>
+    /// <param name="content"></param>
+    public void SetName(string content)
+    {
+        gameObject.name = content;
+    }
+
+    /// <summary>
     /// Text를 content로 설정합니다.
     /// </summary>
     /// <param name="content"></param>

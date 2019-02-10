@@ -29,16 +29,12 @@ public class WPGameDataManager : MonoBehaviour {
 
     private void Awake()
     {
-        instance = this;
-    }
-
-    private void Start()
-    {
         Init();
     }
 
     private void Init()
     {
+        instance = this;
         foreach (WPEnum.GameData gameDataType in Enum.GetValues(typeof(WPEnum.GameData)))
         {
             LoadData(gameDataType);
@@ -59,10 +55,14 @@ public class WPGameDataManager : MonoBehaviour {
 
     private void LoadData(WPEnum.GameData _gameData)
     {
-        string dataName = _gameData.ToString();
+        string dataName = _gameData.ToString().Substring(1);
         string dataPath = Application.streamingAssetsPath + "/" + dataName + ".csv";
 
-        if (!File.Exists(dataPath)) return;
+        if (!File.Exists(dataPath))
+        {
+            WPGameCommon._WPDebug("해당하는 파일이 존재하지 않습니다! : " + dataPath);
+            return;
+        }
 
         string csvString = File.ReadAllText(dataPath, System.Text.Encoding.UTF8);
         List<Dictionary<string, object>> csvData = new List<Dictionary<string, object>>();
@@ -72,20 +72,24 @@ public class WPGameDataManager : MonoBehaviour {
         if (lines.Length > 1)
         {
             string[] header = Regex.Split(lines[0], SPLIT_RE);
+            
             for (int i = 1; i < lines.Length; ++i)
             {
                 string[] values = Regex.Split(lines[i], SPLIT_RE);
 
                 if (values.Length <= 0) continue;
 
+                string testString = string.Empty;
+
                 Dictionary<string, object> entry = new Dictionary<string, object>();
                 for (int j = 0; j < header.Length && j < values.Length; ++j)
                 {
                     string value = values[j].TrimStart(TRIM_CHARS).TrimEnd(TRIM_CHARS).Replace("\\", "");
                     entry[header[j]] = value;
-
+                    testString += header[j] + ":" + value + "//";
                 }
                 csvData.Add(entry);
+                //WPGameCommon._WPDebug(testString);
             }
             gameData.Add(_gameData, csvData);
         }

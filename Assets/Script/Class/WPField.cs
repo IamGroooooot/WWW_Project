@@ -25,7 +25,7 @@ public class WPField
     /// </summary>
     public bool CheckIfCompleted()
     {
-        List<Dictionary<string, object>> seedData = WPGameDataManager.instance.GetData(WPEnum.GameData.Seed);
+        List<Dictionary<string, object>> seedData = WPGameDataManager.instance.GetData(WPEnum.GameData.eSeed);
         // Dictionary<string, object> seedData = WPGameDataManager.instance.GetData(WPEnum.GameData.Seed)[0]; // 식물 이름만 따로 enum으로 저장해놓든가 해야할듯.
 
         //시간의 줄여주는 비료를 고려하는 코드

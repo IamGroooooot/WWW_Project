@@ -34,8 +34,7 @@ public class WPScrollView : MonoBehaviour {
         if (scrollView == null) return;
         RectTransform content = scrollView.content;
 
-        GameObject newItem = Instantiate(item.gameObject) as GameObject;
-        newItem.transform.SetParent(content);
+        item.transform.SetParent(content);
     }
 
     /// <summary>

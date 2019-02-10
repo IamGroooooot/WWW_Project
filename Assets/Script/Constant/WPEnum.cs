@@ -6,8 +6,8 @@ public class WPEnum {
     // 게임 데이터의 타입
     public enum GameData
     {
-        Seed,
-        News
+        eSeed,
+        eNews
     }
 
 	// 비교연산자 타입
