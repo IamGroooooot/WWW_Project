@@ -139,13 +139,13 @@ public class WPUIManager_Farm : WPUIManager
             newsRectTransform.anchorMax = new Vector2(0, 0.5f);                     // 텍스트 앵커 설정 ( 좌측 중간 )
             newsRectTransform.sizeDelta = new Vector2(
                 newsRectTransform.sizeDelta.x, maskSize.y * 0.9f);                  // 텍스트 전체 크기 설정
-            newsRectTransform.anchoredPosition = new Vector2(30, 0);                // 텍스트 위치 초기화
+            newsRectTransform.anchoredPosition = Vector2.zero;                      // 텍스트 위치 초기화
 
             yield return new WaitForSeconds(newsDelay);                             // newsDelay 만큼 대기합니다.
 
             if (newsRectTransform.rect.width > maskSize.x)                          // 텍스트의 길이가 긴 경우 애니메이션을 호출합니다.
             {
-                float newsTravel = maskSize.x - newsRectTransform.rect.width - 30;       // 텍스트의 이동거리 newsTravel를 구합니다.
+                float newsTravel = maskSize.x - newsRectTransform.rect.width;       // 텍스트의 이동거리 newsTravel를 구합니다.
                 for(; ; )
                 {
                     yield return new WaitForEndOfFrame();
