@@ -29,7 +29,7 @@ public class WPUIManager_Farm : WPUIManager
         this.transform.Find("Button_Shop").GetComponent<Button>().onClick.AddListener(OnClick_Shop);
         this.transform.Find("Button_Choose").GetComponent<Button>().onClick.AddListener(OnClick_Choose);
 
-        newsMask = transform.Find("Image_News");
+        newsMask = transform.Find("Mask_News");
         timeText = transform.Find("Image_Time").GetComponentInChildren<Text>();
 
         AddNews("테스트 뉴스 1");
