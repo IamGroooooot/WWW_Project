@@ -13,9 +13,9 @@ public class WPScrollView_Select : WPScrollView {
     List<Sprite> workerSpriteData = new List<Sprite>();
     List<Sprite> fertilizerSpriteData = new List<Sprite>();
 
-    private int seedIndex = -1;             // 선택한 식물의 Index
-    private int workerIndex = -1;           // 선택한 일꾼의 Index
-    private int fertilizerIndex = -1;       // 선택한 비료의 Index
+    public int seedIndex { get; private set; }             // 선택한 식물의 Index
+    public int workerIndex { get; private set; }           // 선택한 일꾼의 Index
+    public int fertilizerIndex { get; private set; }       // 선택한 비료의 Index
 
     private int selectionState = 0;         // 0 = default, 1 = seed, 2 = worker, 3 = fertilizer
 

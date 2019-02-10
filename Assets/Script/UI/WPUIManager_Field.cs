@@ -98,7 +98,26 @@ public class WPUIManager_Field : WPUIManager {
     public void OnClick_Plant()
     {
         WPGameCommon._WPDebug("식물심기를 선택");
-        
+        int seedIndex = scrollView_Select.seedIndex;
+        int workerIndex = scrollView_Select.workerIndex;
+        int fertilizerIndex = scrollView_Select.fertilizerIndex;
+        if(seedIndex == -1 || workerIndex == -1 || fertilizerIndex == -1)
+        {
+            string noticeString = string.Empty;
+            if (seedIndex == -1) noticeString += "심을 식물";
+            if (workerIndex == -1)
+            {
+                if (seedIndex == -1) noticeString += ", ";
+                noticeString += "일꾼";
+            }
+            if (fertilizerIndex == -1)
+            {
+                if (seedIndex == -1 || workerIndex == -1) noticeString += ", ";
+                noticeString += "비료";
+            }
+            noticeString += "을(를) 선택하지 않았습니다!";
+            WPUIManager_Toast.instance.MakeToast(noticeString, 3f);
+        }
     }
 
     // Worker 버튼을 클릭했을 때 호출합니다.
