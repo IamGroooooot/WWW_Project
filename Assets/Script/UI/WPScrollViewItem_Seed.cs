@@ -7,20 +7,14 @@ public class WPScrollViewItem_Seed : WPScrollViewItem {
 
     private static List<WPScrollViewItem_Seed> ITEMS = new List<WPScrollViewItem_Seed>();
 
-    private static int ITEM_INDEX = -1;
     public static WPScrollViewItem_Seed ITEM_FOCUS
     {
-        get
+        set
         {
-            if (ITEMS[ITEM_INDEX] != null) return ITEMS[ITEM_INDEX];
-            else return null;
-        }
-        private set
-        {
-            ITEM_INDEX = Convert.ToInt32(value.name);
+            int itemIndex = Convert.ToInt32(value.name);
             for(int index = 0; index < ITEMS.Count; ++index)
             {
-                ITEMS[index].SetFocus(index == ITEM_INDEX);
+                ITEMS[index].SetFocus(index == itemIndex);
             }
         }
     }
@@ -31,7 +25,6 @@ public class WPScrollViewItem_Seed : WPScrollViewItem {
     public static void Initalize()
     {
         ITEMS = new List<WPScrollViewItem_Seed>();
-        ITEM_INDEX = -1;
     }
 
     protected override void Init()

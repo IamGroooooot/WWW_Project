@@ -46,14 +46,43 @@ public class WPScrollView : MonoBehaviour {
         RectTransform content = scrollView.content;
 
         float contentWidth = 0;
-        for (int index = 0; index < content.childCount; ++index)
+        for (int i = 0; i < content.childCount; ++i)
         {
-            WPScrollViewItem item = content.GetChild(index).GetComponent<WPScrollViewItem>();
+            WPScrollViewItem item = content.GetChild(i).GetComponent<WPScrollViewItem>();
             if (item == null) continue;
             item.SetPosition(new Vector2(contentWidth, 0));
             contentWidth += item.GetWidth();
         }
         content.sizeDelta = new Vector2(contentWidth, content.sizeDelta.y);
+    }
+
+    /// <summary>
+    /// Item들을 정렬합니다. index 번 Item이 보이도록 정렬합니다. 
+    /// </summary>
+    /// /// <param name="index"></param>
+    public void SortItem(int index)
+    {
+        if (scrollView == null) return;
+        RectTransform content = scrollView.content;
+
+        float contentWidth = 0;
+        float viewPortXValue = scrollView.viewport.rect.width * .5f;
+        float targetContentWidth = 0;
+        for (int i = 0; i < content.childCount; ++i)
+        {
+            WPScrollViewItem item = content.GetChild(i).GetComponent<WPScrollViewItem>();
+            if (item == null) continue;
+            item.SetPosition(new Vector2(contentWidth, 0));
+            contentWidth += item.GetWidth();
+            if(i == index)
+            {
+                targetContentWidth = contentWidth - (item.GetWidth() * .5f);
+            }
+        }
+        content.sizeDelta = new Vector2(contentWidth, content.sizeDelta.y);
+        WPGameCommon._WPDebug(viewPortXValue);
+        content.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, viewPortXValue - targetContentWidth, content.rect.width);
+        Canvas.ForceUpdateCanvases();
     }
 
     /// <summary>

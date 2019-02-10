@@ -100,25 +100,26 @@ public class WPScrollView_Select : WPScrollView {
             newItem.SetName(index.ToString());
             newItem.AddEvent(delegate { OnClick_Seed(Convert.ToInt32(newItem.name)); });
             newItem.SetText(seedData[index]["eName"].ToString());
+            newItem.SetFocus(index == seedIndex);
             newItem.SetSprite(seedSpriteData[index]);
             AddItem(newItem);
         }
-        SortItem();
-        if(seedIndex != -1)
-        {
-            // 예전에 선택한 Item이 있을 경우
-
-        }
+        if (seedIndex <= -1) SortItem();
+        else SortItem(seedIndex);
     }
 
     public void CreateWorkerList()
     {
-
+        if (selectionState == 2) return;
+        selectionState = 2;
+        ClearList();
     }
 
     public void CreateFertilizerList()
     {
-
+        if (selectionState == 3) return;
+        selectionState = 3;
+        ClearList();
     }
     
 

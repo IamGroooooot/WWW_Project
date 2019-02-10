@@ -104,12 +104,14 @@ public class WPUIManager_Field : WPUIManager {
     // Worker 버튼을 클릭했을 때 호출합니다.
     public void OnClick_Worker()
     {
+        scrollView_Select.CreateWorkerList();
         WPGameCommon._WPDebug("일꾼을 선택");
     }
 
     // Fertilizer 버튼을 클릭했을 때 호출합니다.
     public void OnClick_Fertilizer()
     {
+        scrollView_Select.CreateFertilizerList();
         WPGameCommon._WPDebug("비료를 선택");
     }
 
@@ -120,6 +122,7 @@ public class WPUIManager_Field : WPUIManager {
         Image seedImage = button_Seed.GetComponent<Image>();
         seedImage.color = new Color(1, 1, 1, 0);
         seedImage.sprite = null;
+        seedImage.transform.Find("Text").gameObject.SetActive(true);
     }
 
     /// <summary>
@@ -132,6 +135,7 @@ public class WPUIManager_Field : WPUIManager {
         Image seedImage = button_Seed.GetComponent<Image>();
         seedImage.color = new Color(1, 1, 1, 1);
         seedImage.sprite = content;
+        seedImage.transform.Find("Text").gameObject.SetActive(false);
     }
 
     /// <summary>
