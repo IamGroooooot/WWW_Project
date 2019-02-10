@@ -54,6 +54,7 @@ public class WPScrollView : MonoBehaviour {
             contentWidth += item.GetWidth();
         }
         content.sizeDelta = new Vector2(contentWidth, content.sizeDelta.y);
+        scrollView.StopMovement();
     }
 
     /// <summary>
@@ -83,6 +84,7 @@ public class WPScrollView : MonoBehaviour {
         WPGameCommon._WPDebug(viewPortXValue);
         content.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, viewPortXValue - targetContentWidth, content.rect.width);
         Canvas.ForceUpdateCanvases();
+        scrollView.StopMovement();
     }
 
     /// <summary>
