@@ -59,15 +59,16 @@ public class WPScrollView : MonoBehaviour {
     /// <summary>
     /// Item들을 모두 제거합니다.
     /// </summary>
-    protected void ClearItem()
+    public void ClearList()
     {
         if (scrollView == null) return;
         RectTransform content = scrollView.content;
 
         for (int index = 0; index < content.childCount; ++index)
         {
-            Destroy(content.GetChild(index).gameObject);
+            Destroy(content.GetChild(index).gameObject); 
         }
+        content.DetachChildren();
         content.sizeDelta = new Vector2(0, content.sizeDelta.y);
     }
 }

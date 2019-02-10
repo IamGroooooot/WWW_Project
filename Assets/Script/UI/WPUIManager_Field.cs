@@ -113,6 +113,45 @@ public class WPUIManager_Field : WPUIManager {
         WPGameCommon._WPDebug("비료를 선택");
     }
 
+    // Seed 선택 버튼의 이미지를 초기화합니다.
+    private void SetSprite_Seed()
+    {
+        if (button_Seed == null) return;
+        Image seedImage = button_Seed.GetComponent<Image>();
+        seedImage.color = new Color(1, 1, 1, 0);
+        seedImage.sprite = null;
+    }
+
+    /// <summary>
+    /// Seed 버튼의 Sprite를 content로 변경합니다.
+    /// </summary>
+    /// <param name="content"></param>
+    public void SetSprite_Seed(Sprite content)
+    {
+        if (button_Seed == null) return;
+        Image seedImage = button_Seed.GetComponent<Image>();
+        seedImage.color = new Color(1, 1, 1, 1);
+        seedImage.sprite = content;
+    }
+
+    /// <summary>
+    /// UI를 화면에 param 값에 따라 표시합니다.
+    /// </summary>
+    /// <param name="param"></param>
+    public override void SetActive(bool param)
+    {
+        if (param)
+        {
+            SetSprite_Seed();
+            scrollView_Select.CreateSeedList();
+        }
+        else
+        {
+            scrollView_Select.ClearList();
+        }
+        base.SetActive(param);
+    }
+
     // Close 버튼을 클릭했을 때 호출합니다.
     public void OnClick_Close()
     {

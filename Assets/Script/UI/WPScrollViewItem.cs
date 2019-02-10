@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 /// <summary>
@@ -9,9 +10,11 @@ using UnityEngine.UI;
 [RequireComponent(typeof(RectTransform))]
 public class WPScrollViewItem : MonoBehaviour {
 
-    private Text text;
-    private Image image;
-    private RectTransform rectTransform;
+    protected Text text;
+    protected Image image;
+    protected Button button;
+    protected GameObject focus;
+    protected RectTransform rectTransform;
     
     private void Awake()
     {
@@ -20,12 +23,14 @@ public class WPScrollViewItem : MonoBehaviour {
 
     /// <summary>
     /// 초기화 과정울 수행합니다. override 할 수 있습니다. 이 함수는 Awake()에서 호출합니다.
-    /// 사용할 시 base.Init()을 반드시 호출해야 합니다.
+    /// 사용할 시 base.Init()을 반드시 가장 먼저 호출해야 합니다.
     /// </summary>
     protected virtual void Init()
     {
         text = transform.Find("Text").GetComponent<Text>();
         image = transform.Find("Image").GetComponent<Image>();
+        button = transform.Find("Image").GetComponent<Button>();
+        focus = transform.Find("Focus").gameObject;
         rectTransform = GetComponent<RectTransform>();
     }
 
@@ -36,6 +41,16 @@ public class WPScrollViewItem : MonoBehaviour {
     public void SetName(string content)
     {
         gameObject.name = content;
+    }
+
+    /// <summary>
+    /// Item을 강조할 지 결정합니다.
+    /// </summary>
+    /// <param name="isFocus"></param>
+    public void SetFocus(bool isFocus)
+    {
+        if (focus == null) return;
+        focus.SetActive(isFocus);
     }
 
     /// <summary>
@@ -69,7 +84,15 @@ public class WPScrollViewItem : MonoBehaviour {
         rectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, position.x, GetWidth());
         rectTransform.offsetMax = new Vector2(rectTransform.offsetMax.x, 0);
         rectTransform.offsetMin = new Vector2(rectTransform.offsetMin.x, 0);
+    }
 
+    /// <summary>
+    /// Item 클릭 혹은 터치 시 발생하는 이벤트를 추가합니다.
+    /// </summary>
+    /// /// <param name="unityAction"></param>
+    public void AddEvent(UnityAction unityAction)
+    {
+        button.onClick.AddListener(unityAction);
     }
 
     /// <summary>

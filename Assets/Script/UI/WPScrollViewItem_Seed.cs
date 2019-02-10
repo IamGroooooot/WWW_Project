@@ -5,10 +5,45 @@ using System;
 
 public class WPScrollViewItem_Seed : WPScrollViewItem {
 
+    private static List<WPScrollViewItem_Seed> ITEMS = new List<WPScrollViewItem_Seed>();
+
+    private static int ITEM_INDEX = -1;
+    public static WPScrollViewItem_Seed ITEM_FOCUS
+    {
+        get
+        {
+            if (ITEMS[ITEM_INDEX] != null) return ITEMS[ITEM_INDEX];
+            else return null;
+        }
+        private set
+        {
+            ITEM_INDEX = Convert.ToInt32(value.name);
+            for(int index = 0; index < ITEMS.Count; ++index)
+            {
+                ITEMS[index].SetFocus(index == ITEM_INDEX);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 이 객체를 활용하여 새로운 객체를 만드려고 시도할 때 반드시 호출해야 합니다.
+    /// </summary>
+    public static void Initalize()
+    {
+        ITEMS = new List<WPScrollViewItem_Seed>();
+        ITEM_INDEX = -1;
+    }
+
     protected override void Init()
     {
         base.Init();
+        AddEvent(delegate { OnClick_Item(); });
+        ITEMS.Add(this);
     }
 
+    private void OnClick_Item()
+    {
+        ITEM_FOCUS = this;
+    }
     
 }

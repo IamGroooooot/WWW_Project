@@ -32,7 +32,7 @@ public class WPUIManager : MonoBehaviour
     /// UI를 화면에 param 값에 따라 표시합니다.
     /// </summary>
     /// <param name="param"></param>
-    public void SetActive(bool param)
+    public virtual void SetActive(bool param)
     {
         if (param)
         {
