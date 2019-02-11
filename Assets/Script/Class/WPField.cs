@@ -28,12 +28,9 @@ public class WPField
     {
         
         // Dictionary<string, object> seedData = WPGameDataManager.instance.GetData(WPEnum.GameData.Seed)[0]; // 식물 이름만 따로 enum으로 저장해놓든가 해야할듯.
+		
 
-        
-
-        
-
-        if (GrownPercent()>=60)
+        if (GetGrownPercent()>=60)
         {
             return true;
         }
@@ -72,7 +69,7 @@ public class WPField
         return 10;
     }
 
-	public float GrownPercent()
+	public float GetGrownPercent()
 	{
 		//시간의 줄여주는 비료를 고려하는 코드
 		//짜야됨

@@ -41,20 +41,20 @@ public class WPFieldCtrl : WPActor
 
         //필드 데이터 가져오기
 
-        /*
+        
         //심은 시기/현재 시간 차로 성장률 계산
         //GrownPercent = 0;
         //30%->localScale Double Once
-        if(GrownPercent < 30)
+        if(wpField.GetGrownPercent() < 30)
         {
-            DoubleScale(null);
+            if(DoubleScale(null)==-1) WPGameCommon._WPDebug("지정된 작물 없음");
         }
         //60%->localScale Double Once again
-        if (GrownPercent < 60)
+        if (wpField.GetGrownPercent() < 60)
         {
-            DoubleScale(null);
-        }
-        */
+			if (DoubleScale(null) == -1) WPGameCommon._WPDebug("지정된 작물 없음");
+		}
+        
 
 
         //Sprite 설정하기 
@@ -118,13 +118,16 @@ public class WPFieldCtrl : WPActor
     }
 
     //Plant Scale 2time at(30 60 100) 
-    void DoubleScale(Transform targetIMG)
+    int DoubleScale(Transform targetIMG)
     {
+		if(targetIMG==null) return -1;
+
         float curSize = targetIMG.localScale.y;
 
         targetIMG.localScale = new Vector3(targetIMG.localScale.x, targetIMG.localScale.y * ratio, targetIMG.localScale.z);
         float Up = (ratio - 1) * curSize / 2f;
         targetIMG.localPosition += new Vector3(0, Up, 0);
+		return 0;
     }
 
     private Transform FindSeed()
