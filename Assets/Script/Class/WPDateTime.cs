@@ -188,7 +188,28 @@ public class WPDateTime {
         return new WPDateTime(_year, _month, _day, _hour);
     }
 
-    private static string ToData()
+	//ParseDate을 DateTime형식 Return해주는 것 만들기
+	//농장 Field에서 심은 작물의 심은 일자를 구하기 위함.
+	public static DateTime ParseData2DateTime(string data)
+	{
+		// split String
+		string[] data_1 = data.Split('(');
+		// simple integrity check
+		if (data_1[0] != "DateTime") return new DateTime(0,0,0,0,0,0,0,DateTimeKind.Local);
+
+		string[] dateString = data_1[1].Replace(")", "").Split(':');
+
+		// convert string to int32
+		int _year = System.Convert.ToInt32(dateString[0]);
+		int _month = System.Convert.ToInt32(dateString[1]);
+		int _day = System.Convert.ToInt32(dateString[2]);
+		int _hour = System.Convert.ToInt32(dateString[3]);
+
+		return new DateTime(_year, _month, _day, _hour,0,0,DateTimeKind.Local);
+	}
+
+
+	private static string ToData()
     {
         return string.Format("DateTime({0}:{1}:{2}:{3})", Year, Month, Day, Hour);
     }
@@ -231,4 +252,6 @@ public class WPDateTime {
 		
 		WPGameVariableManager.instance.SaveVariable((myField.ToString()+FarmNum.ToString()), ToString());
 	}
+
+
 }

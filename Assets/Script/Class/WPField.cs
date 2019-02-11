@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class WPField
 {
-    string currentCrop;
+	List<Dictionary<string, object>> seedData = WPGameDataManager.instance.GetData(WPEnum.GameData.eSeed);
+	string currentCrop;
     string startedTime;
     string worker;
     string fertilizer;
@@ -25,33 +26,14 @@ public class WPField
     /// </summary>
     public bool CheckIfCompleted()
     {
-        List<Dictionary<string, object>> seedData = WPGameDataManager.instance.GetData(WPEnum.GameData.eSeed);
+        
         // Dictionary<string, object> seedData = WPGameDataManager.instance.GetData(WPEnum.GameData.Seed)[0]; // 식물 이름만 따로 enum으로 저장해놓든가 해야할듯.
 
-        //시간의 줄여주는 비료를 고려하는 코드
-        //짜야됨
+        
 
-        //StartedTime과 현재 시간 비교 
-        float TimePassed=TimeCompare(); //(단위는 Day로 할 것), 일단 임시로 10 넣어둠.
+        
 
-        //Find eID
-        int targetID;
-        for(targetID = 0; targetID < 13; targetID++)
-        {
-            if (targetID == 12) //해당하는 작물의 ID를 못찾은 경우
-            {
-                return false;
-                //WPGameCommon._WPDebug("Cannot Find My Target ID - FieldCtrl");
-            }
-
-            //타깃의 Name 이랑 Fieldz클라스의 currentCrop이랑 비교-이렇게 하는거 맞낭?
-            if (string.Equals(seedData[targetID][WPEnum.CSV_Index.eName.ToString()].ToString(), currentCrop,System.StringComparison.CurrentCultureIgnoreCase)) 
-            {
-                break;
-            }      
-        }
-
-        if (TimePassed/ (float)(seedData[targetID][WPEnum.CSV_Index.eGrowthTime.ToString()]) >=60)
+        if (GrownPercent()>=60)
         {
             return true;
         }
@@ -89,4 +71,45 @@ public class WPField
 		
         return 10;
     }
+
+	public float GrownPercent()
+	{
+		//시간의 줄여주는 비료를 고려하는 코드
+		//짜야됨
+
+		//심은 일 수 
+		float timePassed = TimeCompare(); //(단위는 Day로 할 것), 일단 임시로 10 넣어둠.
+		int targetID = Find_EID();
+
+		float Percent = timePassed / (float)(seedData[targetID][WPEnum.CSV_Index.eGrowthTime.ToString()]);
+
+		if (Percent > 100f)
+		{
+			return -1;
+		}
+
+		return Percent;
+	}
+
+	public int Find_EID()
+	{
+		//Find eID
+		int targetID;
+
+		for (targetID = 0; targetID < 13; targetID++)
+		{
+			if (targetID == 12) //해당하는 작물의 ID를 못찾은 경우
+			{
+				return -1;
+				//WPGameCommon._WPDebug("Cannot Find My Target ID - FieldCtrl");
+			}
+
+			//타깃의 Name 이랑 Fieldz클라스의 currentCrop이랑 비교-이렇게 하는거 맞낭?
+			if (string.Equals(seedData[targetID][WPEnum.CSV_Index.eName.ToString()].ToString(), currentCrop, System.StringComparison.CurrentCultureIgnoreCase))
+			{
+				return targetID;
+			}
+		}
+		return targetID;
+	}
 }

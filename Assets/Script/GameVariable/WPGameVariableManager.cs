@@ -28,10 +28,14 @@ public class WPGameVariableManager : MonoBehaviour
         // 변환한 값을 그대로 넣어주자.
         PlayerPrefs.SetString(key, value);
     }
+
+	/// <summary>
+	/// 농장별로 Field의 시간 정보 저장하기 위해 만듬.
+	/// </summary>
+	/// <param name="key"></param>
+	/// <param name="value"></param>
 	public void SaveVariable(string key, string value)
 	{
-		// 이넘값 변환
-		//string key = type.ToString();
 
 		// 변환한 값을 그대로 넣어주자.
 		PlayerPrefs.SetString(key, value);
@@ -79,10 +83,26 @@ public class WPGameVariableManager : MonoBehaviour
         return returnValue;
     }
 
-    /// <summary>
-    /// 타입 이넘값을 바탕으로 저장된 값을 불러온다.
-    /// </summary>
-    public int LoadIntVariable(WPEnum.VariableType type)
+	/// <summary>
+	/// 문자열을 바탕으로 저장된 값을 불러온다.
+	/// 농장별로 Field의 시간 정보 불러오기 위해 만듬.
+	/// </summary>
+	public string LoadStringVariable(string key)
+	{
+
+		// 불러오기
+		string returnValue = PlayerPrefs.GetString(key);
+
+		WPGameCommon._WPDebug("LoadValue From //" + key + "// : //" + returnValue + "//");
+
+		return returnValue;
+	}
+
+
+	/// <summary>
+	/// 타입 이넘값을 바탕으로 저장된 값을 불러온다.
+	/// </summary>
+	public int LoadIntVariable(WPEnum.VariableType type)
     {
         // 이넘값 변환
         string key = type.ToString();
