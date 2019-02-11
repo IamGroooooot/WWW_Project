@@ -218,4 +218,17 @@ public class WPDateTime {
         WPGameVariableManager.instance.SaveVariable(WPEnum.VariableType.eUserDate, ToString());
     }
 
+	public static void Save_FieldTime(WPEnum.VariableType myField,int FarmNum)
+	{
+		//FarmNum은 농장 인덱스, 일단 0으로 설정
+		FarmNum = 0;
+
+		if (wpDateTime == null)
+		{
+			WPGameCommon._WPDebug("wpDateTime == NULL!, FieldTime");
+			return;
+		}
+		
+		WPGameVariableManager.instance.SaveVariable((myField.ToString()+FarmNum.ToString()), ToString());
+	}
 }

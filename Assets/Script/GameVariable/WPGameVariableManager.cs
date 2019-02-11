@@ -28,12 +28,20 @@ public class WPGameVariableManager : MonoBehaviour
         // 변환한 값을 그대로 넣어주자.
         PlayerPrefs.SetString(key, value);
     }
+	public void SaveVariable(string key, string value)
+	{
+		// 이넘값 변환
+		//string key = type.ToString();
 
-    /// <summary>
-    /// 타입 이넘값으로 값을 저장해준다.
-    /// Int value 전용
-    /// </summary>
-    public void SaveVariable(WPEnum.VariableType type, int value)
+		// 변환한 값을 그대로 넣어주자.
+		PlayerPrefs.SetString(key, value);
+	}
+
+	/// <summary>
+	/// 타입 이넘값으로 값을 저장해준다.
+	/// Int value 전용
+	/// </summary>
+	public void SaveVariable(WPEnum.VariableType type, int value)
     {
         // 이넘값 변환
         string key = type.ToString();

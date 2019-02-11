@@ -66,12 +66,12 @@ public class WPEnum {
 
 		eQuest1 = 700,					// 퀘스트 달성량. 최대 퀘스트 수락량?? - 지호묻기
 
-        eField1,
-        eField2,
-        eField3,
-        eField4,
-        eField5,
-        eField6,
+        eField1 = 800,
+        eField2 = 900,
+        eField3 = 1000,
+        eField4 = 1100,
+        eField5 = 1200,
+        eField6 = 1300,
 	}
 
 	// 재정 상태

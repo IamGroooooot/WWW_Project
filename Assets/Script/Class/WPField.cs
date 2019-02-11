@@ -86,8 +86,7 @@ public class WPField
     /// <returns></returns>
     private int TimeCompare()
     {
-
-
+		
         return 10;
     }
 }
