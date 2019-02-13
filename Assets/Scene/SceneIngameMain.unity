@@ -323,8 +323,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2121846795}
   m_HandleRect: {fileID: 2121846794}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 0.9166667
+  m_Value: 0.00000050862576
+  m_Size: 0.91666657
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -722,7 +722,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1920930125922208, guid: 4973b4b7d5bbe4745869813918d4f54c, type: 2}
       propertyPath: m_Name
-      value: Field3
+      value: Field03
       objectReference: {fileID: 0}
     - target: {fileID: 61114682737890074, guid: 4973b4b7d5bbe4745869813918d4f54c,
         type: 2}
@@ -3337,7 +3337,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1920930125922208, guid: 4973b4b7d5bbe4745869813918d4f54c, type: 2}
       propertyPath: m_Name
-      value: Field5
+      value: Field05
       objectReference: {fileID: 0}
     - target: {fileID: 61114682737890074, guid: 4973b4b7d5bbe4745869813918d4f54c,
         type: 2}
@@ -4420,7 +4420,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1920930125922208, guid: 4973b4b7d5bbe4745869813918d4f54c, type: 2}
       propertyPath: m_Name
-      value: Field2
+      value: Field02
       objectReference: {fileID: 0}
     - target: {fileID: 61114682737890074, guid: 4973b4b7d5bbe4745869813918d4f54c,
         type: 2}
@@ -7311,7 +7311,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1920930125922208, guid: 4973b4b7d5bbe4745869813918d4f54c, type: 2}
       propertyPath: m_Name
-      value: Field4
+      value: Field04
       objectReference: {fileID: 0}
     - target: {fileID: 61114682737890074, guid: 4973b4b7d5bbe4745869813918d4f54c,
         type: 2}
@@ -9694,7 +9694,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1920930125922208, guid: 4973b4b7d5bbe4745869813918d4f54c, type: 2}
       propertyPath: m_Name
-      value: Field1
+      value: Field01
       objectReference: {fileID: 0}
     - target: {fileID: 61114682737890074, guid: 4973b4b7d5bbe4745869813918d4f54c,
         type: 2}
@@ -10022,7 +10022,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1920930125922208, guid: 4973b4b7d5bbe4745869813918d4f54c, type: 2}
       propertyPath: m_Name
-      value: Field0
+      value: Field00
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4973b4b7d5bbe4745869813918d4f54c, type: 2}

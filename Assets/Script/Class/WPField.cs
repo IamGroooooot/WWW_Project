@@ -5,14 +5,16 @@ using UnityEngine;
 public class WPField
 {
 	List<Dictionary<string, object>> seedData = WPGameDataManager.instance.GetData(WPEnum.GameData.eSeed);
+    int index;
 	string currentCrop;
     string startedTime;
     string worker;
     string fertilizer;
     int gold;
 
-    public WPField(string _currentCrop, string _startedTime, string _worker, string _fertilizer, int _gold)
+    public WPField(int _index,string _currentCrop, string _startedTime, string _worker, string _fertilizer, int _gold)
     {
+        this.index=_index;
         this.currentCrop = _currentCrop;
         this.startedTime = _startedTime;
         this.worker = _worker;
