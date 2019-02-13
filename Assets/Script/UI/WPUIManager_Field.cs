@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class WPUIManager_Field : WPUIManager {
     /////////////////////////////////////////////////////////////////////////
@@ -55,14 +56,22 @@ public class WPUIManager_Field : WPUIManager {
 
     public void GetFieldData(WPField wpField, WPFieldCtrl wpFieldCtrl)
     {
+        
         if(wpField == null) // 이 경우 밭의 정보가 없는 것으로, 이 때 여기서 새로운 밭을 만들어 넘겨주어야 합니다.
         {
-            //wpFieldCtrl.wpField = new WPField();
+            //현재 필드의 index저장
+            int index = Convert.ToInt32(wpFieldCtrl.transform.name.Substring(5));
+            wpFieldCtrl.wpField = new WPField(index,null,null,null,null,0);
+            
         }
         else // 밭의 정보가 있습니다. 이 정보를 활용하여 UI로 표시합니다.
         {
-
+            
         }
+
+        // 타깃 설정
+        this.targetFieldCtrl = wpFieldCtrl;
+        this.targetField = wpFieldCtrl.wpField;
     }
 
     /// <summary>

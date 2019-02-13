@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 public class WPActorManager : MonoBehaviour
 {
 	/////////////////////////////////////////////////////////////////////////
@@ -9,15 +9,22 @@ public class WPActorManager : MonoBehaviour
 	public static WPActorManager instance = null;		// singleton
 
 	public Transform _baseObject;						// baseobject. 인스펙터에서 초기화
+	public Transform _baseObject_Farm;					// baseobject. 인스펙터에서 초기화
 
 	public GameObject _pfTempWorker;					// 임시 워커 프리팹
+	public GameObject _field;					// 임시 워커 프리팹
 
     private int _workerCount;                           // 일꾼 개수. init 초기화
 
-    private int _farmFieldCount;                        // 밭 개수. init 초기화
+    private int _farmFieldRowCount;                        // 밭 개수. init 초기화
 
-	private List<GameObject> _actorList;				// 액터 게임오브젝트를 들고있는 리스트.
+	private List<GameObject> _actorList_Worker;				// 액터Worker 게임오브젝트를 들고있는 리스트.
+	private List<GameObject> _actorList_Field;				// 액터Field 게임오브젝트를 들고있는 리스트.
 
+    private int fieldIndex;
+    private int farmIndex;
+
+    IEnumerator enumerator;
     /////////////////////////////////////////////////////////////////////////
     // Methods
     private void Awake()
@@ -37,11 +44,16 @@ public class WPActorManager : MonoBehaviour
     /// </summary>
     private void InitValue()
     {
-		this._actorList = new List<GameObject>();
+        enumerator = GetEnumerator();
+        farmIndex = 0;
+        fieldIndex = 0;
+
+        this._actorList_Worker = new List<GameObject>();
+        this._actorList_Field = new List<GameObject>();
 
         this._workerCount = WPGameVariableManager.instance.LoadIntVariable(WPEnum.VariableType.eUserWorkerCount);
-        this._farmFieldCount = WPGameVariableManager.instance.LoadIntVariable(WPEnum.VariableType.eFarmFieldCount);
-
+        //this._farmFieldCount = WPGameVariableManager.instance.LoadIntVariable(WPEnum.VariableType.eFarmFieldCount);
+        this._farmFieldRowCount = 3;
     }
 
     /// <summary>
@@ -56,13 +68,13 @@ public class WPActorManager : MonoBehaviour
         {
 			this.SpawnActor((int)WPEnum.ActorKey.eActorWorkerTemp);
         }
-		/*
-		// 밭 세팅 파트, 최대 밭 몇개??
-		for (int i = 0; i < this._farmFieldCount; i++)
+		
+		// 밭 세팅 파트
+		for (int i = 0; i < this._farmFieldRowCount; i++)
         {
 			this.SpawnActor((int)WPEnum.ActorKey.eActorFarmField);
         }
-		*/
+	
 	}
 
 	/// <summary>
@@ -84,23 +96,61 @@ public class WPActorManager : MonoBehaviour
 				return (int)WPEnum.rvType.eTypeFail;
 			}
 
-			float xPos = Random.Range(-WPVariable.currentFieldSizeX / 2f, WPVariable.currentFieldSizeX / 2f);
-			float yPos = Random.Range(-WPVariable.currentFieldSizeY / 2f, WPVariable.currentFieldSizeY / 2f);
+			float xPos = UnityEngine.Random.Range(-WPVariable.currentFieldSizeX / 2f, WPVariable.currentFieldSizeX / 2f);
+			float yPos = UnityEngine.Random.Range(-WPVariable.currentFieldSizeY / 2f, WPVariable.currentFieldSizeY / 2f);
 
 			// 포지션 세팅, 액터키 세팅
 			go.GetComponent<WPActor>().SetActorPos(xPos, yPos);
 			go.GetComponent<WPActor>().SetActorKey(actorKey);
 
 			// 리스트에 반영
-			this._actorList.Add(go);
+			this._actorList_Worker.Add(go);
 
 			return (int)WPEnum.rvType.eTypeSuccess;
 		}
 		else if((int)WPEnum.ActorKey.eActorFarmField == actorKey)
 		{
-			//여기에 밭 스폰 짜야됨 grid? UI어떻게
+            // 현재는 actorkey 상관없이 그냥 생성시키고 배치만 해줌.
+            GameObject go_Right = Instantiate(this._field, this._baseObject_Farm);
+            GameObject go_Left = Instantiate(this._field, this._baseObject_Farm);
 
-			return (int)WPEnum.rvType.eTypeSuccess;
+            if (null == go_Right || null == go_Left)
+            {
+                WPGameCommon._WPDebug("Field 스폰에 문제발생!!");
+                return (int)WPEnum.rvType.eTypeFail;
+            }
+
+            
+            go_Left.name = "Field" + farmIndex.ToString() + fieldIndex.ToString();
+            fieldIndex++;
+            go_Right.name = "Field" + farmIndex.ToString() + fieldIndex.ToString();
+            fieldIndex++;
+
+            if (fieldIndex > 5)
+            {
+                farmIndex++;
+            }
+
+            float xPos = WPVariable.currentWorldSizeX / 2;
+
+            
+            enumerator.MoveNext();
+
+            float yPos = (float)Convert.ToDouble(enumerator.Current.ToString());
+            
+
+            // 포지션 세팅, 액터키 세팅
+            go_Left.GetComponent<WPActor>().SetActorPos(-xPos, yPos);
+            go_Right.GetComponent<WPActor>().SetActorPos(xPos, yPos);
+
+            go_Left.GetComponent<WPActor>().SetActorKey(actorKey);
+            go_Right.GetComponent<WPActor>().SetActorKey(actorKey);
+
+            // 리스트에 반영
+            this._actorList_Field.Add(go_Left);
+            this._actorList_Field.Add(go_Right);
+
+            return (int)WPEnum.rvType.eTypeSuccess;
 		}
 		else
 		{
@@ -123,10 +173,10 @@ public class WPActorManager : MonoBehaviour
 		}
 
 		// 매니저 메모리에 반영 시도
-		this._farmFieldCount++;
+		this._farmFieldRowCount++;
 
 		// 유저데이터에 작성.
-		WPGameVariableManager.instance.SaveVariable(WPEnum.VariableType.eFarmFieldCount, this._farmFieldCount);
+		WPGameVariableManager.instance.SaveVariable(WPEnum.VariableType.eFarmFieldCount, this._farmFieldRowCount);
 	}
 
 	/// <summary>
@@ -158,9 +208,9 @@ public class WPActorManager : MonoBehaviour
 	public void KillAllWorker()
 	{
 		// 걍 모든 리스트를 돌면서 지운다.
-		for (int idx = 0; idx < this._actorList.Count; idx++)
+		for (int idx = 0; idx < this._actorList_Worker.Count; idx++)
 		{
-			DestroyObject(_actorList[idx]);
+			DestroyObject(_actorList_Worker[idx]);
 		}
 
 		// 메모리에 반영 시도.
@@ -169,4 +219,14 @@ public class WPActorManager : MonoBehaviour
 		// 유저데이터에 작성.
 		WPGameVariableManager.instance.SaveVariable(WPEnum.VariableType.eUserWorkerCount, this._workerCount);
 	}
+
+   
+    public IEnumerator GetEnumerator()
+    {
+        yield return  (WPVariable.currentWorldSizeY / 4);
+        yield return  (-WPVariable.currentWorldSizeY / 4);
+        yield return  ((-3f) * WPVariable.currentWorldSizeY / 4);
+       
+    }
 }
+

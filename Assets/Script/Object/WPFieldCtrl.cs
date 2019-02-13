@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System;
 
 public class WPFieldCtrl : WPActor
 {
@@ -11,12 +12,10 @@ public class WPFieldCtrl : WPActor
     private int GrownPercent=0;
     private static string DATA_PATH = "Image/UI/Farm/";
     private List<Sprite> seedSpriteData = new List<Sprite>();
-
+    private int index;                                          //현재 밭의 인덱스
     Transform plantTrans;//현재 심어진 plant 
 
     public WPField wpField = null; // 밭의 정보를 저장하는 변수입니다.
-
-    
     /////////////////////////////////////////////////////////////////////////
     // Methods
 
@@ -27,6 +26,9 @@ public class WPFieldCtrl : WPActor
     protected override void InitValue()
     {
         base.InitValue();
+
+        //현재 밭의 인덱스 설정
+        index = Convert.ToInt32(this.transform.name.Substring(5));
 
         // 무빙타입은 NONE.
         base.SetActorMoveType(WPEnum.ActorMoveType.eMoveNone);
@@ -41,7 +43,8 @@ public class WPFieldCtrl : WPActor
         seedSpriteData = LoadSeedData();
         
         //필드 데이터 가져오기
-        
+        //비어있으면 필드에 널
+        //있으면 필드에 해당wpField넣기
 
         //심은 시기/현재 시간 차로 성장률 계산
         //GrownPercent = 0;
@@ -116,7 +119,7 @@ public class WPFieldCtrl : WPActor
         return seedSpriteData;
     }
 
-    //Plant Scale 2time at(30 60 100) 
+    //Plant Scale 2times at(30 60 100) 
     int DoubleScale(Transform targetIMG)
     {
 		if(targetIMG==null) return -1;

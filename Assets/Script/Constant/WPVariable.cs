@@ -16,5 +16,5 @@ public class WPVariable
 
     // 현재 월드 좌표 상 가능한 필드 사이즈
     public static float currentWorldSizeX = 9f;
-    public static float currentWorldSizeY = 16f;
+    public static float currentWorldSizeY = 15f;
 }

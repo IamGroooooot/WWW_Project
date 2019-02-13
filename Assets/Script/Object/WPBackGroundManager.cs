@@ -10,6 +10,7 @@ public class WPBackGroundManager : MonoBehaviour
 
     public GameObject _baseObject;                      // baseobject. 인스펙터에서 초기화
 
+    private static float padddingY;
     /////////////////////////////////////////////////////////////////////////
     // Methods
 
@@ -28,10 +29,14 @@ public class WPBackGroundManager : MonoBehaviour
     /// </summary>
     private void InitValue()
     {
+        
         //스크린 사이즈 계산 - 월드 기준
         Vector3 screen2WorldSize = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
+
+        padddingY = screen2WorldSize.y/10;
+
         WPVariable.currentWorldSizeX = screen2WorldSize.x;
-        WPVariable.currentWorldSizeY = screen2WorldSize.y;
+        WPVariable.currentWorldSizeY = screen2WorldSize.y - padddingY;
 
     }
 
