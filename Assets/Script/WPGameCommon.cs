@@ -17,7 +17,10 @@ public class WPGameCommon : MonoBehaviour
     {
         this.InitValue();
     }
-
+    void Update()
+    {
+        
+    }
     /// <summary>
     /// GameCommon 에서 초기화되는 값들을 전달해준다.
     /// </summary>

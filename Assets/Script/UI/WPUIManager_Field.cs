@@ -57,7 +57,7 @@ public class WPUIManager_Field : WPUIManager {
     {
         if(wpField == null) // 이 경우 밭의 정보가 없는 것으로, 이 때 여기서 새로운 밭을 만들어 넘겨주어야 합니다.
         {
-            wpFieldCtrl.wpField = new WPField();
+            //wpFieldCtrl.wpField = new WPField();
         }
         else // 밭의 정보가 있습니다. 이 정보를 활용하여 UI로 표시합니다.
         {

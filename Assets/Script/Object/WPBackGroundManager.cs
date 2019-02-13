@@ -28,6 +28,12 @@ public class WPBackGroundManager : MonoBehaviour
     /// </summary>
     private void InitValue()
     {
+        //스크린 사이즈 계산 - 월드 기준
+        Vector3 screen2WorldSize = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
+        WPVariable.currentWorldSizeX = screen2WorldSize.x;
+        WPVariable.currentWorldSizeY = screen2WorldSize.y;
 
     }
+
+
 }

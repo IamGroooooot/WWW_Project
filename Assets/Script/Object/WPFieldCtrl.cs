@@ -7,14 +7,16 @@ public class WPFieldCtrl : WPActor
 {
     /////////////////////////////////////////////////////////////////////////
     // Varaibles
-    Sprite Empty, GreenOnion, Lettuce, Potato, SugarCane, Tabacco, Coffee, KaKao, Corn, Wheat, RicePlant, Barley, Cabbage;
-    int ratio = 2;
-    int GrownPercent=0;
+    private int ratio = 2;
+    private int GrownPercent=0;
+    private static string DATA_PATH = "Image/UI/Farm/";
+    private List<Sprite> seedSpriteData = new List<Sprite>();
 
-    Transform plantTrans;
+    Transform plantTrans;//현재 심어진 plant 
 
     public WPField wpField = null; // 밭의 정보를 저장하는 변수입니다.
 
+    
     /////////////////////////////////////////////////////////////////////////
     // Methods
 
@@ -34,27 +36,28 @@ public class WPFieldCtrl : WPActor
 
         //plant Transform
         plantTrans = FindSeed();
-        
 
         //Sprite가져오기
-        //getSprite();
-
-        //필드 데이터 가져오기
-
+        seedSpriteData = LoadSeedData();
         
+        //필드 데이터 가져오기
+        
+
         //심은 시기/현재 시간 차로 성장률 계산
         //GrownPercent = 0;
-        //30%->localScale Double Once
-        if(wpField.GetGrownPercent() < 30)
+        if (wpField != null)
         {
-            if(DoubleScale(null)==-1) WPGameCommon._WPDebug("지정된 작물 없음");
+            //30%->localScale Double Once
+            if (wpField.GetGrownPercent() >= 30)
+            {
+                if (DoubleScale(plantTrans) == -1) WPGameCommon._WPDebug("지정된 작물 없음");
+            }
+            //60%->localScale Double Once again
+            if (wpField.GetGrownPercent() >= 60)
+            {
+                if (DoubleScale(plantTrans) == -1) WPGameCommon._WPDebug("지정된 작물 없음");
+            }
         }
-        //60%->localScale Double Once again
-        if (wpField.GetGrownPercent() < 60)
-        {
-			if (DoubleScale(null) == -1) WPGameCommon._WPDebug("지정된 작물 없음");
-		}
-        
 
 
         //Sprite 설정하기 
@@ -95,26 +98,22 @@ public class WPFieldCtrl : WPActor
         }   
     }
 
-    private void getSprite()
+    private List<Sprite> LoadSeedData()
     {
-        Empty = Resources.Load<Sprite>("Image/null.png");
-        GreenOnion = Resources.Load<Sprite>("Image/UI/Farm/" + "GreenOnion");
-        Lettuce = Resources.Load<Sprite>("Image/UI/Farm/" + "Lettuce");
-        Potato = Resources.Load<Sprite>("Image/UI/Farm/" + "Potato");
-        SugarCane = Resources.Load<Sprite>("Image/UI/Farm/" + "SugarCane");
-        Tabacco = Resources.Load<Sprite>("Image/UI/Farm/" + "Tabacco");
-        Coffee = Resources.Load<Sprite>("Image/UI/Farm/" + "Coffee");
-        KaKao = Resources.Load<Sprite>("Image/UI/Farm/" + "KaKao");
-        Corn = Resources.Load<Sprite>("Image/UI/Farm/" + "Corn");
-        Wheat = Resources.Load<Sprite>("Image/UI/Farm/" + "Wheat");
-        RicePlant = Resources.Load<Sprite>("Image/UI/Farm/" + "RicePlant");
-        Barley = Resources.Load<Sprite>("Image/UI/Farm/" + "Barley");
-        Cabbage = Resources.Load<Sprite>("Image/UI/Farm/" + "Cabbage");
-
-        if(Empty || GreenOnion || Lettuce || Potato || SugarCane || Tabacco || Coffee || KaKao || Corn || Wheat || RicePlant || Barley || Cabbage)
+        List<Sprite> seedSpriteData = new List<Sprite>();
+        List<Dictionary<string, object>> seedData = WPGameDataManager.instance.GetData(WPEnum.GameData.eSeed);
+        for (int index = 0; index < seedData.Count; ++index)
         {
-            WPGameCommon._WPDebug("Field에서 Sprite 못 불어옴 ㅠ");        
+            string seedDataName = seedData[index]["eDataName"].ToString();
+            string seedDataPath = DATA_PATH + seedDataName.Substring(1);
+
+            Sprite seedSprite = Resources.Load<Sprite>(seedDataPath);
+            if (seedSprite != null)
+            {
+                seedSpriteData.Insert(index, seedSprite);
+            }
         }
+        return seedSpriteData;
     }
 
     //Plant Scale 2time at(30 60 100) 
