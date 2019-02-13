@@ -5,6 +5,7 @@ using UnityEngine;
 public class WPField
 {
 	List<Dictionary<string, object>> seedData = WPGameDataManager.instance.GetData(WPEnum.GameData.eSeed);
+
     int index;
 	string currentCrop;
     string startedTime;
@@ -80,7 +81,7 @@ public class WPField
 		float timePassed = TimeCompare(); //(단위는 Day로 할 것), 일단 임시로 10 넣어둠.
 		int targetID = Find_EID();
 
-		float Percent = timePassed / (float)(seedData[targetID][WPEnum.CSV_Index.eGrowthTime.ToString()]);
+		float Percent = timePassed / (float)(seedData[targetID]["eGrowthTime"]);
 
 		if (Percent > 100f)
 		{

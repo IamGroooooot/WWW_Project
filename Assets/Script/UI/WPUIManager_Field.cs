@@ -61,6 +61,7 @@ public class WPUIManager_Field : WPUIManager {
         {
             //현재 필드의 index저장
             int index = Convert.ToInt32(wpFieldCtrl.transform.name.Substring(5));
+
             wpFieldCtrl.wpField = new WPField(index,null,null,null,null,0);
             
         }

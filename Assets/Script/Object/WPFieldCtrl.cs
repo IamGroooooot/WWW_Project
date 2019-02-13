@@ -12,7 +12,7 @@ public class WPFieldCtrl : WPActor
     private int GrownPercent=0;
     private static string DATA_PATH = "Image/UI/Farm/";
     private List<Sprite> seedSpriteData = new List<Sprite>();
-    private int index;                                          //현재 밭의 인덱스
+    private int fieldIndex;                                          //현재 밭의 인덱스
     Transform plantTrans;//현재 심어진 plant 
 
     public WPField wpField = null; // 밭의 정보를 저장하는 변수입니다.
@@ -28,7 +28,7 @@ public class WPFieldCtrl : WPActor
         base.InitValue();
 
         //현재 밭의 인덱스 설정
-        index = Convert.ToInt32(this.transform.name.Substring(5));
+        fieldIndex = Convert.ToInt32(this.transform.name.Substring(5));
 
         // 무빙타입은 NONE.
         base.SetActorMoveType(WPEnum.ActorMoveType.eMoveNone);
@@ -81,7 +81,8 @@ public class WPFieldCtrl : WPActor
         // 작업 중 작물, 남은 시간, 일하는 일꾼, 비료, 일꾼 정보,비료 정보, 골드 표시
         if(wpField == null) // 밭이 비어 있습니다.
         {
-            WPUIManager_Field.instance.GetFieldData(null, this);
+            //여기가 문제 빨리 고쳐야 됨.
+            //WPUIManager_Field.instance.GetFieldData(null, this);
             yield return null; // OnMouseDown을 통한 입력에서 버튼이 바로 눌리는 문제가 있기에 1 프레임 대기
             WPUIManager_Field.instance.SetActive(true);
         }
