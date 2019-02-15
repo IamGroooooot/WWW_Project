@@ -79,6 +79,9 @@ public class WPDateTime_New {
         return t1.TimeData - t2.TimeData;
     }
 
+    public delegate void EventHandler(WPDateTime_New dateTime);
+    public event EventHandler OnValueChanged;
+
     private int timeData = -1;
     private int TimeData
     {
@@ -94,6 +97,7 @@ public class WPDateTime_New {
                 UpdateInstance(value);
             }
             timeData = value;
+            if (OnValueChanged != null) OnValueChanged(this);
         }
     }
 

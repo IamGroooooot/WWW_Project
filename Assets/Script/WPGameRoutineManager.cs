@@ -15,13 +15,7 @@ public class WPGameRoutineManager : MonoBehaviour {
 
     private void Awake()
     {
-        instance = this;
-    }
-
-    private void Start()
-    {
-        InitValue();
-        StartCoroutine(MainRoutine());
+        Init();
     }
 
     IEnumerator MainRoutine()
@@ -31,13 +25,21 @@ public class WPGameRoutineManager : MonoBehaviour {
         {
             yield return waitFiveSeconds;
             WPDateTime_New.Now.AddHour(1);
-            WPGameVariableManager.instance.SaveVariable(WPEnum.VariableType.eUserDate, WPDateTime_New.Now.ToData());
         }
     }
 
-    private void InitValue()
+    private void Init()
     {
-        WPDateTime.Init();
+        instance = this;
+
+        WPDateTime_New.Now.OnValueChanged += SaveTimeData;
+
+        StartCoroutine(MainRoutine());
+    }
+
+    private void SaveTimeData(WPDateTime_New content)
+    {
+        WPGameVariableManager.instance.SaveVariable(WPEnum.VariableType.eUserDate, content.ToData());
     }
 
 }

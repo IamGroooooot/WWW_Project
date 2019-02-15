@@ -35,7 +35,6 @@ public class WPDateTime {
                 wpDateTime.year++;
                 wpDateTime.month = 1;
             }
-            WPUIManager_Farm.instance.TimeUIUpdate();
         }
     }
     public static int Day
@@ -82,7 +81,6 @@ public class WPDateTime {
                     }
                     break;
             }
-            WPUIManager_Farm.instance.TimeUIUpdate();
         }
     }
     public static int Hour
@@ -101,7 +99,6 @@ public class WPDateTime {
                 wpDateTime.hour = 0;
                 Day++;
             }
-            WPUIManager_Farm.instance.TimeUIUpdate();
         }
     }
 

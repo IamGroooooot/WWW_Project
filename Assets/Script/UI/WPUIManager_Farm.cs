@@ -36,14 +36,12 @@ public class WPUIManager_Farm : WPUIManager
         AddNews("테스트 뉴스 2");
         AddNews("테스트 뉴스 33333333333333333 테스트 뉴스 33333333333333333");
 
-        TimeUIUpdate();
+        TimeUIUpdate(WPDateTime_New.Now);
+        WPDateTime_New.Now.OnValueChanged += TimeUIUpdate;
+        
         StartCoroutine(NewsRoutine());
     }
 
-    private void Update()
-    {
-        TimeUIUpdate();
-    }
 
     // News 버튼을 클릭했을 때 호출합니다.
     private void OnClick_News()
@@ -70,25 +68,13 @@ public class WPUIManager_Farm : WPUIManager
     }
 
     /// <summary>
-	/// Time UI를 WPDateTime으로 업데이트합니다.
+	/// Time UI를 content으로 업데이트합니다.
 	/// </summary>
-    public void TimeUIUpdate()
+    public void TimeUIUpdate(WPDateTime_New content)
     {
         if (timeText != null)
         {
-            timeText.text = WPDateTime_New.Now.ToString();
-        }
-    }
-
-    /// <summary>
-	/// Time UI를 content로 업데이트합니다.
-	/// </summary>
-	/// <param name="content"></param>
-    public void TimeUIUpdate(string content)
-    {
-        if (timeText != null)
-        {
-            timeText.text = content;
+            timeText.text = content.ToString();
         }
     }
 
