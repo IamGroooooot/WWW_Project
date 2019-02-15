@@ -30,7 +30,8 @@ public class WPGameRoutineManager : MonoBehaviour {
         for(; ; )
         {
             yield return waitFiveSeconds;
-            WPDateTime.Hour++;
+            WPDateTime_New.Now.AddHour(1);
+            WPGameVariableManager.instance.SaveVariable(WPEnum.VariableType.eUserDate, WPDateTime_New.Now.ToData());
         }
     }
 

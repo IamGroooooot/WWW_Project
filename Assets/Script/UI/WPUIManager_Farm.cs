@@ -40,6 +40,11 @@ public class WPUIManager_Farm : WPUIManager
         StartCoroutine(NewsRoutine());
     }
 
+    private void Update()
+    {
+        TimeUIUpdate();
+    }
+
     // News 버튼을 클릭했을 때 호출합니다.
     private void OnClick_News()
     {
@@ -71,7 +76,7 @@ public class WPUIManager_Farm : WPUIManager
     {
         if (timeText != null)
         {
-            timeText.text = WPDateTime.ToString();
+            timeText.text = WPDateTime_New.Now.ToString();
         }
     }
 
@@ -192,5 +197,26 @@ public class WPUIManager_Farm : WPUIManager
         newsContent.Clear();
         newsIndex = 0;
     }
+
+    public void AddHour()
+    {
+        WPDateTime_New.Now.AddHour(1);
+    }
+
+    public void AddMonth()
+    {
+        WPDateTime_New.Now.AddMonth(1);
+    }
+
+    public void AddDay()
+    {
+        WPDateTime_New.Now.AddDay(1);
+    }
+
+    public void AddYear()
+    {
+        WPDateTime_New.Now.AddYear(1);
+    }
+
 
 }
