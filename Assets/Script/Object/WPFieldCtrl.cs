@@ -87,18 +87,7 @@ public class WPFieldCtrl : WPActor
         {
             //WPGameCommon._WPDebug("밭 정보 만들어줌");
             WPUIManager_Field.instance.GetFieldData(null, this);
-
-            /* 디버깅 중 나중에 지워야됨
-            if (this.wpField == null)
-            {
-                WPGameCommon._WPDebug("왜 아직 널임 ㅂㄷㅂㄷ");
-            }
-            else
-            {
-                WPGameCommon._WPDebug("일단 여긴 제대로 됨"+wpField.seedIndex.ToString());
-            }
-            */
-
+            
             //WPGameCommon._WPDebug("생성된 밭 정보 체크| seedIndex : "+wpField.seedIndex.ToString()+"| WorkerIndex : "+ wpField.workerIndex.ToString() + "| StartedTime : "+wpField.startedTime.ToString());
             yield return null; // OnMouseDown을 통한 입력에서 버튼이 바로 눌리는 문제가 있기에 1 프레임 대기
             WPUIManager_Field.instance.SetActive(true);

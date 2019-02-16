@@ -63,7 +63,7 @@ public class WPUIManager_Field : WPUIManager {
             
             if(wpFieldCtrl.wpField != null)
             {
-                WPGameCommon._WPDebug("Empty Field 클라스 생성 성공");
+                //WPGameCommon._WPDebug("Empty Field 클라스 생성 성공");
             }
 
             button_Plant.gameObject.SetActive(true);
@@ -74,8 +74,9 @@ public class WPUIManager_Field : WPUIManager {
             button_Plant.gameObject.SetActive(false);
 
         }
+
         this.targetFieldCtrl = wpFieldCtrl;
-        this.targetField = wpField;
+        this.targetField = wpFieldCtrl.wpField;
     }
 
     /// <summary>
@@ -182,7 +183,6 @@ public class WPUIManager_Field : WPUIManager {
         if (targetField == null)
         {
             WPGameCommon._WPDebug("Target Field is null");
-            //왜 창을 한번 꺼야지 오류가 field instance가 생기는 걸까?
             return;
         }
         //target Field에 선택된 Seed 전달
@@ -202,7 +202,7 @@ public class WPUIManager_Field : WPUIManager {
             }
             else// 밭에 심은 작물이 없고 스크롤 바에서 식물 고르는 중인 경우
             {
-                WPGameCommon._WPDebug("Change Field Class Seed Index to " + seedIndex.ToString());
+                WPGameCommon._WPDebug("Change Field Class Seed Index " +targetField.seedIndex.ToString()+ " to " + seedIndex.ToString());
                 //SeedIndex 설한가 바꿈
                 targetField.seedIndex = seedIndex;
             }
