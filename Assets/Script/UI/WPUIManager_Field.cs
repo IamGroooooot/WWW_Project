@@ -9,8 +9,8 @@ public class WPUIManager_Field : WPUIManager {
     // Varaibles
     public static WPUIManager_Field instance = null;     // singleton
 
-    Sprite Empty, GreenOnion, Lettuce, Potato, SugarCane, Tabacco, Coffee, KaKao, Corn, Wheat, RicePlant, Barley, Cabbage;
-    //작업 중 작물, 남은 시간, 일하는 일꾼, 비료, 일꾼 정보,비료 정보, 골드 표시
+    // Sprite Empty, GreenOnion, Lettuce, Potato, SugarCane, Tabacco, Coffee, KaKao, Corn, Wheat, RicePlant, Barley, Cabbage;
+    // 작업 중 작물, 남은 시간, 일하는 일꾼, 비료, 일꾼 정보,비료 정보, 골드 표시
     
 
     private WPImageText imageText_Time;              // 예상 시간 UI
@@ -26,7 +26,7 @@ public class WPUIManager_Field : WPUIManager {
     private WPField targetField;                        
     private WPFieldCtrl targetFieldCtrl;                // 활용할 밭 객체
 
-    private string SelectedSeed;                        //선택한 식물
+    // private string SelectedSeed;                        //선택한 식물
     /////////////////////////////////////////////////////////////////////////
     // Methods
 
@@ -59,20 +59,14 @@ public class WPUIManager_Field : WPUIManager {
         
         if(wpField == null) // 이 경우 밭의 정보가 없는 것으로, 이 때 여기서 새로운 밭을 만들어 넘겨주어야 합니다.
         {
-            //현재 필드의 index저장
-            int index = Convert.ToInt32(wpFieldCtrl.transform.name.Substring(5));
-
-            wpFieldCtrl.wpField = new WPField(index,null,null,null,null,0);
-            
+            this.targetField = new WPField();
         }
-        else // 밭의 정보가 있습니다. 이 정보를 활용하여 UI로 표시합니다.
+        else                // 밭의 정보가 있습니다. 이 정보를 활용하여 UI로 표시합니다.
         {
-            
-        }
+            this.targetField = wpField;
 
-        // 타깃 설정
+        }
         this.targetFieldCtrl = wpFieldCtrl;
-        this.targetField = wpFieldCtrl.wpField;
     }
 
     /// <summary>

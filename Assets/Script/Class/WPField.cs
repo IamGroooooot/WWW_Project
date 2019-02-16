@@ -6,21 +6,23 @@ public class WPField
 {
 	List<Dictionary<string, object>> seedData = WPGameDataManager.instance.GetData(WPEnum.GameData.eSeed);
 
-    int index;
-	string currentCrop;
-    string startedTime;
-    string worker;
-    string fertilizer;
-    int gold;
+	int seedIndex;
+    int workerIndex;
+    int fertilizerIndex;
 
-    public WPField(int _index,string _currentCrop, string _startedTime, string _worker, string _fertilizer, int _gold)
+    WPDateTime startedTime;
+
+    public WPField()
     {
-        this.index=_index;
-        this.currentCrop = _currentCrop;
-        this.startedTime = _startedTime;
-        this.worker = _worker;
-        this.fertilizer = _fertilizer;
-        this.gold = _gold;
+
+    }
+
+    public WPField(int _seedIndex, int _workerIndex, int _fertilizerIndex, WPDateTime _startedTime)
+    {
+        seedIndex = _seedIndex;
+        workerIndex = _workerIndex;
+        fertilizerIndex = _fertilizerIndex;
+        startedTime = _startedTime;
     }
 
     /// <summary>
@@ -105,10 +107,11 @@ public class WPField
 			}
 
 			//타깃의 Name 이랑 Fieldz클라스의 currentCrop이랑 비교-이렇게 하는거 맞낭?
+            /*
 			if (string.Equals(seedData[targetID][WPEnum.CSV_Index.eName.ToString()].ToString(), currentCrop, System.StringComparison.CurrentCultureIgnoreCase))
 			{
 				return targetID;
-			}
+			}*/
 		}
 		return targetID;
 	}

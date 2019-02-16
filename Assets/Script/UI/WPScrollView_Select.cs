@@ -22,7 +22,7 @@ public class WPScrollView_Select : WPScrollView {
     protected override void Init()
     {
         base.Init();
-        ui_Item = Resources.Load<GameObject>("Prefab/UI/UI_Item");
+        ui_Item = WPResourceManager.instance.GetResource<GameObject>("Prefab/UI/UI_Item");
         selectionState = 0;
         seedSpriteData = LoadSeedData();
         workerSpriteData = LoadWorkerData();
@@ -44,20 +44,20 @@ public class WPScrollView_Select : WPScrollView {
 
     private List<Sprite> LoadSeedData()
     {
-        List<Sprite> seedSpriteData = new List<Sprite>();
+        List<Sprite> spriteData = new List<Sprite>();
         List<Dictionary<string, object>> seedData = WPGameDataManager.instance.GetData(WPEnum.GameData.eSeed);
         for (int index = 0; index < seedData.Count; ++index)
         {
             string seedDataName = seedData[index]["eDataName"].ToString();
             string seedDataPath = DATA_PATH + seedDataName.Substring(1);
-            //WPGameCommon._WPDebug(seedDataPath);
-            Sprite seedSprite = Resources.Load<Sprite>(seedDataPath);
+
+            Sprite seedSprite = WPResourceManager.instance.GetResource<Sprite>(seedDataPath);
             if (seedSprite != null)
             {
-                seedSpriteData.Insert(index, seedSprite);
+                spriteData.Insert(index, seedSprite);
             }
         }
-        return seedSpriteData;
+        return spriteData;
     }
 
     private List<Sprite> LoadWorkerData()

@@ -104,20 +104,20 @@ public class WPFieldCtrl : WPActor
 
     private List<Sprite> LoadSeedData()
     {
-        List<Sprite> seedSpriteData = new List<Sprite>();
+        List<Sprite> spriteData = new List<Sprite>();
         List<Dictionary<string, object>> seedData = WPGameDataManager.instance.GetData(WPEnum.GameData.eSeed);
         for (int index = 0; index < seedData.Count; ++index)
         {
             string seedDataName = seedData[index]["eDataName"].ToString();
             string seedDataPath = DATA_PATH + seedDataName.Substring(1);
 
-            Sprite seedSprite = Resources.Load<Sprite>(seedDataPath);
+            Sprite seedSprite = WPResourceManager.instance.GetResource<Sprite>(seedDataPath);
             if (seedSprite != null)
             {
-                seedSpriteData.Insert(index, seedSprite);
+                spriteData.Insert(index, seedSprite);
             }
         }
-        return seedSpriteData;
+        return spriteData;
     }
 
     //Plant Scale 2times at(30 60 100) 
