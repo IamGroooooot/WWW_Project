@@ -24,7 +24,7 @@ public class WPGameRoutineManager : MonoBehaviour {
         for(; ; )
         {
             yield return waitFiveSeconds;
-            WPDateTime_New.Now.AddHour(1);
+            WPDateTime.Now.AddHour(1);
         }
     }
 
@@ -32,12 +32,12 @@ public class WPGameRoutineManager : MonoBehaviour {
     {
         instance = this;
 
-        WPDateTime_New.Now.OnValueChanged += SaveTimeData;
+        WPDateTime.Now.OnValueChanged += SaveTimeData;
 
         StartCoroutine(MainRoutine());
     }
 
-    private void SaveTimeData(WPDateTime_New content)
+    private void SaveTimeData(WPDateTime content)
     {
         WPGameVariableManager.instance.SaveVariable(WPEnum.VariableType.eUserDate, content.ToData());
     }

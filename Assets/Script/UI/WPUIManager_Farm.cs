@@ -36,8 +36,8 @@ public class WPUIManager_Farm : WPUIManager
         AddNews("테스트 뉴스 2");
         AddNews("테스트 뉴스 33333333333333333 테스트 뉴스 33333333333333333");
 
-        TimeUIUpdate(WPDateTime_New.Now);
-        WPDateTime_New.Now.OnValueChanged += TimeUIUpdate;
+        TimeUIUpdate(WPDateTime.Now);
+        WPDateTime.Now.OnValueChanged += TimeUIUpdate;
         
         StartCoroutine(NewsRoutine());
     }
@@ -70,7 +70,7 @@ public class WPUIManager_Farm : WPUIManager
     /// <summary>
 	/// Time UI를 content으로 업데이트합니다.
 	/// </summary>
-    public void TimeUIUpdate(WPDateTime_New content)
+    public void TimeUIUpdate(WPDateTime content)
     {
         if (timeText != null)
         {
@@ -186,22 +186,22 @@ public class WPUIManager_Farm : WPUIManager
 
     public void AddHour()
     {
-        WPDateTime_New.Now.AddHour(1);
+        WPDateTime.Now.AddHour(1);
     }
 
     public void AddMonth()
     {
-        WPDateTime_New.Now.AddMonth(1);
+        WPDateTime.Now.AddMonth(1);
     }
 
     public void AddDay()
     {
-        WPDateTime_New.Now.AddDay(1);
+        WPDateTime.Now.AddDay(1);
     }
 
     public void AddYear()
     {
-        WPDateTime_New.Now.AddYear(1);
+        WPDateTime.Now.AddYear(1);
     }
 
 
