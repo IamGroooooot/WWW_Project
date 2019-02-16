@@ -11,7 +11,8 @@ public class WPFieldCtrl : WPActor
     private int ratio = 2;
     private int GrownPercent=0;
     private static string DATA_PATH = "Image/UI/Farm/";
-    private List<Sprite> seedSpriteData = new List<Sprite>();
+    private static List<Dictionary<string, object>> seedData;
+
     private int fieldIndex;                                          //현재 밭의 인덱스
     Transform plantTrans;//현재 심어진 plant 
 
@@ -27,6 +28,9 @@ public class WPFieldCtrl : WPActor
     {
         base.InitValue();
 
+        // static data의 설정
+        if(seedData == null) seedData = WPGameDataManager.instance.GetData(WPEnum.GameData.eSeed);
+
         //현재 밭의 인덱스 설정
         fieldIndex = Convert.ToInt32(this.transform.name.Substring(5));
 
@@ -38,9 +42,6 @@ public class WPFieldCtrl : WPActor
 
         //plant Transform
         plantTrans = FindSeed();
-
-        //Sprite가져오기
-        seedSpriteData = LoadSeedData();
         
         //필드 데이터 가져오기
         //비어있으면 필드에 널
@@ -61,7 +62,13 @@ public class WPFieldCtrl : WPActor
                 if (DoubleScale(plantTrans) == -1) WPGameCommon._WPDebug("지정된 작물 없음");
             }
         }
+        // wpField의 seedIndex에 따른 sprite를 가져오는 방법입니다.
+        /*
+        string seedDataName = seedData[wpField.seedIndex]["eDataName"].ToString();
+        string seedDataPath = DATA_PATH + seedDataName.Substring(1);
 
+        Sprite seedSprite = WPResourceManager.instance.GetResource<Sprite>(seedDataPath);
+        */
 
         //Sprite 설정하기 
         //this.GetComponent<SpriteRenderer>().sprite = Empty;
@@ -71,7 +78,6 @@ public class WPFieldCtrl : WPActor
     {
         //밭 작업 중 창
         if (EventSystem.current.IsPointerOverGameObject()) return; // UI를 통과해 클릭하는 것을 방지
-
         StartCoroutine(OpenUI()); 
     }
 
@@ -82,13 +88,13 @@ public class WPFieldCtrl : WPActor
         if(wpField == null) // 밭이 비어 있습니다.
         {
             //여기가 문제 빨리 고쳐야 됨.
-            //WPUIManager_Field.instance.GetFieldData(null, this);
+            WPUIManager_Field.instance.GetFieldData(null, this);
             yield return null; // OnMouseDown을 통한 입력에서 버튼이 바로 눌리는 문제가 있기에 1 프레임 대기
             WPUIManager_Field.instance.SetActive(true);
         }
         else
         {
-            if (wpField.CheckIfCompleted()) // 작물이 완성되었습니다.
+            if (wpField.IsCompleted) // 작물이 완성되었습니다.
             {
                 // 보상 획득하는 코드 짤 것.
                 wpField.CheckGold();
@@ -100,24 +106,6 @@ public class WPFieldCtrl : WPActor
                 WPUIManager_Field.instance.SetActive(true);
             }
         }   
-    }
-
-    private List<Sprite> LoadSeedData()
-    {
-        List<Sprite> spriteData = new List<Sprite>();
-        List<Dictionary<string, object>> seedData = WPGameDataManager.instance.GetData(WPEnum.GameData.eSeed);
-        for (int index = 0; index < seedData.Count; ++index)
-        {
-            string seedDataName = seedData[index]["eDataName"].ToString();
-            string seedDataPath = DATA_PATH + seedDataName.Substring(1);
-
-            Sprite seedSprite = WPResourceManager.instance.GetResource<Sprite>(seedDataPath);
-            if (seedSprite != null)
-            {
-                spriteData.Insert(index, seedSprite);
-            }
-        }
-        return spriteData;
     }
 
     //Plant Scale 2times at(30 60 100) 

@@ -9,7 +9,6 @@ public class WPUIManager_Field : WPUIManager {
     // Varaibles
     public static WPUIManager_Field instance = null;     // singleton
 
-    // Sprite Empty, GreenOnion, Lettuce, Potato, SugarCane, Tabacco, Coffee, KaKao, Corn, Wheat, RicePlant, Barley, Cabbage;
     // 작업 중 작물, 남은 시간, 일하는 일꾼, 비료, 일꾼 정보,비료 정보, 골드 표시
     
 
@@ -56,14 +55,14 @@ public class WPUIManager_Field : WPUIManager {
 
     public void GetFieldData(WPField wpField, WPFieldCtrl wpFieldCtrl)
     {
-        
         if(wpField == null) // 이 경우 밭의 정보가 없는 것으로, 이 때 여기서 새로운 밭을 만들어 넘겨주어야 합니다.
         {
-            this.targetField = new WPField();
+            button_Plant.gameObject.SetActive(true);
         }
         else                // 밭의 정보가 있습니다. 이 정보를 활용하여 UI로 표시합니다.
         {
             this.targetField = wpField;
+            button_Plant.gameObject.SetActive(false);
 
         }
         this.targetFieldCtrl = wpFieldCtrl;
@@ -101,6 +100,7 @@ public class WPUIManager_Field : WPUIManager {
     // Plant 버튼을 클릭했을 때 호출합니다.
     public void OnClick_Plant()
     {
+        if (targetField != null) return;
         WPGameCommon._WPDebug("식물심기를 선택");
         int seedIndex = scrollView_Select.seedIndex;
         int workerIndex = scrollView_Select.workerIndex;
@@ -121,7 +121,12 @@ public class WPUIManager_Field : WPUIManager {
             }
             noticeString += "을(를) 선택하지 않았습니다!";
             WPUIManager_Toast.instance.MakeToast(noticeString, 3f);
+            return;
         }
+        // 모두 선택하였다면 새로운 객체를 생성하여 넘겨준다. targetField는 필요하지 않을수도?
+        targetField = new WPField(seedIndex, workerIndex, fertilizerIndex, WPDateTime.ParseData(WPDateTime.Now.ToData()));
+        targetFieldCtrl.SetFieldData(targetField);
+        SetActive(false);
     }
 
     // Worker 버튼을 클릭했을 때 호출합니다.
@@ -169,12 +174,16 @@ public class WPUIManager_Field : WPUIManager {
     {
         if (param)
         {
+            WPVariable.deltaTime_WPDateTime = 0f;
             SetSprite_Seed();
             scrollView_Select.OnEnabled();
             scrollView_Select.CreateSeedList();
         }
         else
         {
+            WPVariable.deltaTime_WPDateTime = 1f;
+            targetField = null;
+            targetFieldCtrl = null;
             scrollView_Select.OnDisabled();
         }
         base.SetActive(param);

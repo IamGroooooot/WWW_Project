@@ -23,8 +23,9 @@ public class WPGameRoutineManager : MonoBehaviour {
         WaitForSeconds waitFiveSeconds = new WaitForSeconds(5f);
         for(; ; )
         {
-            yield return waitFiveSeconds;
-            WPDateTime.Now.AddHour(1);
+            if (WPVariable.deltaTime_WPDateTime > 0) yield return waitFiveSeconds;
+            else yield return null;
+            if (WPVariable.deltaTime_WPDateTime > 0) WPDateTime.Now.AddHour(1);
         }
     }
 
