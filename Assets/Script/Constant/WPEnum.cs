@@ -37,6 +37,7 @@ public class WPEnum {
         eCabbage,       //배추
     }
 
+
     public enum CSV_Index
     {
         eID,
@@ -200,4 +201,13 @@ public class WPEnum {
 		eCropMastered,					//작물 마스터
 	}
 	///////////////////////////////////////////////////////////////////////////
+    public enum Field_Position
+    {
+        eField0,
+        eField1,
+        eField2,
+        eField3,
+        eField4,
+        eField5,
+    }
 }

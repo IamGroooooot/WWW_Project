@@ -57,6 +57,9 @@ public class WPUIManager_Field : WPUIManager {
     {
         if(wpField == null) // 이 경우 밭의 정보가 없는 것으로, 이 때 여기서 새로운 밭을 만들어 넘겨주어야 합니다.
         {
+            //Empty Field를 넘겨줌
+            wpFieldCtrl.wpField = new WPField();
+            
             button_Plant.gameObject.SetActive(true);
         }
         else                // 밭의 정보가 있습니다. 이 정보를 활용하여 UI로 표시합니다.
@@ -66,6 +69,7 @@ public class WPUIManager_Field : WPUIManager {
 
         }
         this.targetFieldCtrl = wpFieldCtrl;
+        this.targetField = wpField;
     }
 
     /// <summary>
@@ -164,8 +168,29 @@ public class WPUIManager_Field : WPUIManager {
         seedImage.color = new Color(1, 1, 1, 1);
         seedImage.sprite = content;
         seedImage.transform.Find("Text").gameObject.SetActive(false);
+        
     }
-
+    
+    public void SetIndex_Seed(int seedIndex)
+    {
+        if (targetField == null)
+        {
+            WPGameCommon._WPDebug("Target Field is null");
+            return;
+        }
+        //target Field에 선택된 Seed 전달
+        if (targetField.seedIndex == -1)
+        {
+            WPGameCommon._WPDebug("Set Field Class Seed Index to " + seedIndex.ToString());
+            //밭 클래스가 비어있음, SeedIndex 설정하셈
+            targetField.seedIndex = seedIndex;
+        }
+        else
+        {
+            WPGameCommon._WPDebug("밭에 식물이 있는데 식물을 설정하려고 함.");
+            return;
+        }
+    }
     /// <summary>
     /// UI를 화면에 param 값에 따라 표시합니다.
     /// </summary>

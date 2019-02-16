@@ -47,8 +47,6 @@ public class WPFieldCtrl : WPActor
         //비어있으면 필드에 널
         //있으면 필드에 해당wpField넣기
 
-        //심은 시기/현재 시간 차로 성장률 계산
-        //GrownPercent = 0;
         if (wpField != null)
         {
             //30%->localScale Double Once

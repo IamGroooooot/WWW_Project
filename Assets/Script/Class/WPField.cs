@@ -8,9 +8,9 @@ public class WPField
     // 모든 객체에서 접근하는 데이터는 static으로 합시다.
 	private static List<Dictionary<string, object>> seedData = WPGameDataManager.instance.GetData(WPEnum.GameData.eSeed);
 
-	public int seedIndex { get; private set; }
-    public int workerIndex { get; private set; }
-    public int fertilizerIndex { get; private set; }
+	public int seedIndex { get; set; }
+    public int workerIndex { get; set; }
+    public int fertilizerIndex { get; set; }
     WPDateTime startedTime;
 
     /// <summary>
@@ -21,13 +21,25 @@ public class WPField
     {
         get
         {
-            return GetGrownPercent() >= 0.6f;
+            //GetGrownPecent못구하면 false 반환
+            if ((int)GetGrownPercent() == (int)-1)
+            {
+                return false;
+            }
+            else
+            {
+                return GetGrownPercent() >= 0.6f;
+            }
         }
     }
 
     public WPField()
     {
-
+        //Empty Field
+        seedIndex = -1;
+        workerIndex = -1;
+        fertilizerIndex = -1;
+        startedTime = null;
     }
 
     public WPField(int _seedIndex, int _workerIndex, int _fertilizerIndex, WPDateTime _startedTime)
@@ -49,7 +61,7 @@ public class WPField
         //불변 값 + 가변값
         //gold에 비료나 날씨에 의한 버프 넣은 후 
         //마직막에 불변값 계산해서 넣기
-        int gold = Convert.ToInt32(seedData[seedIndex]["eComparePrice"]);
+        int comparePrice = Convert.ToInt32(seedData[seedIndex]["eComparePrice"]);
         return 0;
     }
 
@@ -60,12 +72,54 @@ public class WPField
 
         //심은 일 수 
 
-		float percent = 
+        //WPDateTime.Compare못하는 경우
+        if ((int)WPDateTime.CompareTime(WPDateTime.Now, startedTime) == (int)-1)
+        {
+            return -1f;
+        }
+
+
+        float percent = 
             WPDateTime.CompareTime(WPDateTime.Now, startedTime) /
             (Convert.ToInt32(seedData[seedIndex]["eGrowthTime"]) * 24);
 
-        if (percent > 1f) percent = 1f;
+        if (percent > 1f)
+        {
+            percent = 1f;
+        }
 
         return percent;
 	}
+
+    public static Vector2 FieldPos(WPEnum.Field_Position field)
+    {
+        if (field == WPEnum.Field_Position.eField0)
+        {
+            return new Vector2(-WPVariable.currentWorldSizeX / 2, (WPVariable.currentWorldSizeY / 4));
+        }
+        else if (field == WPEnum.Field_Position.eField1)
+        {
+            return new Vector2(WPVariable.currentWorldSizeX / 2, (WPVariable.currentWorldSizeY / 4));
+        }
+        else if (field == WPEnum.Field_Position.eField2)
+        {
+            return new Vector2(-WPVariable.currentWorldSizeX / 2, (-WPVariable.currentWorldSizeY / 4));
+        }
+        else if (field == WPEnum.Field_Position.eField3)
+        {
+            return new Vector2(WPVariable.currentWorldSizeX / 2, (-WPVariable.currentWorldSizeY / 4));
+        }
+        else if (field == WPEnum.Field_Position.eField4)
+        {
+            return new Vector2(-WPVariable.currentWorldSizeX / 2, ((-3f) * WPVariable.currentWorldSizeY / 4));
+        }
+        else if (field == WPEnum.Field_Position.eField5)
+        {
+            return new Vector2(WPVariable.currentWorldSizeX / 2, ((-3f) * WPVariable.currentWorldSizeY / 4));
+        }
+        else
+        {
+            return new Vector2(10000, 10000);
+        }
+    }
 }

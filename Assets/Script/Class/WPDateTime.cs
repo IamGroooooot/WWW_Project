@@ -76,6 +76,11 @@ public class WPDateTime {
     // 두 WPTimeData 객체가 가리키는 시간의 차이를 비교합니다. t1에 현재 시간을 가리키는 객체를 넣고, t2에 어떤 시점을 가리키는 객체를 넣으면 어떤 시점으로부터 얼마나 시간이 지났는지 그 값을 얻을 수 있습니다.
     public static int CompareTime(WPDateTime t1, WPDateTime t2)
     {
+        if(t1==null || t2 == null)
+        {
+            WPGameCommon._WPDebug("TimeData is missing");
+            return -1;
+        }
         return t1.TimeData - t2.TimeData;
     }
 
