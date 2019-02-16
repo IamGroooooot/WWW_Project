@@ -11,7 +11,8 @@ public class WPField
 	public int seedIndex { get; set; }
     public int workerIndex { get; set; }
     public int fertilizerIndex { get; set; }
-    WPDateTime startedTime;
+    //디버깅 용으로 public으로 만듬 디버깅이 끝나고 private으로 만들 것
+    public WPDateTime startedTime;
 
     /// <summary>
     /// 이 밭의 작물이 완성되었는지 확인합니다.

@@ -57,9 +57,15 @@ public class WPUIManager_Field : WPUIManager {
     {
         if(wpField == null) // 이 경우 밭의 정보가 없는 것으로, 이 때 여기서 새로운 밭을 만들어 넘겨주어야 합니다.
         {
+            
             //Empty Field를 넘겨줌
             wpFieldCtrl.wpField = new WPField();
             
+            if(wpFieldCtrl.wpField != null)
+            {
+                WPGameCommon._WPDebug("Empty Field 클라스 생성 성공");
+            }
+
             button_Plant.gameObject.SetActive(true);
         }
         else                // 밭의 정보가 있습니다. 이 정보를 활용하여 UI로 표시합니다.
@@ -176,19 +182,30 @@ public class WPUIManager_Field : WPUIManager {
         if (targetField == null)
         {
             WPGameCommon._WPDebug("Target Field is null");
+            //왜 창을 한번 꺼야지 오류가 field instance가 생기는 걸까?
             return;
         }
         //target Field에 선택된 Seed 전달
         if (targetField.seedIndex == -1)
         {
             WPGameCommon._WPDebug("Set Field Class Seed Index to " + seedIndex.ToString());
-            //밭 클래스가 비어있음, SeedIndex 설정하셈
+            //SeedIndex 설정
             targetField.seedIndex = seedIndex;
         }
         else
         {
-            WPGameCommon._WPDebug("밭에 식물이 있는데 식물을 설정하려고 함.");
-            return;
+            //밭에 심은 작물이 있는 경우
+            if (targetField.startedTime != null)
+            {
+                WPGameCommon._WPDebug("밭에 식물이 있는데 식물을 설정하려고 함.");
+                return;
+            }
+            else// 밭에 심은 작물이 없고 스크롤 바에서 식물 고르는 중인 경우
+            {
+                WPGameCommon._WPDebug("Change Field Class Seed Index to " + seedIndex.ToString());
+                //SeedIndex 설한가 바꿈
+                targetField.seedIndex = seedIndex;
+            }
         }
     }
     /// <summary>
