@@ -8,11 +8,29 @@ public class WPField
     // 모든 객체에서 접근하는 데이터는 static으로 합시다.
 	private static List<Dictionary<string, object>> seedData = WPGameDataManager.instance.GetData(WPEnum.GameData.eSeed);
 
-	public int seedIndex { get; set; }
-    public int workerIndex { get; set; }
-    public int fertilizerIndex { get; set; }
-    //디버깅 용으로 public으로 만듬 디버깅이 끝나고 private으로 만들 것
-    public WPDateTime startedTime;
+	public int seedIndex { get; private set; }
+    public int workerIndex { get; private set; }
+    public int fertilizerIndex { get; private set; }
+
+    public WPDateTime startedTime { get; private set; }
+
+    public static WPField ParseData(string data)
+    {
+        // split String
+        string[] data_1 = data.Split('(');
+        // simple integrity check
+        if (data_1[0] != "WPField") return new WPField();
+
+        string[] dataString = data_1[1].Replace(")", "").Split(':');
+
+        int seed = System.Convert.ToInt32(dataString[0]);
+        int worker = System.Convert.ToInt32(dataString[1]);
+        int fertilizer = System.Convert.ToInt32(dataString[2]);
+
+        WPDateTime time = WPDateTime.ParseData(dataString[3]);
+
+        return new WPField(seed, worker, fertilizer, time);
+    }
 
     /// <summary>
     /// 이 밭의 작물이 완성되었는지 확인합니다.
@@ -49,6 +67,11 @@ public class WPField
         workerIndex = _workerIndex;
         fertilizerIndex = _fertilizerIndex;
         startedTime = _startedTime;
+    }
+
+    public string ToData()
+    {
+        return string.Format("WPField({0}:{1}:{2}:{3})", seedIndex, workerIndex, fertilizerIndex, startedTime.ToData());
     }
 
     /// <summary>
