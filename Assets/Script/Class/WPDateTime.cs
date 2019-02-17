@@ -197,6 +197,13 @@ public class WPDateTime {
         return string.Format("WPDateTime({0}:{1}:{2}:{3})", Year, Month, Day, Hour);
     }
 
+    public WPDateTime AddTimeData(int timeData)
+    {
+        WPDateTime newDateTime = new WPDateTime();
+        newDateTime.TimeData = TimeData + timeData;
+        return newDateTime;
+    }
+
     // 윤년의 2월 29일에서 1년을 더하면 3월 1일이 되어야 할까요, 2월 28일이 되어야 할까요?
     public void AddYear(int content)
     {

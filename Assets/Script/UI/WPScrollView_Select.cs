@@ -73,7 +73,13 @@ public class WPScrollView_Select : WPScrollView {
     //식물 눌렀을 때
     public void OnClick_Seed(int index)
     {
-        WPGameCommon._WPDebug(WPGameDataManager.instance.GetData(WPEnum.GameData.eSeed)[index]["eName"] + "을(를) 선택하였습니다.");
+        Dictionary<string, object> seedData = WPGameDataManager.instance.GetData(WPEnum.GameData.eSeed)[index];
+        WPGameCommon._WPDebug(seedData["eName"] + "을(를) 선택하였습니다.");
+        WPUIManager_Field.instance.SetText_Time(
+            WPDateTime.Now.AddTimeData(Convert.ToInt32(seedData["eGrowthTime"]) * 24
+            ).ToString());
+        WPUIManager_Field.instance.SetText_Money(
+            Convert.ToInt32(seedData["eComparePrice"]).ToString());
         WPUIManager_Field.instance.SetSprite_Seed(seedSpriteData[index]);
         seedIndex = index;
     }

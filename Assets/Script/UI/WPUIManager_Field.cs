@@ -201,6 +201,8 @@ public class WPUIManager_Field : WPUIManager {
             WPVariable.deltaTime_WPDateTime = 1f;
             targetField = null;
             targetFieldCtrl = null;
+            SetText_Time("예상 시간");
+            SetText_Money("예상 금액");
             scrollView_Select.OnDisabled();
         }
         base.SetActive(param);
