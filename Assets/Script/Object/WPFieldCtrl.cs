@@ -12,6 +12,7 @@ public class WPFieldCtrl : WPActor
     private static List<Dictionary<string, object>> seedData;
 
     private int fieldIndex;                                         // 현재 밭의 인덱스
+    private WPEnum.VariableType fieldKey;                           // 데이터 저장을 위한 현재 밭의 키값
     private Transform transform_Seed;                               // Seed 표현을 위한 Transform
     private IEnumerator growRoutine;                                // Seed 표현을 위한 IEnumerator
 
@@ -41,35 +42,15 @@ public class WPFieldCtrl : WPActor
 
         transform_Seed = transform.Find("Seed");
 
-        //필드 데이터 가져오기
-        //비어있으면 필드에 널
-        //있으면 필드에 해당wpField넣기
-        /*
-        if (wpField != null)
-        {
-            //30%->localScale Double Once
-            if (wpField.GetGrownPercent() >= 30)
-            {
-                if (DoubleScale(plantTrans) == -1) WPGameCommon._WPDebug("지정된 작물 없음");
-            }
-            //60%->localScale Double Once again
-            if (wpField.GetGrownPercent() >= 60)
-            {
-                if (DoubleScale(plantTrans) == -1) WPGameCommon._WPDebug("지정된 작물 없음");
-            }
-        }
-        */
+        fieldKey = (WPEnum.VariableType)System.Enum.Parse(typeof(WPEnum.VariableType), "eField" + fieldIndex.ToString());
 
-        // wpField의 seedIndex에 따른 sprite를 가져오는 방법입니다.
-        /*
-        string seedDataName = seedData[wpField.seedIndex]["eDataName"].ToString();
-        string seedDataPath = DATA_PATH + seedDataName.Substring(1);
+        string data = WPGameVariableManager.instance.LoadStringVariable(fieldKey);
 
-        Sprite seedSprite = WPResourceManager.instance.GetResource<Sprite>(seedDataPath);
-        */
+        if (string.IsNullOrEmpty(data))
+            SetFieldData(null);
+        else
+            SetFieldData(WPField.ParseData(data));
 
-        //Sprite 설정하기 
-        //this.GetComponent<SpriteRenderer>().sprite = Empty;
     }
 
     private void OnMouseDown()
@@ -135,16 +116,22 @@ public class WPFieldCtrl : WPActor
             if (growRoutine != null) StopCoroutine(growRoutine);
             SetSprite(null);
             wpField = null;
+            WPGameVariableManager.instance.SaveVariable(fieldKey, "");
             return;
         }
+
         wpField = _wpField;
-        growRoutine = GrowRoutine();
-        StartCoroutine(growRoutine);
+
+        if (wpField != null)
+        {
+            growRoutine = GrowRoutine();
+            StartCoroutine(growRoutine);
+            WPGameVariableManager.instance.SaveVariable(fieldKey, wpField.ToData());
+        }
     }
 
     private IEnumerator GrowRoutine()
     {
-        yield return new WaitUntil(() => wpField != null);
 
         string seedDataName = seedData[wpField.seedIndex]["eDataName"].ToString();
         string seedDataPath = DATA_PATH + seedDataName.Substring(1);

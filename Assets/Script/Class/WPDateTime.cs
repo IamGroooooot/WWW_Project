@@ -15,9 +15,9 @@ public class WPDateTime {
                 string data = WPGameVariableManager.instance.LoadStringVariable(WPEnum.VariableType.eUserDate);
                 if (string.IsNullOrEmpty(data))
                 {
-                    now = new WPDateTime();
+                    now = new WPDateTime((int)WPEnum.InitialDate.eInitYear, (int)WPEnum.InitialDate.eInitMonth, (int)WPEnum.InitialDate.eInitDay, (int)WPEnum.InitialDate.eInitHour);
                 }
-                now = ParseData(data);
+                else now = ParseData(data);
             }
             return now;
         }

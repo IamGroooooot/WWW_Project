@@ -17,11 +17,11 @@ public class WPField
     public static WPField ParseData(string data)
     {
         // split String
-        string[] data_1 = data.Split('(');
+        string[] data_1 = data.Split("(".ToCharArray(), 2);
         // simple integrity check
         if (data_1[0] != "WPField") return new WPField();
 
-        string[] dataString = data_1[1].Replace(")", "").Split(':');
+        string[] dataString = data_1[1].Substring(0, data_1[1].Length).Split(":".ToCharArray(), 4);
 
         int seed = System.Convert.ToInt32(dataString[0]);
         int worker = System.Convert.ToInt32(dataString[1]);
