@@ -81,7 +81,7 @@ public class WPField
 
 
         float percent = 
-            WPDateTime.CompareTime(WPDateTime.Now, startedTime) /
+            (float)WPDateTime.CompareTime(WPDateTime.Now, startedTime) /
             (Convert.ToInt32(seedData[seedIndex]["eGrowthTime"]) * 24);
 
         if (percent > 1f)

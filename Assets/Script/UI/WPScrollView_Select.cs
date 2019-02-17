@@ -75,9 +75,7 @@ public class WPScrollView_Select : WPScrollView {
     {
         WPGameCommon._WPDebug(WPGameDataManager.instance.GetData(WPEnum.GameData.eSeed)[index]["eName"] + "을(를) 선택하였습니다.");
         WPUIManager_Field.instance.SetSprite_Seed(seedSpriteData[index]);
-        WPUIManager_Field.instance.SetIndex_Seed(index);
         seedIndex = index;
-
     }
 
     public void OnClick_Worker(int index)

@@ -9,7 +9,6 @@ public class WPUIManager : MonoBehaviour
 {
     /////////////////////////////////////////////////////////////////////////
     // Varaibles
-    private static Vector2 HIDEPOSITION = new Vector2(10000, 0);
 
 
     /////////////////////////////////////////////////////////////////////////
@@ -34,13 +33,6 @@ public class WPUIManager : MonoBehaviour
     /// <param name="param"></param>
     public virtual void SetActive(bool param)
     {
-        if (param)
-        {
-            transform.localPosition = Vector2.zero;
-        }
-        else
-        {
-            transform.localPosition = HIDEPOSITION;
-        }
+        gameObject.SetActive(param);
     }
 }

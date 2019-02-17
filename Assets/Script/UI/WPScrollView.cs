@@ -54,6 +54,7 @@ public class WPScrollView : MonoBehaviour {
             contentWidth += item.GetWidth();
         }
         content.sizeDelta = new Vector2(contentWidth, content.sizeDelta.y);
+        content.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, content.rect.width);
         scrollView.StopMovement();
     }
 
