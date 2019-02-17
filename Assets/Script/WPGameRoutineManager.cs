@@ -20,12 +20,26 @@ public class WPGameRoutineManager : MonoBehaviour {
 
     IEnumerator MainRoutine()
     {
-        WaitForSeconds waitFiveSeconds = new WaitForSeconds(5f);
+        float timeCounter = 0f;
+        WaitUntil waitUntil = new WaitUntil(() => WPVariable.deltaTime_WPDateTime > 0);
         for(; ; )
         {
-            if (WPVariable.deltaTime_WPDateTime > 0) yield return waitFiveSeconds;
-            else yield return null;
-            if (WPVariable.deltaTime_WPDateTime > 0) WPDateTime.Now.AddHour(1);
+            if (WPVariable.deltaTime_WPDateTime > 0)
+            {
+                timeCounter += Time.deltaTime;
+                yield return null;
+            }
+            else
+            {
+                timeCounter = 0f;
+                yield return waitUntil;
+            }
+
+            if (timeCounter >= 5f)
+            {
+                WPDateTime.Now.AddHour(1);
+                timeCounter = 0f;
+            }
         }
     }
 
