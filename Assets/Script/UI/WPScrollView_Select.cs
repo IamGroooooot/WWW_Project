@@ -29,17 +29,13 @@ public class WPScrollView_Select : WPScrollView {
         fertilizerSpriteData = LoadFertilizerData();
     }
 
-    public void OnEnabled()
+    protected override void OnEnabled()
     {
         seedIndex = -1;
         workerIndex = -1;
         fertilizerIndex = -1;
         selectionState = 0;
-    }
-
-    public void OnDisabled()
-    {
-        ClearList();
+        CreateSeedList();
     }
 
     private List<Sprite> LoadSeedData()

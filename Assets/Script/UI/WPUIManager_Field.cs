@@ -18,7 +18,7 @@ public class WPUIManager_Field : WPUIManager {
     private WPScrollView_Select scrollView_Select;               // 일꾼, 비료, 식물을 선택하는 데 필요한 스크롤 뷰
 
     private Button button_Seed;                         // 식물 선택 버튼
-    private Button button_Plant;                        // 식물 심기 버튼 ( 식물을 선택하지 않으면 비활성화? )
+    private Button button_Action;                       // 뭔갈 하는 버튼
     private Button button_Worker;                       // 일꾼 선택 버튼
     private Button button_Fertilizer;                   // 비료 선택 버튼
 
@@ -40,13 +40,13 @@ public class WPUIManager_Field : WPUIManager {
         scrollView_Select = this.transform.Find("ScrollView_Select").GetComponent<WPScrollView_Select>();
 
         button_Seed = this.transform.Find("Button_Seed").GetComponent<Button>();
-        button_Plant = this.transform.Find("Button_Plant").GetComponent<Button>();
+        button_Action = this.transform.Find("Button_Action").GetComponent<Button>();
         button_Worker = this.transform.Find("Button_Worker").GetComponent<Button>();
         button_Fertilizer = this.transform.Find("Button_Fertilizer").GetComponent<Button>();
 
         this.transform.Find("Button_Close").GetComponent<Button>().onClick.AddListener(OnClick_Close);
         button_Seed.onClick.AddListener(OnClick_Seed);
-        button_Plant.onClick.AddListener(OnClick_Plant);
+        button_Action.onClick.AddListener(OnClick_Action);
         button_Worker.onClick.AddListener(OnClick_Worker);
         button_Fertilizer.onClick.AddListener(OnClick_Fertilizer);
 
@@ -65,12 +65,37 @@ public class WPUIManager_Field : WPUIManager {
     {
         if(wpField == null) // 이 경우 밭의 정보가 없는 것으로, 이 때 여기서 새로운 밭을 만들어 넘겨주어야 합니다.
         {
-            button_Plant.gameObject.SetActive(true);
+            Text text = button_Action.GetComponentInChildren<Text>();
+            if (text != null) text.text = "심기";
+
+            button_Seed.interactable = true;
+
+            SetSprite_Seed();
+            scrollView_Select.SetActive(true);
         }
         else                // 밭의 정보가 있습니다. 이 정보를 활용하여 UI로 표시합니다.
         {
+            Text text = button_Action.GetComponentInChildren<Text>();
+            if (text != null) text.text = "엎기";
+
+            Dictionary<string, object> seedData = WPGameDataManager.instance.GetData(WPEnum.GameData.eSeed)[wpField.seedIndex];
+
+            SetText_Time(string.Format("{0:f2}% 자람", (wpField.GetGrownPercent() * 100f)));
+            instance.SetText_Money(
+                Convert.ToInt32(seedData["eComparePrice"]).ToString());
+
+            string seedDataName = seedData["eDataName"].ToString();
+            string seedDataPath = "Image/UI/Farm/" + seedDataName.Substring(1);
+
+            Sprite seedSprite = WPResourceManager.instance.GetResource<Sprite>(seedDataPath);
+
+            SetSprite_Seed(seedSprite);
+
+            button_Seed.interactable = false;
+
+            scrollView_Select.SetActive(false);
+
             this.targetField = wpField;
-            button_Plant.gameObject.SetActive(false);
         }
         this.targetFieldCtrl = wpFieldCtrl;
     }
@@ -104,45 +129,53 @@ public class WPUIManager_Field : WPUIManager {
         //SelectedSeed = "Potato";
     }
 
-    // Plant 버튼을 클릭했을 때 호출합니다.
-    public void OnClick_Plant()
+    // Action 버튼을 클릭했을 때 호출합니다.
+    public void OnClick_Action()
     {
-        if (targetField != null) return;
-        WPGameCommon._WPDebug("식물심기를 선택");
-        int seedIndex = scrollView_Select.seedIndex;
-        int workerIndex = scrollView_Select.workerIndex;
-        int fertilizerIndex = scrollView_Select.fertilizerIndex;
-        /*
-        if(seedIndex == -1 || workerIndex == -1 || fertilizerIndex == -1)
+        if (targetField != null)
         {
-            string noticeString = string.Empty;
-            if (seedIndex == -1) noticeString += "심을 식물";
-            if (workerIndex == -1)
-            {
-                if (seedIndex == -1) noticeString += ", ";
-                noticeString += "일꾼";
-            }
-            if (fertilizerIndex == -1)
-            {
-                if (seedIndex == -1 || workerIndex == -1) noticeString += ", ";
-                noticeString += "비료";
-            }
-            noticeString += "을(를) 선택하지 않았습니다!";
-            WPUIManager_Toast.instance.MakeToast(noticeString, 3f);
-            return;
-        }*/
-        if(seedIndex == -1)
-        {
-            string noticeString = string.Empty;
-            if (seedIndex == -1) noticeString += "심을 식물";
-            noticeString += "을(를) 선택하지 않았습니다!";
-            WPUIManager_Toast.instance.MakeToast(noticeString, 3f);
-            return;
+            WPGameCommon._WPDebug("식물엎기를 선택");
+            targetFieldCtrl.SetFieldData(null);
+            SetActive(false);
         }
-        // 모두 선택하였다면 새로운 객체를 생성하여 넘겨준다. targetField는 필요하지 않을수도?
-        targetField = new WPField(seedIndex, workerIndex, fertilizerIndex, WPDateTime.ParseData(WPDateTime.Now.ToData()));
-        targetFieldCtrl.SetFieldData(targetField);
-        SetActive(false);
+        else
+        {
+            WPGameCommon._WPDebug("식물심기를 선택");
+            int seedIndex = scrollView_Select.seedIndex;
+            int workerIndex = scrollView_Select.workerIndex;
+            int fertilizerIndex = scrollView_Select.fertilizerIndex;
+            /*
+            if(seedIndex == -1 || workerIndex == -1 || fertilizerIndex == -1)
+            {
+                string noticeString = string.Empty;
+                if (seedIndex == -1) noticeString += "심을 식물";
+                if (workerIndex == -1)
+                {
+                    if (seedIndex == -1) noticeString += ", ";
+                    noticeString += "일꾼";
+                }
+                if (fertilizerIndex == -1)
+                {
+                    if (seedIndex == -1 || workerIndex == -1) noticeString += ", ";
+                    noticeString += "비료";
+                }
+                noticeString += "을(를) 선택하지 않았습니다!";
+                WPUIManager_Toast.instance.MakeToast(noticeString, 3f);
+                return;
+            }*/
+            if (seedIndex == -1)
+            {
+                string noticeString = string.Empty;
+                if (seedIndex == -1) noticeString += "심을 식물";
+                noticeString += "을(를) 선택하지 않았습니다!";
+                WPUIManager_Toast.instance.MakeToast(noticeString, 3f);
+                return;
+            }
+            // 모두 선택하였다면 새로운 객체를 생성하여 넘겨준다. targetField는 필요하지 않을수도?
+            targetField = new WPField(seedIndex, workerIndex, fertilizerIndex, WPDateTime.ParseData(WPDateTime.Now.ToData()));
+            targetFieldCtrl.SetFieldData(targetField);
+            SetActive(false);
+        }
     }
 
     // Worker 버튼을 클릭했을 때 호출합니다.
@@ -192,9 +225,6 @@ public class WPUIManager_Field : WPUIManager {
         if (param)
         {
             WPVariable.deltaTime_WPDateTime = 0f;
-            SetSprite_Seed();
-            scrollView_Select.OnEnabled();
-            scrollView_Select.CreateSeedList();
         }
         else
         {
@@ -203,7 +233,6 @@ public class WPUIManager_Field : WPUIManager {
             targetFieldCtrl = null;
             SetText_Time("예상 시간");
             SetText_Money("예상 금액");
-            scrollView_Select.OnDisabled();
         }
         base.SetActive(param);
     }

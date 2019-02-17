@@ -8,14 +8,14 @@ public class WPFieldCtrl : WPActor
 {
     /////////////////////////////////////////////////////////////////////////
     // Varaibles
-    private int ratio = 2;
-    private int GrownPercent=0;
     private static string DATA_PATH = "Image/UI/Farm/";
     private static List<Dictionary<string, object>> seedData;
 
-    private int fieldIndex;                                          //현재 밭의 인덱스
-    Transform transform_Seed;                           // Seed 표현을 위한 transform
-    public WPField wpField = null; // 밭의 정보를 저장하는 변수입니다.
+    private int fieldIndex;                                         // 현재 밭의 인덱스
+    private Transform transform_Seed;                               // Seed 표현을 위한 Transform
+    private IEnumerator growRoutine;                                // Seed 표현을 위한 IEnumerator
+
+    public WPField wpField { get; private set; }                    // 밭의 정보를 저장하는 변수입니다.
     /////////////////////////////////////////////////////////////////////////
     // Methods
 
@@ -70,7 +70,6 @@ public class WPFieldCtrl : WPActor
 
         //Sprite 설정하기 
         //this.GetComponent<SpriteRenderer>().sprite = Empty;
-        StartCoroutine(GrowRoutine());
     }
 
     private void OnMouseDown()
@@ -95,6 +94,7 @@ public class WPFieldCtrl : WPActor
             if (wpField.IsCompleted) // 작물이 완성되었습니다.
             {
                 // 보상 획득하는 코드 짤 것.
+                WPGameCommon._WPDebug("작물이 완성됨.");
                 wpField.CheckGold();
             }
             else // 작물이 완성되지 않았습니다.
@@ -107,33 +107,19 @@ public class WPFieldCtrl : WPActor
         }   
     }
 
-    //Plant Scale 2times at(30 60 100) 
-    int DoubleScale(Transform targetIMG)
-    {
-		if(targetIMG==null) return -1;
-
-        float curSize = targetIMG.localScale.y;
-
-        targetIMG.localScale = new Vector3(targetIMG.localScale.x, targetIMG.localScale.y * ratio, targetIMG.localScale.z);
-        float Up = (ratio - 1) * curSize / 2f;
-        targetIMG.localPosition += new Vector3(0, Up, 0);
-		return 0;
-    }
-
     private void SetScale(float scale)
     {
         if (transform_Seed == null) return;
         if (scale < 0 || scale > 1) return;
         for(int i = 0; i < transform_Seed.childCount; ++i)
         {
-            transform_Seed.GetChild(i).localScale = new Vector2(1, scale);
+            transform_Seed.GetChild(i).localScale = new Vector2(scale, scale);
         }
     }
 
     private void SetSprite(Sprite sprite)
     {
         if (transform_Seed == null) return;
-        if (sprite == null) return;
         for(int i = 0; i < transform_Seed.childCount; ++i)
         {
             SpriteRenderer spriteRenderer = transform_Seed.GetChild(i).GetComponent<SpriteRenderer>();
@@ -144,7 +130,16 @@ public class WPFieldCtrl : WPActor
 
     public void SetFieldData(WPField _wpField)
     {
+        if(_wpField == null && wpField != null) // 식물 엎기 선택, 초기화
+        {
+            if (growRoutine != null) StopCoroutine(growRoutine);
+            SetSprite(null);
+            wpField = null;
+            return;
+        }
         wpField = _wpField;
+        growRoutine = GrowRoutine();
+        StartCoroutine(growRoutine);
     }
 
     private IEnumerator GrowRoutine()

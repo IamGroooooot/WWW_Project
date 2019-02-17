@@ -103,4 +103,31 @@ public class WPScrollView : MonoBehaviour {
         content.DetachChildren();
         content.sizeDelta = new Vector2(0, content.sizeDelta.y);
     }
+
+    /// <summary>
+    /// 활성화 될 때 호출합니다.
+    /// </summary>
+    protected virtual void OnEnabled()
+    {
+
+    }
+
+    /// <summary>
+    /// 비활성화 될 때 호출합니다.
+    /// </summary>
+    protected virtual void OnDisabled()
+    {
+
+    }
+
+    /// <summary>
+    /// UI를 화면에 param 값에 따라 표시합니다.
+    /// </summary>
+    /// <param name="param"></param>
+    public virtual void SetActive(bool param)
+    {
+        if (param) OnEnabled();
+        else OnDisabled();
+        gameObject.SetActive(param);
+    }
 }
