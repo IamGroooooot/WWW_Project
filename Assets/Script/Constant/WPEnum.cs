@@ -11,8 +11,9 @@ public class WPEnum {
         eFertilizer
     }
 
-	// 비교연산자 타입
-	public enum CompareType
+
+    // 비교연산자 타입
+    public enum CompareType
 	{
 		eEqual = 0,                     // 같음
 		eLess = 1,                      // 이하
@@ -67,7 +68,9 @@ public class WPEnum {
 
 		eFarmFieldCount = 100,          // FarmField 개수 
 
-		eUserWorkerCount = 200,         // 일꾼 개수
+		eUserWorkerCount = 200,         // 일꾼 개수'
+
+        eUserFertilizer = 201,           // 인벤토리 ( 비료 )
 
 		eUserDebt = 300,				// 빚
 
