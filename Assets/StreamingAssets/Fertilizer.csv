@@ -2,7 +2,7 @@
 0,사과나무표 비료,fertilizer_Apple,eGrowth,1,240,100,수확 시간이 약간 감소한다.
 1,벚꽃나무표 비료,fertilizer_Blossom,eGrowth,2,480,200,수확 시간이 감소한다.
 2,버드나무표 비료,fertilizer_Willow,eGrowth,3,720,300,수확 시간이 많이 감소한다.
-3,암탉표 비료,fertilizer_Hen,eScore,1,300,1000,수확 점수가 약간 증가한다.
+3,암탉표 비료,fertilizer_Chick,eScore,1,300,1000,수확 점수가 약간 증가한다.
 4,오리표 비료,fertilizer_Duck,eScore,2,400,1000,수확 점수가 증가한다.
 5,강아지표 비료,fertilizer_Doggy,eScore,3,500,1000,수확 점수가 많이 증가한다.
 6,나팔표 비료,fertilizer_Napal,eWorkmanship,1,5,100,수확 시 일꾼의 숙련도가 약간 증가한다.

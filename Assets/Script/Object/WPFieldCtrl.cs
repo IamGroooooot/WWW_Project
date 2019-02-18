@@ -8,7 +8,7 @@ public class WPFieldCtrl : WPActor
 {
     /////////////////////////////////////////////////////////////////////////
     // Varaibles
-    private static string DATA_PATH = "Image/UI/Farm/";
+    private static string DATA_PATH = "Image/Seed/";
     private static List<WPData_Seed> seedData;
 
     private int fieldIndex;                                         // 현재 밭의 인덱스

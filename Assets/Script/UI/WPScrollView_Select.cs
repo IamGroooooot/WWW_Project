@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class WPScrollView_Select : WPScrollView {
 
-    private static string DATA_PATH = "Image/UI/Farm/";
+    private static string DATA_PATH = "Image/Seed/";
 
     private GameObject ui_Item;
 

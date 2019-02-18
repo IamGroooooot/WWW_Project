@@ -28,7 +28,7 @@ public class WPUserDataManager : MonoBehaviour {
     // Varaibles
     public static WPUserDataManager instance = null;        // for singleton
 
-    private static string DATA_PATH = SetPath() + "UserData.dat";
+    private static string DATA_PATH = string.Empty;
 
     private static string SetPath()
     {
@@ -37,12 +37,13 @@ public class WPUserDataManager : MonoBehaviour {
             case RuntimePlatform.IPhonePlayer:
                 return "file:///" + Application.streamingAssetsPath;
             case RuntimePlatform.WindowsEditor:
-                return Application.dataPath + "/UserData";
+                Directory.CreateDirectory(Application.dataPath + "/UserData");
+                return Application.dataPath + "/UserData/";
             case RuntimePlatform.Android:
             case RuntimePlatform.WindowsPlayer:
                 {
                     Directory.CreateDirectory(Application.persistentDataPath + "/UserData");
-                    return Application.persistentDataPath + "/UserData";
+                    return Application.persistentDataPath + "/UserData/";
                 }
             default:
                 return string.Empty;
@@ -62,6 +63,8 @@ public class WPUserDataManager : MonoBehaviour {
     private void Init()
     {
         instance = this;
+        if(string.IsNullOrEmpty(DATA_PATH)) DATA_PATH = SetPath() + "UserData.dat";
+        LoadData();
     }
 
     public void SaveData()
@@ -95,6 +98,11 @@ public class WPUserDataManager : MonoBehaviour {
         UserData newData = JsonConvert.DeserializeObject<UserData>(data);
 
         if (newData != null) userData = newData;
+        else
+        {
+            userData = new UserData();
+            SaveData();
+        }
 
     }
 
