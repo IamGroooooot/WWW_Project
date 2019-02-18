@@ -109,9 +109,18 @@ public class WPGameDataManager : MonoBehaviour {
                             } 
                             break;
                         }
+                    case WPEnum.GameData.eFertilizer:
+                        {
+                            if (WPData_Fertilizer.CheckDataIntegrity(entry))
+                            {
+                                WPData_Fertilizer fertilizerData = new WPData_Fertilizer(entry);
+                                csvData.Add(fertilizerData);
+                            }
+                            break;
+                        }
                 }
                 
-                //WPGameCommon._WPDebug(testString);
+                WPGameCommon._WPDebug(testString);
             }
             gameData.Add(_gameData, csvData);
         }

@@ -39,8 +39,8 @@ public class WPData_Seed : WPData
 
         foreach(KeyValuePair<string, object> keyValuePair in args)
         {
-            WPEnum.Header_Seed header_Seed = (WPEnum.Header_Seed)System.Enum.Parse(typeof(WPEnum.Header_Seed), keyValuePair.Key);
-            switch (header_Seed)
+            WPEnum.Header_Seed header = (WPEnum.Header_Seed)System.Enum.Parse(typeof(WPEnum.Header_Seed), keyValuePair.Key);
+            switch (header)
             {
                 case WPEnum.Header_Seed.ERROR:
                     {
