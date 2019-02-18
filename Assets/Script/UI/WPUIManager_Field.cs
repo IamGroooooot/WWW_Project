@@ -84,8 +84,8 @@ public class WPUIManager_Field : WPUIManager {
             instance.SetText_Money(
                 Convert.ToInt32(seedData.ComparePrice).ToString());
 
-            string seedDataName = seedData.DataName.ToString();
-            string seedDataPath = "Image/UI/Farm/" + seedDataName.Substring(1);
+            string seedDataName = seedData.DataName;
+            string seedDataPath = "Image/UI/Farm/" + seedDataName;
 
             Sprite seedSprite = WPResourceManager.instance.GetResource<Sprite>(seedDataPath);
 

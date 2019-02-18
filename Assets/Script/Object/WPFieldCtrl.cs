@@ -133,8 +133,8 @@ public class WPFieldCtrl : WPActor
     private IEnumerator GrowRoutine()
     {
 
-        string seedDataName = seedData[wpField.seedIndex].DataName.ToString();
-        string seedDataPath = DATA_PATH + seedDataName.Substring(1);
+        string seedDataName = seedData[wpField.seedIndex].DataName;
+        string seedDataPath = DATA_PATH + seedDataName;
 
         Sprite seedSprite = WPResourceManager.instance.GetResource<Sprite>(seedDataPath);
 

@@ -7,7 +7,8 @@ public class WPEnum {
     public enum GameData
     {
         eSeed,
-        eNews
+        eNews,
+        eFertilizer
     }
 
 	// 비교연산자 타입
@@ -20,23 +21,6 @@ public class WPEnum {
 		eOver = 4,                      // 초과
 		eNot = 5                        // 다름
 	}
-
-    public enum Seed
-    {
-        eGreenOnion,    //파
-        eLettuce,       //양상추      
-        ePotato,        //감자
-        eSugarCane,     //사탕 수수
-        eTobacco,       //담배
-        eCoffee,        //커피
-        eKakao,         //카카오
-        eCorn,          //옥수수
-        eWheat,         //밀
-        eRicePlant,     //벼
-        eBarley,        //보리
-        eCabbage,       //배추
-    }
-
 
     public enum Header_Seed
     {
@@ -52,6 +36,28 @@ public class WPEnum {
         eDebuffWeather,
         eUnlockLevel,
         eDescription
+    }
+
+    public enum Header_Fertilizer
+    {
+        ERROR = 0,
+        eID,
+        eName,
+        eDataName,
+        eItemType,
+        eTier,
+        eValue,
+        ePrice,
+        eDescription
+    }
+
+    public enum FertilizerType
+    {
+        ERROR = 0,
+        eGrowth,
+        eScore,
+        eWorkmanship,
+        eWeatherResist
     }
 
     // 게임데이터 저장 타입

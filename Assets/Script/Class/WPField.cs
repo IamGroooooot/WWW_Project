@@ -97,7 +97,7 @@ public class WPField
         //심은 일 수 
 
         //WPDateTime.Compare못하는 경우
-        if ((int)WPDateTime.CompareTime(WPDateTime.Now, startedTime) == (int)-1)
+        if (WPDateTime.CompareTime(WPDateTime.Now, startedTime) == -1)
         {
             return -1f;
         }
@@ -105,7 +105,7 @@ public class WPField
 
         float percent = 
             (float)WPDateTime.CompareTime(WPDateTime.Now, startedTime) /
-            (Convert.ToInt32(((WPData_Seed)seedData[seedIndex]).GrowthTime) * 24);
+            seedData[seedIndex].GrowthTime;
 
         if (percent > 1f)
         {

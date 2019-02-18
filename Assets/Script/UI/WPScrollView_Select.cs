@@ -44,8 +44,8 @@ public class WPScrollView_Select : WPScrollView {
         List<WPData_Seed> seedData = WPGameDataManager.instance.GetData<WPData_Seed>(WPEnum.GameData.eSeed);
         for (int index = 0; index < seedData.Count; ++index)
         {
-            string seedDataName = seedData[index].DataName.ToString();
-            string seedDataPath = DATA_PATH + seedDataName.Substring(1);
+            string seedDataName = seedData[index].DataName;
+            string seedDataPath = DATA_PATH + seedDataName;
 
             Sprite seedSprite = WPResourceManager.instance.GetResource<Sprite>(seedDataPath);
             if (seedSprite != null)
@@ -74,7 +74,7 @@ public class WPScrollView_Select : WPScrollView {
         {
             WPGameCommon._WPDebug(seedData.Name + "을(를) 선택하였습니다.");
             WPUIManager_Field.instance.SetText_Time(
-                WPDateTime.Now.AddTimeData(Convert.ToInt32(seedData.GrowthTime) * 24
+                WPDateTime.Now.AddTimeData(seedData.GrowthTime
                 ).ToString());
             WPUIManager_Field.instance.SetText_Money(
                 Convert.ToInt32(seedData.ComparePrice).ToString());
