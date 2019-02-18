@@ -9,8 +9,10 @@ public class WPUIManager_News : WPUIManager {
     // Varaibles
     public static WPUIManager_News instance = null;     // singleton
 
-    private WPImageText imageText_Year;              // 년도
+    private WPImageText imageText_Year;                 // 년도
     private Button[] button_Month = new Button[12];     // 월을 표시하는 버튼
+
+    private WPScrollView scrollView_News;
 
     /////////////////////////////////////////////////////////////////////////
     // Methods
@@ -57,6 +59,26 @@ public class WPUIManager_News : WPUIManager {
     {
         if (imageText_Year == null) return;
         imageText_Year.SetText(content);
+    }
+
+    public override void SetActive(bool param)
+    {
+        if (param)
+        {
+            WPVariable.timeScale_NewsUI = 0f;
+            WPVariable.timeScale_WPDateTime = 0f;
+            
+            for(int month = 1; month <= 12; ++month)
+            {
+                button_Month[month - 1].gameObject.SetActive(WPDateTime.Now.Month >= month);
+            }
+        }
+        else
+        {
+            WPVariable.timeScale_NewsUI = 1f;
+            WPVariable.timeScale_WPDateTime = 1f;
+        }
+        base.SetActive(param);
     }
 
 }

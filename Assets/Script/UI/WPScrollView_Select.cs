@@ -41,10 +41,10 @@ public class WPScrollView_Select : WPScrollView {
     private List<Sprite> LoadSeedData()
     {
         List<Sprite> spriteData = new List<Sprite>();
-        List<Dictionary<string, object>> seedData = WPGameDataManager.instance.GetData(WPEnum.GameData.eSeed);
+        List<WPData_Seed> seedData = WPGameDataManager.instance.GetData<WPData_Seed>(WPEnum.GameData.eSeed);
         for (int index = 0; index < seedData.Count; ++index)
         {
-            string seedDataName = seedData[index]["eDataName"].ToString();
+            string seedDataName = seedData[index].DataName.ToString();
             string seedDataPath = DATA_PATH + seedDataName.Substring(1);
 
             Sprite seedSprite = WPResourceManager.instance.GetResource<Sprite>(seedDataPath);
@@ -69,14 +69,17 @@ public class WPScrollView_Select : WPScrollView {
     //식물 눌렀을 때
     public void OnClick_Seed(int index)
     {
-        Dictionary<string, object> seedData = WPGameDataManager.instance.GetData(WPEnum.GameData.eSeed)[index];
-        WPGameCommon._WPDebug(seedData["eName"] + "을(를) 선택하였습니다.");
-        WPUIManager_Field.instance.SetText_Time(
-            WPDateTime.Now.AddTimeData(Convert.ToInt32(seedData["eGrowthTime"]) * 24
-            ).ToString());
-        WPUIManager_Field.instance.SetText_Money(
-            Convert.ToInt32(seedData["eComparePrice"]).ToString());
-        WPUIManager_Field.instance.SetSprite_Seed(seedSpriteData[index]);
+        WPData_Seed seedData = WPGameDataManager.instance.GetData<WPData_Seed>(WPEnum.GameData.eSeed)[index];
+        if (seedData != null)
+        {
+            WPGameCommon._WPDebug(seedData.Name + "을(를) 선택하였습니다.");
+            WPUIManager_Field.instance.SetText_Time(
+                WPDateTime.Now.AddTimeData(Convert.ToInt32(seedData.GrowthTime) * 24
+                ).ToString());
+            WPUIManager_Field.instance.SetText_Money(
+                Convert.ToInt32(seedData.ComparePrice).ToString());
+            WPUIManager_Field.instance.SetSprite_Seed(seedSpriteData[index]);
+        }
         seedIndex = index;
     }
 
@@ -96,13 +99,13 @@ public class WPScrollView_Select : WPScrollView {
         selectionState = 1;
         ClearList();
         WPScrollViewItem_Seed.Initalize();
-        List<Dictionary<string, object>> seedData = WPGameDataManager.instance.GetData(WPEnum.GameData.eSeed);
+        List<WPData_Seed> seedData = WPGameDataManager.instance.GetData<WPData_Seed>(WPEnum.GameData.eSeed);
         for (int index = 0; index < seedData.Count; ++index)
         {
             WPScrollViewItem_Seed newItem = Instantiate(ui_Item).AddComponent<WPScrollViewItem_Seed>();
             newItem.SetName(index.ToString());
             newItem.AddEvent(delegate { OnClick_Seed(Convert.ToInt32(newItem.name)); });
-            newItem.SetText(seedData[index]["eName"].ToString());
+            newItem.SetText(seedData[index].Name.ToString());
             newItem.SetFocus(index == seedIndex);
             newItem.SetSprite(seedSpriteData[index]);
             AddItem(newItem);

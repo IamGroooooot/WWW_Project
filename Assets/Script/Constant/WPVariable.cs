@@ -18,6 +18,9 @@ public class WPVariable
     public static float currentWorldSizeX = 9f;
     public static float currentWorldSizeY = 15f;
 
+    // News UI 가 흐르는 시간 배율
+    public static float timeScale_NewsUI = 1f;
+
     // WPDateTime.Now가 흐르는 시간 배율
-    public static float deltaTime_WPDateTime = 1f;
+    public static float timeScale_WPDateTime = 1f;
 }

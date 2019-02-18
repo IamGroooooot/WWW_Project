@@ -9,7 +9,7 @@ public class WPFieldCtrl : WPActor
     /////////////////////////////////////////////////////////////////////////
     // Varaibles
     private static string DATA_PATH = "Image/UI/Farm/";
-    private static List<Dictionary<string, object>> seedData;
+    private static List<WPData_Seed> seedData;
 
     private int fieldIndex;                                         // 현재 밭의 인덱스
     private WPEnum.VariableType fieldKey;                           // 데이터 저장을 위한 현재 밭의 키값
@@ -29,7 +29,7 @@ public class WPFieldCtrl : WPActor
         base.InitValue();
 
         // static data의 설정
-        if(seedData == null) seedData = WPGameDataManager.instance.GetData(WPEnum.GameData.eSeed);
+        if(seedData == null) seedData = WPGameDataManager.instance.GetData<WPData_Seed>(WPEnum.GameData.eSeed);
 
         //현재 밭의 인덱스 설정
         fieldIndex = Convert.ToInt32(this.transform.name.Substring(5));
@@ -133,7 +133,7 @@ public class WPFieldCtrl : WPActor
     private IEnumerator GrowRoutine()
     {
 
-        string seedDataName = seedData[wpField.seedIndex]["eDataName"].ToString();
+        string seedDataName = seedData[wpField.seedIndex].DataName.ToString();
         string seedDataPath = DATA_PATH + seedDataName.Substring(1);
 
         Sprite seedSprite = WPResourceManager.instance.GetResource<Sprite>(seedDataPath);

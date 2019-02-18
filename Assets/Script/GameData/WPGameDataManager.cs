@@ -22,7 +22,7 @@ public class WPGameDataManager : MonoBehaviour {
     static string LINE_SPLIT_RE = @"\r\n|\n\r|\n|\r";
     static char[] TRIM_CHARS = { '\"' };
 
-    private Dictionary<WPEnum.GameData, List<Dictionary<string, object>>> gameData = new Dictionary<WPEnum.GameData, List<Dictionary<string, object>>>();
+    private Dictionary<WPEnum.GameData, List<WPData>> gameData = new Dictionary<WPEnum.GameData, List<WPData>>();
 
     /////////////////////////////////////////////////////////////////////////
     // Methods
@@ -41,13 +41,18 @@ public class WPGameDataManager : MonoBehaviour {
         }
     }
 
-    public List<Dictionary<string, object>> GetData(WPEnum.GameData _gameData)
+    public List<T> GetData<T>(WPEnum.GameData _gameData) where T : WPData
     {
         if (gameData != null)
         {
             if (gameData.ContainsKey(_gameData))
             {
-                return gameData[_gameData];
+                List<T> newList = new List<T>();
+                for(int i = 0; i < gameData[_gameData].Count; ++i)
+                {
+                    newList.Add((T)gameData[_gameData][i]);
+                }
+                return newList;
             }
         }
         return null;
@@ -65,7 +70,7 @@ public class WPGameDataManager : MonoBehaviour {
         }
 
         string csvString = File.ReadAllText(dataPath, System.Text.Encoding.UTF8);
-        List<Dictionary<string, object>> csvData = new List<Dictionary<string, object>>();
+        List<WPData> csvData = new List<WPData>();
 
         string[] lines = Regex.Split(csvString, LINE_SPLIT_RE);
 
@@ -88,7 +93,24 @@ public class WPGameDataManager : MonoBehaviour {
                     entry[header[j]] = value;
                     testString += header[j] + ":" + value + "//";
                 }
-                csvData.Add(entry);
+
+                switch (_gameData)
+                {
+                    case WPEnum.GameData.eNews:
+                        {
+                            break;
+                        }
+                    case WPEnum.GameData.eSeed:
+                        {
+                            if (WPData_Seed.CheckDataIntegrity(entry))
+                            {
+                                WPData_Seed seedData = new WPData_Seed(entry);
+                                csvData.Add(seedData);
+                            } 
+                            break;
+                        }
+                }
+                
                 //WPGameCommon._WPDebug(testString);
             }
             gameData.Add(_gameData, csvData);

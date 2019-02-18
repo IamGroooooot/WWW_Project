@@ -38,17 +38,19 @@ public class WPEnum {
     }
 
 
-    public enum CSV_Index
+    public enum Header_Seed
     {
+        ERROR = 0,
         eID,
         eName,
+        eDataName,
         eGrowthTime,
         eComparePrice,
         eSalePrice,
-        eScoreIncrease,
+        eScoreIncreaseRatio,
         eBuffWeather,
         eDebuffWeather,
-        eUnlockLV,
+        eUnlockLevel,
         eDescription
     }
 
@@ -130,6 +132,7 @@ public class WPEnum {
 	// 기후 
     public enum Weather					//버프 (일 당 +점수), 디버프 (일 당 -점수)
     {
+        ERROR = 0,
         eSunny,							//화창 버프2, 디버프 1  
         eDrought,						//가뭄 버프4, 디버프 3
         eRain,							//비   버프3, 디버프 3

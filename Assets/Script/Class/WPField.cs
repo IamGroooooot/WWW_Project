@@ -6,7 +6,7 @@ using UnityEngine;
 public class WPField
 {
     // 모든 객체에서 접근하는 데이터는 static으로 합시다.
-	private static List<Dictionary<string, object>> seedData = WPGameDataManager.instance.GetData(WPEnum.GameData.eSeed);
+	private static List<WPData_Seed> seedData = WPGameDataManager.instance.GetData<WPData_Seed>(WPEnum.GameData.eSeed);
 
 	public int seedIndex { get; private set; }
     public int workerIndex { get; private set; }
@@ -85,7 +85,7 @@ public class WPField
         //불변 값 + 가변값
         //gold에 비료나 날씨에 의한 버프 넣은 후 
         //마직막에 불변값 계산해서 넣기
-        int comparePrice = Convert.ToInt32(seedData[seedIndex]["eComparePrice"]);
+        int comparePrice = Convert.ToInt32(((WPData_Seed)seedData[seedIndex]).ComparePrice);
         return 0;
     }
 
@@ -105,7 +105,7 @@ public class WPField
 
         float percent = 
             (float)WPDateTime.CompareTime(WPDateTime.Now, startedTime) /
-            (Convert.ToInt32(seedData[seedIndex]["eGrowthTime"]) * 24);
+            (Convert.ToInt32(((WPData_Seed)seedData[seedIndex]).GrowthTime) * 24);
 
         if (percent > 1f)
         {

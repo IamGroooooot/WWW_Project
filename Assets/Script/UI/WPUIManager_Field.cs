@@ -78,13 +78,13 @@ public class WPUIManager_Field : WPUIManager {
             Text text = button_Action.GetComponentInChildren<Text>();
             if (text != null) text.text = "엎기";
 
-            Dictionary<string, object> seedData = WPGameDataManager.instance.GetData(WPEnum.GameData.eSeed)[wpField.seedIndex];
+            WPData_Seed seedData = WPGameDataManager.instance.GetData<WPData_Seed>(WPEnum.GameData.eSeed)[wpField.seedIndex];
 
             SetText_Time(string.Format("{0:f2}% 자람", (wpField.GetGrownPercent() * 100f)));
             instance.SetText_Money(
-                Convert.ToInt32(seedData["eComparePrice"]).ToString());
+                Convert.ToInt32(seedData.ComparePrice).ToString());
 
-            string seedDataName = seedData["eDataName"].ToString();
+            string seedDataName = seedData.DataName.ToString();
             string seedDataPath = "Image/UI/Farm/" + seedDataName.Substring(1);
 
             Sprite seedSprite = WPResourceManager.instance.GetResource<Sprite>(seedDataPath);
@@ -224,11 +224,13 @@ public class WPUIManager_Field : WPUIManager {
     {
         if (param)
         {
-            WPVariable.deltaTime_WPDateTime = 0f;
+            WPVariable.timeScale_NewsUI = 0f;
+            WPVariable.timeScale_WPDateTime = 0f;
         }
         else
         {
-            WPVariable.deltaTime_WPDateTime = 1f;
+            WPVariable.timeScale_NewsUI = 1f;
+            WPVariable.timeScale_WPDateTime = 1f;
             targetField = null;
             targetFieldCtrl = null;
             SetText_Time("예상 시간");

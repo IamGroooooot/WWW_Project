@@ -82,13 +82,17 @@ public class WPUIManager_Farm : WPUIManager
     private IEnumerator NewsRoutine()
     {
         if (newsMask == null) yield break;
+
+        float timeCount = 0f;
+
+        WaitUntil checkContent = new WaitUntil(() => newsContent != null && newsContent.Count > 0);
+
+        WaitForEndOfFrame waitForEndOfFrame = new WaitForEndOfFrame();
+
         for(; ; )
         {
-            if (newsContent == null || newsContent.Count <= 0)                      // newsContent가 없다면 채워질 때 까지 1프레임씩 대기합니다.
-            {
-                yield return new WaitForEndOfFrame();
-                continue;
-            }
+
+            yield return checkContent;                                              // newsContent가 애니메이션을 시행하기에 적합한지 검사합니다.
 
             if (string.IsNullOrEmpty(newsContent[newsIndex]))                       // newsContent의 newsIndex번 째 내용이 비정상적일 경우 넘어갑니다.
             {
@@ -113,7 +117,7 @@ public class WPUIManager_Farm : WPUIManager
             newsSizeFitter.verticalFit = ContentSizeFitter.FitMode.Unconstrained;
             newsSizeFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize; // 텍스트 크기를 내용에 맞게 자동으로 설정합니다.
 
-            yield return new WaitForEndOfFrame();                                   // 사이즈 업데이트에 1프레임이 필요하기 때문에 대기합니다.
+            yield return waitForEndOfFrame;                                         // 사이즈 업데이트에 1프레임이 필요하기 때문에 대기합니다.
 
             if (newsMask.childCount > 0)
             {
@@ -132,24 +136,34 @@ public class WPUIManager_Farm : WPUIManager
                 newsRectTransform.sizeDelta.x, maskSize.y * 0.9f);                  // 텍스트 전체 크기 설정
             newsRectTransform.anchoredPosition = Vector2.zero;                      // 텍스트 위치 초기화
 
-            yield return new WaitForSeconds(newsDelay);                             // newsDelay 만큼 대기합니다.
+            for (timeCount = 0; timeCount < newsDelay; timeCount += Time.deltaTime * WPVariable.timeScale_NewsUI)
+            {
+                yield return null;
+                if (WPVariable.timeScale_NewsUI <= 0f) timeCount = 0f;              // newsDelay 만큼 대기합니다.
+            }
+
+
 
             if (newsRectTransform.rect.width > maskSize.x)                          // 텍스트의 길이가 긴 경우 애니메이션을 호출합니다.
             {
                 float newsTravel = maskSize.x - newsRectTransform.rect.width;       // 텍스트의 이동거리 newsTravel를 구합니다.
                 for(; ; )
                 {
-                    yield return new WaitForEndOfFrame();
+                    yield return waitForEndOfFrame;
                     if (newsRectTransform.anchoredPosition.x < newsTravel) break;  // newsTravel만큼 움직였으면 끝냅니다.
                     newsRectTransform.anchoredPosition -= new Vector2(
-                        newsSpeed * Time.deltaTime, 0f);                            // newsSpeed만큼 움직입니다.
+                        newsSpeed * Time.deltaTime * WPVariable.timeScale_NewsUI, 0f);                            // newsSpeed만큼 움직입니다.
                 }
             }
 
             newsIndex += 1;
             if (newsIndex >= newsContent.Count) newsIndex = 0;                      // newsIndex가 newsContent보다 클 경우 0으로 초기화합니다.
 
-            yield return new WaitForSeconds(newsDelay);                             // newsDelay 만큼 대기합니다.
+            for (timeCount = 0; timeCount < newsDelay; timeCount += Time.deltaTime * WPVariable.timeScale_NewsUI)
+            {
+                yield return null;
+                if (WPVariable.timeScale_NewsUI <= 0f) timeCount = 0f;              // newsDelay 만큼 대기합니다.
+            }
 
         }
     }
