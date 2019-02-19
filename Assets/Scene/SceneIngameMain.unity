@@ -707,7 +707,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &120259711
 GameObject:
@@ -1956,7 +1956,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &286761451
 GameObject:
@@ -6100,7 +6100,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 857613957}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.34740004
+  m_Size: 0
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6927,7 +6927,7 @@ MonoBehaviour:
   _pfTempWorker: {fileID: 1859641126029724, guid: c432d21e45eb02845bf8ce937a576963,
     type: 2}
   _field: {fileID: 1920930125922208, guid: 4973b4b7d5bbe4745869813918d4f54c, type: 2}
-  _sickness: {fileID: 0}
+  _sickness: {fileID: 1813665534303104, guid: 34425fc7feb1e0342b02bf237d4485d2, type: 2}
 --- !u!114 &940901487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8201,7 +8201,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1280428310
 GameObject:

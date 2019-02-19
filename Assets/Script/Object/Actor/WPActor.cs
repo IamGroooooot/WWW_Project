@@ -13,6 +13,9 @@ public class WPActor : MonoBehaviour
 	// 액터키
 	private int _actorKey;
 
+	// setactive(false)에러방지
+	protected bool startMoveRoutine = true;
+
 	// 현재 액터의 상태. 기본 None
 	protected WPEnum.ActorState _actorState = WPEnum.ActorState.eActorStateNone;
 
@@ -22,7 +25,10 @@ public class WPActor : MonoBehaviour
     {
 		this.InitValue();
 
-        StartCoroutine(MoveRoutine());
+		if (startMoveRoutine)
+		{
+			StartCoroutine(MoveRoutine());
+		}
     }
 
 	/// <summary>

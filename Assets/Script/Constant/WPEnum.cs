@@ -127,6 +127,7 @@ public class WPEnum {
         eSeedGrowth_60,
         eSeedGrowth_100,
 
+
 	}
 
     // 계절

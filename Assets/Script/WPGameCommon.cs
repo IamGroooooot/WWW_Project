@@ -42,6 +42,7 @@ public class WPGameCommon : MonoBehaviour
             return;
         }
 
+		
         Debug.Log(target);
     }
 
