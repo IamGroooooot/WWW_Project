@@ -222,4 +222,15 @@ public class WPEnum {
         eField4,
         eField5,
     }
+
+	//For Customization
+	public enum WorkerAppearanceDetail
+	{
+		eWorkerName,
+		eBasedBody,
+		eHair,
+		eShirt,
+		ePants,
+		eHairColor
+	}
 }

@@ -8,20 +8,16 @@ using UnityEngine;
 
 public class WPWorker {
     //private static List<Dictionary<string, object>> seedData = WPGameDataManager.instance.GetData(WPEnum.GameData.eWorker);
-    private int workerIndex;
-    private float requiredExperience;
-    private int basedHumanIndex;
-    private int shirtIndex;
-    private int pantsIndex;
+    public int workerIndex { get; private set; }
+    public float requiredExperience { get; private set; }
+	public Dictionary<WPEnum.WorkerAppearanceDetail, int> appearance { get; set; }
 
-    //WorkerIndex로 해당하는 Worker 데이터 불러오기, 
-    public WPWorker(int _workerIndex, float _requiredExp, int _basedHumanIndex, int _shirtIndex,int _pantsIndex)
+	//WorkerIndex로 해당하는 Worker 데이터 불러오기, 
+	public WPWorker(int _workerIndex, float _requiredExp, Dictionary<WPEnum.WorkerAppearanceDetail,int> _appearance)
     {
         this.workerIndex = _workerIndex;
         this.requiredExperience = _requiredExp;
-        this.basedHumanIndex = _basedHumanIndex;
-        this.shirtIndex = _shirtIndex;
-        this.pantsIndex = _pantsIndex;
+		this.appearance = _appearance;
     }
 
     
