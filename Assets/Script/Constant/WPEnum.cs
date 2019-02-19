@@ -112,7 +112,7 @@ public class WPEnum {
 	{
 		eActorWorkerTemp = 10,			// 임시 워커
 		eActorFarmField = 20,			// 밭
-
+		eActorSickness =30,				// 병충해
 	}
 
 	// 현재 액터의 상태를 정의해놓음.
@@ -215,9 +215,9 @@ public class WPEnum {
 	///////////////////////////////////////////////////////////////////////////
     public enum Field_Position
     {
-        eField0,
-        eField1,
-        eField2,
+        eField0 = 0,
+        eField1 = 1,
+        eField2 = 2,
         eField3,
         eField4,
         eField5,

@@ -9,19 +9,22 @@ public class WPActorManager : MonoBehaviour
 	public static WPActorManager instance = null;		// singleton
 
 	public Transform _baseObject;						// baseobject. 인스펙터에서 초기화
-	public Transform _baseObject_Farm;					// baseobject. 인스펙터에서 초기화
+	public Transform _baseObject_Farm;                  // baseobject. 인스펙터에서 초기화
+	public Transform _baseObject_Sickness;				// baseobject, 인스펙터에서 초기화
 
 	public GameObject _pfTempWorker;					// 임시 워커 프리팹
-	public GameObject _field;					// 임시 워커 프리팹
+	public GameObject _field;                           // 밭 프리팹
+	public GameObject _sickness;						// 병충해 프리팹
 
     private int _workerCount;                           // 일꾼 개수. init 초기화
+    private int _farmFieldCount;                     // 밭 개수. init 초기화
+	private int _sicknessCount;
 
-    private int _farmFieldRowCount;                        // 밭 개수. init 초기화
+	private List<GameObject> _actorList_Worker;			// 액터Worker 게임오브젝트를 들고있는 리스트.
+	private List<GameObject> _actorList_Field;          // 액터Field 게임오브젝트를 들고있는 리스트.
+	private List<GameObject> _actorList_Sickness;          // 액터Field 게임오브젝트를 들고있는 리스트.
 
-	private List<GameObject> _actorList_Worker;				// 액터Worker 게임오브젝트를 들고있는 리스트.
-	private List<GameObject> _actorList_Field;				// 액터Field 게임오브젝트를 들고있는 리스트.
-
-    private int fieldIndex;
+	private int fieldIndex;
     private int farmIndex;
 
     IEnumerator enumerator;
@@ -53,7 +56,7 @@ public class WPActorManager : MonoBehaviour
 
         this._workerCount = WPGameVariableManager.instance.LoadIntVariable(WPEnum.VariableType.eUserWorkerCount);
         //this._farmFieldCount = WPGameVariableManager.instance.LoadIntVariable(WPEnum.VariableType.eFarmFieldCount);
-        this._farmFieldRowCount = 3;
+        this._farmFieldCount = 6;
     }
 
     /// <summary>
@@ -70,7 +73,7 @@ public class WPActorManager : MonoBehaviour
         }
 		
 		// 밭 세팅 파트
-		for (int i = 0; i < this._farmFieldRowCount; i++)
+		for (int i = 0; i < this._farmFieldCount; i++)
         {
 			this.SpawnActor((int)WPEnum.ActorKey.eActorFarmField);
         }
@@ -92,7 +95,7 @@ public class WPActorManager : MonoBehaviour
 
 			if (null == go)
 			{
-				WPGameCommon._WPDebug("Actor 스폰에 문제발생!!");
+				WPGameCommon._WPDebug("Actor_Worker 스폰에 문제발생!!");
 				return (int)WPEnum.rvType.eTypeFail;
 			}
 
@@ -110,47 +113,53 @@ public class WPActorManager : MonoBehaviour
 		}
 		else if((int)WPEnum.ActorKey.eActorFarmField == actorKey)
 		{
-            // 현재는 actorkey 상관없이 그냥 생성시키고 배치만 해줌.
-            GameObject go_Right = Instantiate(this._field, this._baseObject_Farm);
-            GameObject go_Left = Instantiate(this._field, this._baseObject_Farm);
+			// 현재는 actorkey 상관없이 그냥 생성시키고 배치만 해줌.
+			GameObject go = Instantiate(this._field, this._baseObject_Farm);
 
-            if (null == go_Right || null == go_Left)
-            {
-                WPGameCommon._WPDebug("Field 스폰에 문제발생!!");
-                return (int)WPEnum.rvType.eTypeFail;
-            }
+			if (null == go || farmIndex >3 || fieldIndex>5)
+			{
+				WPGameCommon._WPDebug("Actor_Worker 스폰에 문제발생!!");
+				return (int)WPEnum.rvType.eTypeFail;
+			}
 
-            
-            go_Left.name = "Field" + farmIndex.ToString() + fieldIndex.ToString();
-            fieldIndex++;
-            go_Right.name = "Field" + farmIndex.ToString() + fieldIndex.ToString();
-            fieldIndex++;
+			float xPos = WPField.FieldPos(fieldIndex).x;
+			float yPos = WPField.FieldPos(fieldIndex).y;
 
-            if (fieldIndex > 5)
-            {
-                farmIndex++;
-            }
+			Debug.Log(farmIndex.ToString()+"번째 Farm위치"+ WPField.FieldPos(farmIndex));
+		
+			// 포지션 세팅, 액터키 세팅
+			go.GetComponent<WPActor>().SetActorPos(xPos, yPos);
+			go.GetComponent<WPActor>().SetActorKey(actorKey);
 
-            float xPos = WPVariable.currentWorldSizeX / 2;
+			go.name = "Field" + farmIndex.ToString() + fieldIndex.ToString();
+			fieldIndex++;
 
-            
-            enumerator.MoveNext();
+			// 리스트에 반영
+			this._actorList_Worker.Add(go);
+			
+			return (int)WPEnum.rvType.eTypeSuccess;
+		}
+		else if((int)WPEnum.ActorKey.eActorSickness == actorKey)
+		{
+			// 병충해를 확률적으로 Respawn함
+			GameObject go = Instantiate(this._sickness, this._baseObject_Sickness);
 
-            float yPos = (float)Convert.ToDouble(enumerator.Current.ToString());
-            
+			if (null == go)
+			{
+				WPGameCommon._WPDebug("Actor_Sickness 스폰에 문제발생!!");
+				return (int)WPEnum.rvType.eTypeFail;
+			}
 
-            // 포지션 세팅, 액터키 세팅
-            go_Left.GetComponent<WPActor>().SetActorPos(-xPos, yPos);
-            go_Right.GetComponent<WPActor>().SetActorPos(xPos, yPos);
+			float xPos = UnityEngine.Random.Range(-WPVariable.currentFieldSizeX / 2f, WPVariable.currentFieldSizeX / 2f);
+			float yPos = UnityEngine.Random.Range(-WPVariable.currentFieldSizeY / 2f, WPVariable.currentFieldSizeY / 2f);
 
-            go_Left.GetComponent<WPActor>().SetActorKey(actorKey);
-            go_Right.GetComponent<WPActor>().SetActorKey(actorKey);
+			// 포지션 세팅, 액터키 세팅
+			go.GetComponent<WPActor>().SetActorPos(xPos, yPos);
+			go.GetComponent<WPActor>().SetActorKey(actorKey);
 
-            // 리스트에 반영
-            this._actorList_Field.Add(go_Left);
-            this._actorList_Field.Add(go_Right);
-
-            return (int)WPEnum.rvType.eTypeSuccess;
+			// 리스트에 반영
+			this._actorList_Worker.Add(go);
+			return (int)WPEnum.rvType.eTypeSuccess;
 		}
 		else
 		{
@@ -173,10 +182,10 @@ public class WPActorManager : MonoBehaviour
 		}
 
 		// 매니저 메모리에 반영 시도
-		this._farmFieldRowCount++;
+		this._farmFieldCount ++;
 
 		// 유저데이터에 작성.
-		WPGameVariableManager.instance.SaveVariable(WPEnum.VariableType.eFarmFieldCount, this._farmFieldRowCount);
+		WPGameVariableManager.instance.SaveVariable(WPEnum.VariableType.eFarmFieldCount, this._farmFieldCount);
 	}
 
 	/// <summary>
@@ -221,12 +230,5 @@ public class WPActorManager : MonoBehaviour
 	}
 
    
-    public IEnumerator GetEnumerator()
-    {
-        yield return  (WPVariable.currentWorldSizeY / 4);
-        yield return  (-WPVariable.currentWorldSizeY / 4);
-        yield return  ((-3f) * WPVariable.currentWorldSizeY / 4);
-       
-    }
 }
 

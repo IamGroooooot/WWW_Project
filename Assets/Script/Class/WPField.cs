@@ -115,29 +115,29 @@ public class WPField
         return percent;
 	}
 
-    public static Vector2 FieldPos(WPEnum.Field_Position field)
+    public static Vector2 FieldPos(int fieldIndex)
     {
-        if (field == WPEnum.Field_Position.eField0)
+        if (fieldIndex == 0)
         {
-            return new Vector2(-WPVariable.currentWorldSizeX / 2, (WPVariable.currentWorldSizeY / 4));
+			return new Vector2(-WPVariable.currentWorldSizeX / 2, (WPVariable.currentWorldSizeY / 4));
         }
-        else if (field == WPEnum.Field_Position.eField1)
+        else if (fieldIndex == 1)
         {
             return new Vector2(WPVariable.currentWorldSizeX / 2, (WPVariable.currentWorldSizeY / 4));
         }
-        else if (field == WPEnum.Field_Position.eField2)
+        else if (fieldIndex == 2)
         {
             return new Vector2(-WPVariable.currentWorldSizeX / 2, (-WPVariable.currentWorldSizeY / 4));
         }
-        else if (field == WPEnum.Field_Position.eField3)
+        else if (fieldIndex == 3)
         {
             return new Vector2(WPVariable.currentWorldSizeX / 2, (-WPVariable.currentWorldSizeY / 4));
         }
-        else if (field == WPEnum.Field_Position.eField4)
+        else if (fieldIndex == 4)
         {
             return new Vector2(-WPVariable.currentWorldSizeX / 2, ((-3f) * WPVariable.currentWorldSizeY / 4));
         }
-        else if (field == WPEnum.Field_Position.eField5)
+        else if (fieldIndex == 5)
         {
             return new Vector2(WPVariable.currentWorldSizeX / 2, ((-3f) * WPVariable.currentWorldSizeY / 4));
         }

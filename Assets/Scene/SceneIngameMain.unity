@@ -323,8 +323,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2121846795}
   m_HandleRect: {fileID: 2121846794}
   m_Direction: 0
-  m_Value: 0.0000010172527
-  m_Size: 0.9166667
+  m_Value: 0
+  m_Size: 0.91666675
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2077,12 +2077,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9709794d4647eeb4f96ecab965345898, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hairPrefabs: []
-  basedHumanPrefabs: []
-  shirtPrefabs: []
-  pantsPrefabs: []
+  hairPrefabs:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  basedBodyPrefabs:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  shirtPrefabs:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  pantsPrefabs:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  hairColors:
+  - serializedVersion: 2
+    rgba: 255
+  - serializedVersion: 2
+    rgba: 851712
+  - serializedVersion: 2
+    rgba: 16711752
+  worker_Names:
+  - "\uC9C0\uD638"
+  - "\uC218\uD658"
+  - "\uADF8\uB8E8\uD2B8"
   hairAchor: {fileID: 0}
-  basedHumanAchor: {fileID: 0}
+  basedBodyAchor: {fileID: 0}
   shirtsAchor: {fileID: 0}
   pantsAchor: {fileID: 0}
 --- !u!1 &295095765
@@ -4171,7 +4194,7 @@ RectTransform:
   - {fileID: 294046886}
   - {fileID: 1994012189}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -5642,7 +5665,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &822862451
 GameObject:
@@ -5784,7 +5807,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &827248625
 GameObject:
@@ -6077,7 +6100,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 857613957}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.3474
+  m_Size: 0.34740004
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6279,7 +6302,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &862862409
 GameObject:
@@ -6862,7 +6885,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &940901484
 MonoBehaviour:
@@ -6900,9 +6923,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _baseObject: {fileID: 279211615}
   _baseObject_Farm: {fileID: 120190541}
+  _baseObject_Sickness: {fileID: 1264215453}
   _pfTempWorker: {fileID: 1859641126029724, guid: c432d21e45eb02845bf8ce937a576963,
     type: 2}
   _field: {fileID: 1920930125922208, guid: 4973b4b7d5bbe4745869813918d4f54c, type: 2}
+  _sickness: {fileID: 0}
 --- !u!114 &940901487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8150,6 +8175,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c357c0cbc365c884db72a0af8e209b63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1264215452
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1264215453}
+  m_Layer: 0
+  m_Name: ObjectActor_Sickness
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1264215453
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1264215452}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1280428310
 GameObject:
   m_ObjectHideFlags: 0
