@@ -25,7 +25,7 @@ public class WPActorManager : MonoBehaviour
 	private List<GameObject> _actorList_Sickness;          // 액터Field 게임오브젝트를 들고있는 리스트.
 
 	private int fieldIndex;
-    private int farmIndex;
+    public static int farmIndex;
 
     IEnumerator enumerator;
     /////////////////////////////////////////////////////////////////////////
@@ -47,7 +47,6 @@ public class WPActorManager : MonoBehaviour
     /// </summary>
     private void InitValue()
     {
-        enumerator = GetEnumerator();
         farmIndex = 0;
         fieldIndex = 0;
 
@@ -133,6 +132,11 @@ public class WPActorManager : MonoBehaviour
 
 			go.name = "Field" + farmIndex.ToString() + fieldIndex.ToString();
 			fieldIndex++;
+			if(fieldIndex > 5)
+			{
+				fieldIndex = 0;
+				WPGameCommon._WPDebug(farmIndex.ToString()+"번째 농장 스폰 완료!!");
+			}
 
 			// 리스트에 반영
 			this._actorList_Worker.Add(go);
