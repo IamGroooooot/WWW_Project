@@ -17,13 +17,12 @@ public class WPActorManager : MonoBehaviour
 	public GameObject _sickness;						// 병충해 프리팹
 
     private int _workerCount;                           // 일꾼 개수. init 초기화
-    private int _farmFieldCount;                     // 밭 개수. init 초기화
+    private int _farmFieldCount;						// 밭 개수. init 초기화
 	private int _sicknessCount;
 
 	private List<GameObject> _actorList_Worker;			// 액터Worker 게임오브젝트를 들고있는 리스트.
 	private List<GameObject> _actorList_Field;          // 액터Field 게임오브젝트를 들고있는 리스트.
-	private List<GameObject> _actorList_Sickness;
-
+	private List<GameObject> _actorList_Sickness;		// 액터Sickness 게임오브젝트를 들고있는 리스트.
 
 	private int sicknessIndex;
 	private int fieldIndex;
@@ -172,7 +171,7 @@ public class WPActorManager : MonoBehaviour
 			// 포지션 세팅, 액터키 세팅
 			go.GetComponent<WPActor>().SetActorPos(xPos, yPos);
 			go.GetComponent<WPActor>().SetActorKey(actorKey);
-			go.transform.position += new Vector3(0,0,-1);			//밭에 터치 못하도록
+			go.transform.position += new Vector3(0,0,-1);			//밭에 터치 안하고 병충해 먼저 터치하도록 pos-1로 바꿈
 
 
 			// 리스트에 반영
@@ -270,6 +269,19 @@ public class WPActorManager : MonoBehaviour
 		WPGameVariableManager.instance.SaveVariable(WPEnum.VariableType.eUserWorkerCount, this._workerCount);
 	}
 
-   
+	public GameObject GetSicknessByID(int id)
+	{
+		GameObject target = null;
+		foreach (GameObject go in _actorList_Sickness)
+		{
+			if(go.name.Substring(3) == id.ToString())
+			{
+				target = go;
+			}
+		}
+
+
+		return target;
+	}
 }
 

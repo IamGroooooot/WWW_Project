@@ -25,10 +25,35 @@ public class WPSicknessCtrl : WPActor {
 		
 		//코루틴 멈춰줘야되낭?
 		base.startMoveRoutine = false;
-		//gameObject.SetActive(false);
+		gameObject.SetActive(false);
 	}
 
-    private void OnMouseDown()
+	void OnTriggerStay2D(Collider2D Col)
+	{
+		//Debug.Log(Col.name);
+		if (Col.GetComponent<WPFieldCtrl>() != null && Col.GetComponent<WPFieldCtrl>().wpField != null)
+		{
+			//Worker가 없는 경우
+			if (Col.GetComponent<WPField>().workerIndex == -1)
+			{
+				//식물 성장을 멈추셈
+
+			}
+			else
+			{
+				//해당하는 Worker의 목적지를 이 병충해가 존재하는 Farm으로 이동시키셈.
+
+			}
+		}
+
+		//Worker에 닿인 경우
+		if (Col.GetComponent<Transform>().CompareTag("Worker"))
+		{
+			OnMouseDown();
+		}
+	}
+
+	private void OnMouseDown()
     {
 		StopCoroutine(base.MoveRoutine());
 		gameObject.SetActive(false);

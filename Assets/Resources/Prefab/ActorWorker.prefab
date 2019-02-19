@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 50131430710942224}
   m_Layer: 0
   m_Name: ActorWorker
-  m_TagString: Untagged
+  m_TagString: Worker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

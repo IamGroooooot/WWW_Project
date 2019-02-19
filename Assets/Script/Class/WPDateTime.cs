@@ -96,7 +96,7 @@ public class WPDateTime {
         }
         set
         {
-            WPGameCommon._WPDebug("New Value : " + value);
+            //WPGameCommon._WPDebug("New Value : " + value);
             if(timeData != value)
             {
                 UpdateInstance(value);

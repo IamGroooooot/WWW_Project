@@ -106,6 +106,11 @@ public class WPActor : MonoBehaviour
 				RoamingMoveFunc();
 				yield return new WaitForFixedUpdate();
 			}
+			else if (WPEnum.ActorMoveType.eActorTrackSickness == this._moveType)
+			{
+				
+
+			}
 			else
 			{
 				WPGameCommon._WPDebug("올바르지 않은 ActorMoveType! 확인해야한다! : " + this._moveType.ToString());
