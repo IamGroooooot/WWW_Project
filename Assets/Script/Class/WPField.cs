@@ -11,9 +11,12 @@ public class WPField
 	public int seedIndex { get; private set; }
     public int workerIndex { get; private set; }
     public int fertilizerIndex { get; private set; }
-    public bool isSick { get; set; }
+	
+	//병충해가 붙은지 한시간마다 true
+	public bool isSick { get; set; }
+	private bool isSubscribed = false;
 
-    public WPDateTime startedTime { get; private set; }
+	public WPDateTime startedTime { get; private set; }
 
     public static WPField ParseData(string data)
     {
@@ -90,8 +93,39 @@ public class WPField
         return 0;
     }
 
+	//병충해 이벤트 구독!
+	public void SubscribeSickEvent()
+	{
+		if (isSubscribed || isSick)
+		{
+			return;
+		}
+		WPDateTime.Now.OnValueChanged += SetIsSick;
+		isSubscribed = true;
+	}
 
-    public float GetGrownPercent()
+	//병충해 이벤트 구독 취소!
+	public void UnsubscribeSickEvent()
+	{
+		if (isSubscribed == false)
+		{
+			return;
+		}
+		WPDateTime.Now.OnValueChanged -= SetIsSick;
+		isSick = false;
+		isSubscribed = false;
+	}
+
+	//isSick를 true로!
+	private void SetIsSick(WPDateTime content)
+	{
+
+		WPGameCommon._WPDebug("시작한 시각 : " + startedTime.ToString());
+		WPGameCommon._WPDebug("병충해로 식물 성장 멈춤!! |" + seedData[seedIndex].DataName.ToString() + "| 식물의 성장도 성장도: " + ((float)WPDateTime.CompareTime(WPDateTime.Now, startedTime) / seedData[seedIndex].GrowthTime).ToString());
+		isSick = true;
+	}
+
+	public float GetGrownPercent()
 	{
         //시간의 줄여주는 비료를 고려하는 코드
         //짜야됨
