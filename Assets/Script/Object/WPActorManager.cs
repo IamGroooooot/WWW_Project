@@ -100,7 +100,7 @@ public class WPActorManager : MonoBehaviour
 	{
 		if ((int)WPEnum.ActorKey.eActorWorkerTemp == actorKey)
 		{
-			GameObject go = Instantiate(this._pfTempWorker, this._baseObject);
+			GameObject go = Instantiate(this._pfTempWorker, this._baseObject) as GameObject;
 
 			if (null == go)
 			{
@@ -122,7 +122,7 @@ public class WPActorManager : MonoBehaviour
 		}
 		else if((int)WPEnum.ActorKey.eActorFarmField == actorKey)
 		{
-			GameObject go = Instantiate(this._field, this._baseObject_Farm);
+			GameObject go = Instantiate(this._field, this._baseObject_Farm) as GameObject;
 
 			if (null == go || farmIndex >3 || fieldIndex>5)
 			{
@@ -154,7 +154,7 @@ public class WPActorManager : MonoBehaviour
 		else if((int)WPEnum.ActorKey.eActorSickness == actorKey)
 		{
 			// 병충해를 모든 밭에 Respawn함
-			GameObject go = Instantiate(this._sickness, this._baseObject_Sickness);
+			GameObject go = Instantiate(this._sickness, this._baseObject_Sickness) as GameObject;
 			go.name = "병충해"+sicknessIndex.ToString(); 
 
 			if (null == go)
