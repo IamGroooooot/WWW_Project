@@ -72,7 +72,7 @@ public class WPUIManager_Field : WPUIManager {
             Text text = button_Action.GetComponentInChildren<Text>();
             if (text != null) text.text = "심기";                        // Action 버튼의 UI 설정
 
-            ui_FieldStatus.ClearSprite();                               // FieldStatus UI 비활성화
+            ui_FieldStatus.SetActive(false);
 
             button_Seed.interactable = true;                            // Seed 버튼의 활성화
 
@@ -83,6 +83,8 @@ public class WPUIManager_Field : WPUIManager {
         {
             Text text = button_Action.GetComponentInChildren<Text>();
             if (text != null) text.text = "엎기";
+
+            WPGameCommon._WPDebug(wpField.seedIndex + ":" + wpField.workerIndex + ":" + wpField.fertilizerIndex);
 
             if(wpField.seedIndex != -1)
             {
@@ -100,12 +102,15 @@ public class WPUIManager_Field : WPUIManager {
                 SetSprite_Seed(seedSprite);
             }
 
-            if(wpField.workerIndex != -1)
+            ui_FieldStatus.SetActive(true);
+
+            if (wpField.workerIndex != -1)
             {
 
             }
+            else ui_FieldStatus.Worker.SetActive(false);
 
-            if(wpField.fertilizerIndex != -1)
+            if (wpField.fertilizerIndex != -1)
             {
                 WPData_Fertilizer fertilizerData = WPGameDataManager.instance.GetData<WPData_Fertilizer>(WPEnum.GameData.eFertilizer)[wpField.fertilizerIndex];
 
@@ -114,8 +119,13 @@ public class WPUIManager_Field : WPUIManager {
 
                 Sprite fertilizerSprite = WPResourceManager.instance.GetResource<Sprite>(fertilizerDataPath);
 
-                ui_FieldStatus.SetSprite_Fertilizer(fertilizerSprite);
+                ui_FieldStatus.Fertilizer.SetActive(true);
+
+                ui_FieldStatus.Fertilizer.SetText(fertilizerData.Name);
+                ui_FieldStatus.Fertilizer.SetSprite(fertilizerSprite);
+
             }
+            else ui_FieldStatus.Fertilizer.SetActive(false);
 
             button_Seed.interactable = false;
 

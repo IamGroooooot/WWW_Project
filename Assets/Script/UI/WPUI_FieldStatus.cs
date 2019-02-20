@@ -5,41 +5,41 @@ using UnityEngine.UI;
 
 public class WPUI_FieldStatus : MonoBehaviour {
 
-    Image image_Worker;
-    Image image_Fertilizer;
+    private WPImageText imageText_Worker;
+    private WPImageText imageText_Fertilizer;
+    public WPImageText Worker
+    {
+        get
+        {
+            if(imageText_Worker == null)
+            {
+                imageText_Worker = transform.Find("ImageText_Worker").GetComponent<WPImageText>();
+            }
+            return imageText_Worker;
+        }
+    }
+
+    public WPImageText Fertilizer
+    {
+        get
+        {
+            if(imageText_Fertilizer == null)
+            {
+                imageText_Fertilizer = transform.Find("ImageText_Fertilizer").GetComponent<WPImageText>();
+            }
+            return imageText_Fertilizer;
+        }
+    }
 
     private void Awake()
     {
-        image_Worker = transform.Find("Image_Worker").GetComponent<Image>();
-        image_Fertilizer = transform.Find("Image_Fertilizer").GetComponent<Image>();
+        imageText_Worker = transform.Find("ImageText_Worker").GetComponent<WPImageText>();
+        imageText_Fertilizer = transform.Find("ImageText_Fertilizer").GetComponent<WPImageText>();
     }
 
-    public void SetSprite_Worker(Sprite sprite)
+    public void SetActive(bool param)
     {
-        if (image_Worker == null) return;
-        image_Worker.color = new Color(1, 1, 1, 1);
-        image_Worker.sprite = sprite;
-    }
-
-    public void SetSprite_Fertilizer(Sprite sprite)
-    {
-        if (image_Fertilizer == null) return;
-        image_Fertilizer.color = new Color(1, 1, 1, 1);
-        image_Fertilizer.sprite = sprite;
-    }
-
-    public void ClearSprite()
-    {
-        if (image_Worker != null)
-        {
-            image_Worker.color = new Color(1, 1, 1, 0);
-            image_Worker.sprite = null;
-        }
-        if (image_Fertilizer != null)
-        {
-            image_Fertilizer.color = new Color(1, 1, 1, 0);
-            image_Fertilizer.sprite = null;
-        }
+        gameObject.SetActive(param);
     }
 
 }

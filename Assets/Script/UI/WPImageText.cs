@@ -32,7 +32,13 @@ public class WPImageText : MonoBehaviour {
     public void SetSprite(Sprite content)
     {
         if (image == null) return;
+        image.color = new Color(1, 1, 1, 1);
         image.sprite = content;
+    }
+
+    public void SetActive(bool param)
+    {
+        gameObject.SetActive(param);
     }
 
 }
