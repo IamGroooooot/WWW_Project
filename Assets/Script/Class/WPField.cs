@@ -91,9 +91,10 @@ public class WPField
     }
 
 
-    public static void PrintDebugWhenSick(WPField wP)
+    public void PrintDebugWhenSick(object sender,EventArgs args)
     {
-        wP.isSick = true;
+        isSick = (args as OnOneHourPassed).isSick;
+        (args as OnOneHourPassed).isSick = false;
     }
 
 
