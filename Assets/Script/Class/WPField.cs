@@ -13,7 +13,6 @@ public class WPField
     public int fertilizerIndex { get; private set; }
 	
 	//병충해가 붙은지 한시간마다 true
-	public bool isSick { get; set; }
 	private bool isSubscribed = false;
 
 	public WPDateTime startedTime { get; private set; }
@@ -96,11 +95,11 @@ public class WPField
 	//병충해 이벤트 구독!
 	public void SubscribeSickEvent()
 	{
-		if (isSubscribed || isSick)
+		if (isSubscribed)
 		{
 			return;
 		}
-		WPDateTime.Now.OnValueChanged += SetIsSick;
+		WPDateTime.Now.OnValueChanged += IsSick;
 		isSubscribed = true;
 	}
 
@@ -111,18 +110,18 @@ public class WPField
 		{
 			return;
 		}
-		WPDateTime.Now.OnValueChanged -= SetIsSick;
-		isSick = false;
+		WPDateTime.Now.OnValueChanged -= IsSick;
 		isSubscribed = false;
 	}
 
-	//isSick를 true로!
-	private void SetIsSick(WPDateTime content)
+	//isSick!! 시작 시각에 1시간 더하기
+	private void IsSick(WPDateTime content)
 	{
-
+		//병충해에 걸린 경우 시작한 시각 + 1시간
+		this.startedTime.AddTimeData(1);
 		WPGameCommon._WPDebug("시작한 시각 : " + startedTime.ToString());
 		WPGameCommon._WPDebug("병충해로 식물 성장 멈춤!! |" + seedData[seedIndex].DataName.ToString() + "| 식물의 성장도 성장도: " + ((float)WPDateTime.CompareTime(WPDateTime.Now, startedTime) / seedData[seedIndex].GrowthTime).ToString());
-		isSick = true;
+		
 	}
 
 	public float GetGrownPercent()
@@ -136,13 +135,6 @@ public class WPField
         if (WPDateTime.CompareTime(WPDateTime.Now, startedTime) == -1)
         {
             return -1f;
-        }
-
-        //병충해에 걸린 경우 StartedTime에 1시간 더해준다!
-        if (this.isSick)
-        {
-            this.startedTime = this.startedTime.AddTimeData(1);
-            this.isSick = false;
         }
 
         float percent = 
