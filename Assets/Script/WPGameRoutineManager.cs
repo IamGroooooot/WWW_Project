@@ -10,7 +10,6 @@ public class WPGameRoutineManager : MonoBehaviour {
     // Varaibles
     public static WPGameRoutineManager instance = null;
 
-    public static event System.EventHandler TimePassed;
     /////////////////////////////////////////////////////////////////////////
     // Methods
 
@@ -34,10 +33,7 @@ public class WPGameRoutineManager : MonoBehaviour {
             if (timeCounter >= 5f)
             {
                 WPDateTime.Now.AddHour(1);
-
-                //한시간 지날 때마다 등록된 콜백 메소드 호출
-                TimePassed(this, new OnOneHourPassed());
-
+                
                 timeCounter = 0f;
             }
             

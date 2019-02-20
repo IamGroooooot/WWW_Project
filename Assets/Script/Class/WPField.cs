@@ -91,13 +91,6 @@ public class WPField
     }
 
 
-    public void PrintDebugWhenSick(object sender,EventArgs args)
-    {
-        isSick = (args as OnOneHourPassed).isSick;
-        (args as OnOneHourPassed).isSick = false;
-    }
-
-
     public float GetGrownPercent()
 	{
         //시간의 줄여주는 비료를 고려하는 코드
