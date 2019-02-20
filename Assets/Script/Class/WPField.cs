@@ -118,7 +118,7 @@ public class WPField
 	private void IsSick(WPDateTime content)
 	{
 		//병충해에 걸린 경우 시작한 시각 + 1시간
-		this.startedTime.AddTimeData(1);
+		this.startedTime = this.startedTime.AddTimeData(1);
 		WPGameCommon._WPDebug("시작한 시각 : " + startedTime.ToString());
 		WPGameCommon._WPDebug("병충해로 식물 성장 멈춤!! |" + seedData[seedIndex].DataName.ToString() + "| 식물의 성장도 성장도: " + ((float)WPDateTime.CompareTime(WPDateTime.Now, startedTime) / seedData[seedIndex].GrowthTime).ToString());
 		
