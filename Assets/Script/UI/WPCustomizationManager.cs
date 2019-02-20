@@ -23,6 +23,8 @@ public class WPCustomizationManager : WPUIManager
 	private GameObject[] shirtPrefabs;
 	[SerializeField]
 	private GameObject[] pantsPrefabs;
+	[SerializeField]
+	private GameObject[] shoesPrefabs;
 
 	//Hair Colors
 	[SerializeField]
@@ -40,11 +42,14 @@ public class WPCustomizationManager : WPUIManager
 	private Transform shirtsAchor;
 	[SerializeField]
 	private Transform pantsAchor;
+	[SerializeField]
+	private Transform shoesAchor;
 
 	GameObject currentHair;
 	GameObject currentBasedBody;
 	GameObject currentShirt;
 	GameObject currentPants;
+	GameObject currentShoes;
 	string currentWorkerName;
 
 	public Dictionary<WPEnum.WorkerAppearanceDetail, int> selectedAppearance;
@@ -55,6 +60,8 @@ public class WPCustomizationManager : WPUIManager
 	int shirt_Id = 0;
 	int pants_Id = 0;
 	int hairColor_Id = 0;
+	int shoes_Id = 0;
+
 	/////////////////////////////////////////////////////////////////////////
 	// Methods
 	protected override void Init()
@@ -63,7 +70,6 @@ public class WPCustomizationManager : WPUIManager
 
 		Randomzize();
 
-		//GetWorkerData()
 		//SetActive(false);
 	}
 
@@ -239,6 +245,32 @@ public class WPCustomizationManager : WPUIManager
 		ApplyCostume(WPEnum.WorkerAppearanceDetail.eHairColor, hairColor_Id);
 	}
 
+	//신발 설정
+	public void OnClick_Shoes_NextBtn()
+	{
+		if (shoes_Id < shoesPrefabs.Length - 1)
+		{
+			shoes_Id++;
+		}
+		else
+		{
+			shoes_Id = 0;
+		}
+		ApplyCostume(WPEnum.WorkerAppearanceDetail.eShoes, shoes_Id);
+	}
+	public void OnClick_Shoes_BackBtn()
+	{
+		if (shoes_Id > 0)
+		{
+			shoes_Id--;
+		}
+		else
+		{
+			shoes_Id = shoesPrefabs.Length - 1;
+		}
+		ApplyCostume(WPEnum.WorkerAppearanceDetail.eShoes, shoes_Id);
+	}
+
 	//Id에 해당하는 Custom울 적용합니당
 	void ApplyCostume(WPEnum.WorkerAppearanceDetail _detail, int id)
 	{
@@ -299,6 +331,16 @@ public class WPCustomizationManager : WPUIManager
 					currentHair.GetComponent<MeshRenderer>().material.color = hairColors[id];
 				}
 				break;
+			case WPEnum.WorkerAppearanceDetail.eShoes:
+				if (currentShoes!=null)
+				{
+					//WPGameCommon._WPDebug("Shoes 이미 set됨");
+					Destroy(currentShoes);
+				}
+				currentShoes = Instantiate(shoesPrefabs[id]);
+				currentShoes.transform.SetParent(shoesAchor);
+				ResetTransform(currentShoes.transform);
+				break;
 
 			default:
 				break;
@@ -321,6 +363,7 @@ public class WPCustomizationManager : WPUIManager
 		selectedAppearance.Add(WPEnum.WorkerAppearanceDetail.eHairColor, hairColor_Id);
 		selectedAppearance.Add(WPEnum.WorkerAppearanceDetail.eShirt, shirt_Id);
 		selectedAppearance.Add(WPEnum.WorkerAppearanceDetail.ePants, pants_Id);
+		selectedAppearance.Add(WPEnum.WorkerAppearanceDetail.eShoes, shoes_Id);
 
 		//Worker에 저장하는 코드
 		if (worker != null)
@@ -340,6 +383,7 @@ public class WPCustomizationManager : WPUIManager
 		ApplyCostume(WPEnum.WorkerAppearanceDetail.eHairColor,Random.Range(0,hairColors.Length));
 		ApplyCostume(WPEnum.WorkerAppearanceDetail.eShirt,Random.Range(0,shirtPrefabs.Length));
 		ApplyCostume(WPEnum.WorkerAppearanceDetail.ePants,Random.Range(0,pantsPrefabs.Length));
+		ApplyCostume(WPEnum.WorkerAppearanceDetail.eShoes, Random.Range(0,shoesPrefabs.Length));
 	}
 
 	private void ResetTransform(Transform transform)

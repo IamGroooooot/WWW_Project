@@ -234,6 +234,7 @@ public class WPEnum {
 		eHair,
 		eShirt,
 		ePants,
-		eHairColor
+		eHairColor,
+		eShoes
 	}
 }
