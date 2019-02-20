@@ -15,6 +15,8 @@ public class WPUIManager_Field : WPUIManager {
     private WPImageText imageText_Time;              // 예상 시간 UI
     private WPImageText imageText_Money;             // 필요 금액 UI
 
+    private WPUI_FieldStatus ui_FieldStatus;            // 밭의 상태 표시 UI
+
     private WPScrollView_Select scrollView_Select;               // 일꾼, 비료, 식물을 선택하는 데 필요한 스크롤 뷰
 
     private Button button_Seed;                         // 식물 선택 버튼
@@ -36,6 +38,8 @@ public class WPUIManager_Field : WPUIManager {
 
         imageText_Time = this.transform.Find("ImageText_Time").GetComponent<WPImageText>();
         imageText_Money = this.transform.Find("ImageText_Money").GetComponent<WPImageText>();
+
+        ui_FieldStatus = this.transform.Find("UI_FieldStatus").GetComponent<WPUI_FieldStatus>();
 
         scrollView_Select = this.transform.Find("ScrollView_Select").GetComponent<WPScrollView_Select>();
 
@@ -66,30 +70,52 @@ public class WPUIManager_Field : WPUIManager {
         if(wpField == null) // 이 경우 밭의 정보가 없는 것으로, 이 때 여기서 새로운 밭을 만들어 넘겨주어야 합니다.
         {
             Text text = button_Action.GetComponentInChildren<Text>();
-            if (text != null) text.text = "심기";
+            if (text != null) text.text = "심기";                        // Action 버튼의 UI 설정
 
-            button_Seed.interactable = true;
+            ui_FieldStatus.ClearSprite();                               // FieldStatus UI 비활성화
+
+            button_Seed.interactable = true;                            // Seed 버튼의 활성화
 
             SetSprite_Seed();
-            scrollView_Select.SetActive(true);
+            scrollView_Select.SetActive(true);                          // scrollView UI 활성화
         }
         else                // 밭의 정보가 있습니다. 이 정보를 활용하여 UI로 표시합니다.
         {
             Text text = button_Action.GetComponentInChildren<Text>();
             if (text != null) text.text = "엎기";
 
-            WPData_Seed seedData = WPGameDataManager.instance.GetData<WPData_Seed>(WPEnum.GameData.eSeed)[wpField.seedIndex];
+            if(wpField.seedIndex != -1)
+            {
+                WPData_Seed seedData = WPGameDataManager.instance.GetData<WPData_Seed>(WPEnum.GameData.eSeed)[wpField.seedIndex];
 
-            SetText_Time(string.Format("{0:f2}% 자람", (wpField.GetGrownPercent() * 100f)));
-            instance.SetText_Money(
-                Convert.ToInt32(seedData.ComparePrice).ToString());
+                SetText_Time(string.Format("{0:f2}% 자람", (wpField.GetGrownPercent() * 100f)));
+                instance.SetText_Money(
+                    Convert.ToInt32(seedData.ComparePrice).ToString());
 
-            string seedDataName = seedData.DataName;
-            string seedDataPath = "Image/Seed/" + seedDataName;
+                string seedDataName = seedData.DataName;
+                string seedDataPath = "Image/Seed/" + seedDataName;
 
-            Sprite seedSprite = WPResourceManager.instance.GetResource<Sprite>(seedDataPath);
+                Sprite seedSprite = WPResourceManager.instance.GetResource<Sprite>(seedDataPath);
 
-            SetSprite_Seed(seedSprite);
+                SetSprite_Seed(seedSprite);
+            }
+
+            if(wpField.workerIndex != -1)
+            {
+
+            }
+
+            if(wpField.fertilizerIndex != -1)
+            {
+                WPData_Fertilizer fertilizerData = WPGameDataManager.instance.GetData<WPData_Fertilizer>(WPEnum.GameData.eFertilizer)[wpField.fertilizerIndex];
+
+                string fertilizerDataName = fertilizerData.DataName;
+                string fertilizerDataPath = "Image/Fertilizer/" + fertilizerDataName;
+
+                Sprite fertilizerSprite = WPResourceManager.instance.GetResource<Sprite>(fertilizerDataPath);
+
+                ui_FieldStatus.SetSprite_Fertilizer(fertilizerSprite);
+            }
 
             button_Seed.interactable = false;
 

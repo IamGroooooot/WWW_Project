@@ -13,21 +13,21 @@ public class WPUserDataManager : MonoBehaviour {
     {
         public int debt;
         public int money;
-        public int[] worker = new int[12];
-        public int[] fertilizer = new int[12];
+        public List<string> worker = new List<string>();
+        public List<int> fertilizer = new List<int>();
 
         public UserData()
         {
             debt = 0;
             money = 1000;
-            for(int i = 0; i < fertilizer.Length; ++i)
+            for(int i = 0; i < 12; ++i)
             {
-                fertilizer[i] = 1;
+                fertilizer.Insert(i, 1);
             }
         }
 
         [JsonConstructor]
-        public UserData(int _debt, int _money, int[] _worker, int[] _fertilizer)
+        public UserData(int _debt, int _money, List<string> _worker, List<int> _fertilizer)
         {
             debt = _debt;
             money = _money;
@@ -126,27 +126,27 @@ public class WPUserDataManager : MonoBehaviour {
         userData = UserData.LoadData(DATA_PATH);
     }
 
-    public int GetWorker(int index)
+    public WPWorker GetWorker(int index)
+    {
+        if (userData == null) return null;
+        if (userData.worker == null) return null;
+        if (index < 0 || index >= userData.worker.Count) return null;
+        return null;
+    }
+
+    public int GetWorkerCount()
     {
         if (userData == null) return 0;
         if (userData.worker == null) return 0;
-        if (index < 0 || index >= userData.worker.Length) return 0;
-        return userData.worker[index];
+        return userData.worker.Count;
     }
 
-    public int GetWorkerLength()
-    {
-        if (userData == null) return 0;
-        if (userData.worker == null) return 0;
-        return userData.worker.Length;
-    }
-
-    public void SetWorker(int index, int value)
+    public void SetWorker(int index, WPWorker value)
     {
         if (userData == null) return;
         if (userData.worker == null) return;
-        if (index < 0 || index >= userData.worker.Length) return;
-        userData.worker[index] = value;
+        if (index < 0 || index >= userData.worker.Count) return;
+        userData.worker[index] = value.ToString();
         UserData.SaveData(DATA_PATH, userData);
     }
 
@@ -154,22 +154,22 @@ public class WPUserDataManager : MonoBehaviour {
     {
         if (userData == null) return 0;
         if (userData.fertilizer == null) return 0;
-        if (index < 0 || index >= userData.fertilizer.Length) return 0;
+        if (index < 0 || index >= userData.fertilizer.Count) return 0;
         return userData.fertilizer[index];
     }
 
-    public int GetFertilizerLength()
+    public int GetFertilizerCount()
     {
         if (userData == null) return 0;
         if (userData.fertilizer == null) return 0;
-        return userData.fertilizer.Length;
+        return userData.fertilizer.Count;
     }
 
     public void SetFertilizer(int index, int value)
     {
         if (userData == null) return;
         if (userData.fertilizer == null) return;
-        if (index < 0 || index >= userData.fertilizer.Length) return;
+        if (index < 0 || index >= userData.fertilizer.Count) return;
         userData.fertilizer[index] = value;
         UserData.SaveData(DATA_PATH, userData);
     }
