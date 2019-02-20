@@ -18,7 +18,7 @@ public class WPSicknessManager : MonoBehaviour {
 	
 	void Start()
 	{
-		StartCoroutine(MakeSickness_forTest());
+		//StartCoroutine(MakeSickness_forTest());
 	}
 
 	void Update()

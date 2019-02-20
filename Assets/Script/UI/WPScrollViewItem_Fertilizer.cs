@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class WPScrollViewItem_Seed : WPScrollViewItem
+public class WPScrollViewItem_Fertilizer : WPScrollViewItem
 {
 
-    private static List<WPScrollViewItem_Seed> ITEMS = new List<WPScrollViewItem_Seed>();
+    private static List<WPScrollViewItem_Fertilizer> ITEMS = new List<WPScrollViewItem_Fertilizer>();
 
-    public static WPScrollViewItem_Seed ITEM_FOCUS
+    public static WPScrollViewItem_Fertilizer ITEM_FOCUS
     {
         set
         {
-            foreach(WPScrollViewItem_Seed item in ITEMS)
+            foreach (WPScrollViewItem_Fertilizer item in ITEMS)
             {
                 item.SetFocus(item.name == value.name);
             }
@@ -24,7 +24,7 @@ public class WPScrollViewItem_Seed : WPScrollViewItem
     /// </summary>
     public static void Initalize()
     {
-        ITEMS = new List<WPScrollViewItem_Seed>();
+        ITEMS = new List<WPScrollViewItem_Fertilizer>();
     }
 
     protected override void Init()
@@ -38,5 +38,5 @@ public class WPScrollViewItem_Seed : WPScrollViewItem
     {
         ITEM_FOCUS = this;
     }
-    
+
 }

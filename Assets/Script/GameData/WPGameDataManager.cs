@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 using System;
 using System.IO;
-using LitJson;
+
 // 게임데이터 : (무결성 검사), json, 읽기만 할 수 있음. static
 // 파, 상추, 감자, 배추, 30, 50, 150, 500
 // 게임데이터 매니저 파서 구현(싱글톤) 

@@ -13,17 +13,74 @@ public class WPUserDataManager : MonoBehaviour {
     {
         public int debt;
         public int money;
-        public int[] worker;
-        public int[] fertilizer;
+        public int[] worker = new int[12];
+        public int[] fertilizer = new int[12];
 
         public UserData()
         {
             debt = 0;
-            money = 0;
-            worker = new int[12];
-            fertilizer = new int[12];
+            money = 1000;
+            for(int i = 0; i < fertilizer.Length; ++i)
+            {
+                fertilizer[i] = 1;
+            }
+        }
+
+        [JsonConstructor]
+        public UserData(int _debt, int _money, int[] _worker, int[] _fertilizer)
+        {
+            debt = _debt;
+            money = _money;
+            worker = _worker;
+            fertilizer = _fertilizer;
+        }
+
+        public static void SaveData(string path, UserData saveData)
+        {
+            try
+            {
+                StreamWriter writer = new StreamWriter(path, false);
+                writer.WriteLine(JsonConvert.SerializeObject(saveData, Formatting.Indented));
+                writer.Close();
+            }
+            catch (IOException e)
+            {
+                WPGameCommon._WPDebug(e);
+            }
+        }
+
+        public static UserData LoadData(string path)
+        {
+            string data = string.Empty;
+            try
+            {
+                StreamReader streamReader = new StreamReader(path);
+                data = streamReader.ReadToEnd();
+                streamReader.Close();
+            }
+            catch (IOException e)
+            {
+                WPGameCommon._WPDebug(e);
+            }
+
+            UserData newData = null;
+
+            if (string.IsNullOrEmpty(data))
+            {
+                WPGameCommon._WPDebug("유저 데이터 초기화");
+                newData = new UserData();
+                SaveData(path, newData);
+            }
+            else
+            {
+                WPGameCommon._WPDebug("유저 데이터 불러옴");
+                newData = JsonConvert.DeserializeObject<UserData>(data);
+            }
+
+            return newData;
         }
     }
+
     /////////////////////////////////////////////////////////////////////////
     // Varaibles
     public static WPUserDataManager instance = null;        // for singleton
@@ -63,47 +120,58 @@ public class WPUserDataManager : MonoBehaviour {
     private void Init()
     {
         instance = this;
-        if(string.IsNullOrEmpty(DATA_PATH)) DATA_PATH = SetPath() + "UserData.dat";
-        LoadData();
+
+        if (string.IsNullOrEmpty(DATA_PATH)) DATA_PATH = SetPath() + "UserData.dat";
+
+        userData = UserData.LoadData(DATA_PATH);
     }
 
-    public void SaveData()
+    public int GetWorker(int index)
     {
-        try
-        {
-            StreamWriter writer = new StreamWriter(DATA_PATH, false);
-            writer.WriteLine(JsonConvert.SerializeObject(userData, Formatting.Indented));
-            writer.Close();
-        }
-        catch (IOException e)
-        {
-            WPGameCommon._WPDebug(e);
-        }
+        if (userData == null) return 0;
+        if (userData.worker == null) return 0;
+        if (index < 0 || index >= userData.worker.Length) return 0;
+        return userData.worker[index];
     }
 
-    private void LoadData()
+    public int GetWorkerLength()
     {
-        string data = string.Empty;
-        try
-        {
-            StreamReader streamReader = new StreamReader(DATA_PATH);
-            data = streamReader.ReadToEnd();
-            streamReader.Close();
-        }
-        catch(IOException e)
-        {
-            WPGameCommon._WPDebug(e);
-        }
+        if (userData == null) return 0;
+        if (userData.worker == null) return 0;
+        return userData.worker.Length;
+    }
 
-        UserData newData = JsonConvert.DeserializeObject<UserData>(data);
+    public void SetWorker(int index, int value)
+    {
+        if (userData == null) return;
+        if (userData.worker == null) return;
+        if (index < 0 || index >= userData.worker.Length) return;
+        userData.worker[index] = value;
+        UserData.SaveData(DATA_PATH, userData);
+    }
 
-        if (newData != null) userData = newData;
-        else
-        {
-            userData = new UserData();
-            SaveData();
-        }
+    public int GetFertilizer(int index)
+    {
+        if (userData == null) return 0;
+        if (userData.fertilizer == null) return 0;
+        if (index < 0 || index >= userData.fertilizer.Length) return 0;
+        return userData.fertilizer[index];
+    }
 
+    public int GetFertilizerLength()
+    {
+        if (userData == null) return 0;
+        if (userData.fertilizer == null) return 0;
+        return userData.fertilizer.Length;
+    }
+
+    public void SetFertilizer(int index, int value)
+    {
+        if (userData == null) return;
+        if (userData.fertilizer == null) return;
+        if (index < 0 || index >= userData.fertilizer.Length) return;
+        userData.fertilizer[index] = value;
+        UserData.SaveData(DATA_PATH, userData);
     }
 
 }

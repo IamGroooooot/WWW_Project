@@ -125,8 +125,6 @@ public class WPUIManager_Field : WPUIManager {
     {
         scrollView_Select.CreateSeedList();
         WPGameCommon._WPDebug("식물을 선택");
-        //SelectedSeed에 값 저장
-        //SelectedSeed = "Potato";
     }
 
     // Action 버튼을 클릭했을 때 호출합니다.
@@ -172,6 +170,9 @@ public class WPUIManager_Field : WPUIManager {
                 return;
             }
             // 모두 선택하였다면 새로운 객체를 생성하여 넘겨준다. targetField는 필요하지 않을수도?
+
+            WPUserDataManager.instance.SetFertilizer(fertilizerIndex, WPUserDataManager.instance.GetFertilizer(fertilizerIndex) - 1); // 비료 수의 감소
+
             targetField = new WPField(seedIndex, workerIndex, fertilizerIndex, WPDateTime.ParseData(WPDateTime.Now.ToData()));
             targetFieldCtrl.SetFieldData(targetField);
             SetActive(false);

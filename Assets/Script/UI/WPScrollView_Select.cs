@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class WPScrollView_Select : WPScrollView {
 
-    private static string DATA_PATH = "Image/Seed/";
+    private static string DATA_PATH = "Image/";
 
     private GameObject ui_Item;
 
@@ -44,13 +44,13 @@ public class WPScrollView_Select : WPScrollView {
         List<WPData_Seed> seedData = WPGameDataManager.instance.GetData<WPData_Seed>(WPEnum.GameData.eSeed);
         for (int index = 0; index < seedData.Count; ++index)
         {
-            string seedDataName = seedData[index].DataName;
-            string seedDataPath = DATA_PATH + seedDataName;
+            string dataName = seedData[index].DataName;
+            string dataPath = DATA_PATH + "Seed/" + dataName;
 
-            Sprite seedSprite = WPResourceManager.instance.GetResource<Sprite>(seedDataPath);
-            if (seedSprite != null)
+            Sprite newSprite = WPResourceManager.instance.GetResource<Sprite>(dataPath);
+            if (newSprite != null)
             {
-                spriteData.Insert(index, seedSprite);
+                spriteData.Insert(index, newSprite);
             }
         }
         return spriteData;
@@ -63,7 +63,20 @@ public class WPScrollView_Select : WPScrollView {
 
     private List<Sprite> LoadFertilizerData()
     {
-        return null;
+        List<Sprite> spriteData = new List<Sprite>();
+        List<WPData_Fertilizer> fertilizerData = WPGameDataManager.instance.GetData<WPData_Fertilizer>(WPEnum.GameData.eFertilizer);
+        for(int index = 0; index < fertilizerData.Count; ++index)
+        {
+            string dataName = fertilizerData[index].DataName;
+            string dataPath = DATA_PATH + "Fertilizer/" + dataName;
+
+            Sprite newSprite = WPResourceManager.instance.GetResource<Sprite>(dataPath);
+            if (newSprite != null)
+            {
+                spriteData.Insert(index, newSprite);
+            }
+        }
+        return spriteData;
     }
 
     //식물 눌렀을 때
@@ -74,10 +87,12 @@ public class WPScrollView_Select : WPScrollView {
         {
             WPGameCommon._WPDebug(seedData.Name + "을(를) 선택하였습니다.");
             WPUIManager_Field.instance.SetText_Time(
-                WPDateTime.Now.AddTimeData(seedData.GrowthTime
+                WPDateTime.Now.AddTimeData(
+                    seedData.GrowthTime
                 ).ToString());
-            WPUIManager_Field.instance.SetText_Money(
-                Convert.ToInt32(seedData.ComparePrice).ToString());
+            WPUIManager_Field.instance.SetText_Money((
+                    seedData.ComparePrice
+                ).ToString());
             WPUIManager_Field.instance.SetSprite_Seed(seedSpriteData[index]);
         }
         seedIndex = index;
@@ -90,7 +105,12 @@ public class WPScrollView_Select : WPScrollView {
 
     public void OnClick_Fertilizer(int index)
     {
-
+        WPData_Fertilizer fertilizerData = WPGameDataManager.instance.GetData<WPData_Fertilizer>(WPEnum.GameData.eFertilizer)[index];
+        if(fertilizerData != null)
+        {
+            WPGameCommon._WPDebug(fertilizerData.Name + "을(를) 선택하였습니다.");
+        }
+        fertilizerIndex = index;
     }
 
     public void CreateSeedList()
@@ -105,7 +125,7 @@ public class WPScrollView_Select : WPScrollView {
             WPScrollViewItem_Seed newItem = Instantiate(ui_Item).AddComponent<WPScrollViewItem_Seed>();
             newItem.SetName(index.ToString());
             newItem.AddEvent(delegate { OnClick_Seed(Convert.ToInt32(newItem.name)); });
-            newItem.SetText(seedData[index].Name.ToString());
+            newItem.SetText(seedData[index].Name);
             newItem.SetFocus(index == seedIndex);
             newItem.SetSprite(seedSpriteData[index]);
             AddItem(newItem);
@@ -119,6 +139,7 @@ public class WPScrollView_Select : WPScrollView {
         if (selectionState == 2) return;
         selectionState = 2;
         ClearList();
+
     }
 
     public void CreateFertilizerList()
@@ -126,6 +147,24 @@ public class WPScrollView_Select : WPScrollView {
         if (selectionState == 3) return;
         selectionState = 3;
         ClearList();
+        WPScrollViewItem_Fertilizer.Initalize();
+        List<WPData_Fertilizer> fertilizerData = WPGameDataManager.instance.GetData<WPData_Fertilizer>(WPEnum.GameData.eFertilizer);
+        for(int index = 0; index < fertilizerData.Count; ++index)
+        {
+            WPGameCommon._WPDebug(index+"번 비료 수 : " +WPUserDataManager.instance.GetFertilizer(index));
+            if(WPUserDataManager.instance.GetFertilizer(index) > 0)
+            {
+                WPScrollViewItem_Fertilizer newItem = Instantiate(ui_Item).AddComponent<WPScrollViewItem_Fertilizer>();
+                newItem.SetName(index.ToString());
+                newItem.AddEvent(delegate { OnClick_Fertilizer(Convert.ToInt32(newItem.name)); });
+                newItem.SetText(fertilizerData[index].Name);
+                newItem.SetFocus(index == fertilizerIndex);
+                newItem.SetSprite(fertilizerSpriteData[index]);
+                AddItem(newItem);
+            }
+        }
+        if (fertilizerIndex <= -1) SortItem();
+        else SortItem(seedIndex);
     }
     
 
