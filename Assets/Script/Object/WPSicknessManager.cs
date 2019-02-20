@@ -38,3 +38,12 @@ public class WPSicknessManager : MonoBehaviour {
 	}
 }
 
+public class OnOneHourPassed : System.EventArgs
+{
+    public bool isSick;
+
+    public OnOneHourPassed()
+    {
+        isSick = true;
+    }
+}

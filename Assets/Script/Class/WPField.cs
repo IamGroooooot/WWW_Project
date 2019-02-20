@@ -11,6 +11,7 @@ public class WPField
 	public int seedIndex { get; private set; }
     public int workerIndex { get; private set; }
     public int fertilizerIndex { get; private set; }
+    public bool isSick { get; set; }
 
     public WPDateTime startedTime { get; private set; }
 
@@ -89,7 +90,14 @@ public class WPField
         return 0;
     }
 
-	public float GetGrownPercent()
+
+    public static void PrintDebugWhenSick(WPField wP)
+    {
+        wP.isSick = true;
+    }
+
+
+    public float GetGrownPercent()
 	{
         //시간의 줄여주는 비료를 고려하는 코드
         //짜야됨
@@ -102,6 +110,12 @@ public class WPField
             return -1f;
         }
 
+        //병충해에 걸린 경우 StartedTime에 1시간 더해준다!
+        if (this.isSick)
+        {
+            this.startedTime = this.startedTime.AddTimeData(1);
+            this.isSick = false;
+        }
 
         float percent = 
             (float)WPDateTime.CompareTime(WPDateTime.Now, startedTime) /
