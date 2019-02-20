@@ -30,7 +30,7 @@ public class WPSicknessCtrl : WPActor {
 
 	void OnTriggerStay2D(Collider2D Col)
 	{
-		Debug.Log("My col = " + Col.name);
+		//Debug.Log("My col = " + Col.name);
 		if (Col.GetComponent<WPFieldCtrl>() != null && Col.GetComponent<WPFieldCtrl>().wpField != null)
 		{
             //Worker가 없는 경우
