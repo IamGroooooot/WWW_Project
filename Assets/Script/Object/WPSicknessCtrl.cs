@@ -38,7 +38,8 @@ public class WPSicknessCtrl : WPActor {
             {
 				//식물 성장을 멈추셈
 				targetField = Col.GetComponent<WPFieldCtrl>().wpField;
-				targetField.SubscribeSickEvent();
+                targetField.isSick = true;
+				//targetField.SubscribeSickEvent();
 			}
             else
 			{
@@ -60,7 +61,8 @@ public class WPSicknessCtrl : WPActor {
 
 		if (targetField != null)
 		{
-			targetField.UnsubscribeSickEvent();
+            //targetField.UnsubscribeSickEvent();
+            targetField.isSick = false;
 			targetField = null;
 		}
 

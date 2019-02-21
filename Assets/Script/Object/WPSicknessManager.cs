@@ -13,12 +13,12 @@ public class WPSicknessManager : MonoBehaviour {
 	void Awake()
 	{
 		instance = this;
-
 	}
 	
 	void Start()
 	{
 		StartCoroutine(MakeSickness_forTest());
+
 	}
 
 	void Update()

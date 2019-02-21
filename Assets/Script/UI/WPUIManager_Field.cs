@@ -90,7 +90,7 @@ public class WPUIManager_Field : WPUIManager {
             {
                 WPData_Seed seedData = WPGameDataManager.instance.GetData<WPData_Seed>(WPEnum.GameData.eSeed)[wpField.seedIndex];
 
-                SetText_Time(string.Format("{0:f2}% 자람", (wpField.GetGrownPercent() * 100f)));
+                SetText_Time(string.Format("{0:f2}% 자람", (wpField.GrowthRate * 100f)));
                 instance.SetText_Money(
                     Convert.ToInt32(seedData.ComparePrice).ToString());
 
@@ -209,7 +209,7 @@ public class WPUIManager_Field : WPUIManager {
 
             WPUserDataManager.instance.SetFertilizer(fertilizerIndex, WPUserDataManager.instance.GetFertilizer(fertilizerIndex) - 1); // 비료 수의 감소
 
-            targetField = new WPField(seedIndex, workerIndex, fertilizerIndex, WPDateTime.ParseData(WPDateTime.Now.ToData()));
+            targetField = new WPField(seedIndex, workerIndex, fertilizerIndex);
             targetFieldCtrl.SetFieldData(targetField);
             SetActive(false);
         }

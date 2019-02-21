@@ -51,6 +51,8 @@ public class WPFieldCtrl : WPActor
         else
             SetFieldData(WPField.ParseData(data));
 
+        WPDateTime.Now.OnValueChanged += SaveFieldData;
+
     }
 
     private void OnMouseDown()
@@ -130,6 +132,14 @@ public class WPFieldCtrl : WPActor
         }
     }
 
+    public void SaveFieldData(WPDateTime nowTime)
+    {
+        if(wpField != null)
+        {
+            WPGameVariableManager.instance.SaveVariable(fieldKey, wpField.ToData());
+        }
+    }
+
     private IEnumerator GrowRoutine()
     {
 
@@ -142,15 +152,15 @@ public class WPFieldCtrl : WPActor
 
         SetScale(0.15f);
 
-        yield return new WaitUntil(() => wpField.GetGrownPercent() >= 0.3f);
+        yield return new WaitUntil(() => wpField.GrowthRate >= 0.3f);
 
         SetScale(0.3f);
 
-        yield return new WaitUntil(() => wpField.GetGrownPercent() >= 0.6f);
+        yield return new WaitUntil(() => wpField.GrowthRate >= 0.6f);
 
         SetScale(0.6f);
 
-        yield return new WaitUntil(() => wpField.GetGrownPercent() >= 1f);
+        yield return new WaitUntil(() => wpField.GrowthRate >= 1f);
 
         SetScale(1f);
 
