@@ -64,7 +64,6 @@ public class WPUIManager_Field : WPUIManager {
     // null이라고 해서 새로운 WPField를 바로 생성하지 않습니다. <- 중요.
     // UI에서 선택한 정보는 WPScrollView_Select에 저장됩니다. ( seedIndex, workerIndex, fertilizerIndex )
     // 새로운 WPField를 생성하는 시점은 OnClick_Plant를 클릭했을 때 입니다.
-    // 이 때, WPScrollView_Select에 저장된 정보에 WPDateTime.Now를 심은 시각으로 하여 새로운 WPField를 만듭니다. <- 더 중요.
     public void GetFieldData(WPField wpField, WPFieldCtrl wpFieldCtrl)
     {
         if(wpField == null) // 이 경우 밭의 정보가 없는 것으로, 이 때 여기서 새로운 밭을 만들어 넘겨주어야 합니다.
@@ -169,7 +168,8 @@ public class WPUIManager_Field : WPUIManager {
         if (targetField != null)
         {
             WPGameCommon._WPDebug("식물엎기를 선택");
-            targetFieldCtrl.SetFieldData(null);
+            targetFieldCtrl.ClearFieldData();
+            targetFieldCtrl.SaveFieldData();
             SetActive(false);
         }
         else
@@ -211,6 +211,7 @@ public class WPUIManager_Field : WPUIManager {
 
             targetField = new WPField(seedIndex, workerIndex, fertilizerIndex);
             targetFieldCtrl.SetFieldData(targetField);
+            targetFieldCtrl.SaveFieldData();
             SetActive(false);
         }
     }

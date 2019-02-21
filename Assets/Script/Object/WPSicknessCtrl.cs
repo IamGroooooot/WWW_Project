@@ -27,7 +27,7 @@ public class WPSicknessCtrl : WPActor {
 		base.startMoveRoutine = false;
 		gameObject.SetActive(false);
 	}
-
+    /*
 	void OnTriggerStay2D(Collider2D Col)
 	{
 		//Debug.Log("My col = " + Col.name);
@@ -53,7 +53,7 @@ public class WPSicknessCtrl : WPActor {
 		{
 			OnMouseDown();
 		}
-	}
+	}*/
 
 	private void OnMouseDown()
     {

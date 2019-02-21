@@ -44,11 +44,19 @@ public class WPField
             return progressValue / completeValue;
         }
     }
-	
-	//병충해가 붙은지 한시간마다 true 
-	//private bool isSubscribed = false;
 
-    private WPDateTime checkTime { get; set; }      // 시간 변화 체크를 위한 변수
+    private WPDateTime checkTime;
+
+    /// <summary>
+    /// 이 밭에 뭐가 심어져 있긴 한건지 확인합니다.
+    /// </summary>
+    public bool IsPlanted
+    {
+        get
+        {
+            return seedIndex != -1;
+        }
+    }
 
     /// <summary>
     /// 이 밭의 작물이 완성되었는지 확인합니다.
@@ -75,9 +83,6 @@ public class WPField
         seedIndex = -1;
         workerIndex = -1;
         fertilizerIndex = -1;
-
-        progressValue = 0;
-
     }
 
     public WPField(int _seedIndex, int _workerIndex, int _fertilizerIndex)
@@ -92,7 +97,7 @@ public class WPField
 
         checkTime = WPDateTime.ParseData(WPDateTime.Now.ToData());
 
-        WPDateTime.Now.OnValueChanged += UpdateFieldStatus;
+        WPDateTime.Now.OnValueChanged += OnTimeChanged;
     }
 
     public string ToData()
@@ -105,7 +110,7 @@ public class WPField
             progressValue);
     }
 
-    private void UpdateFieldStatus(WPDateTime newTime)
+    private void OnTimeChanged(WPDateTime newTime)
     {
         int changedValue = WPDateTime.CompareTime(newTime, checkTime);
         if (!isSick)
