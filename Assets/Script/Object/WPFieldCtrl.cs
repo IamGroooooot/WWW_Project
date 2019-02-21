@@ -31,7 +31,7 @@ public class WPFieldCtrl : WPActor
 
     private Transform graphic_Seed;                                 // Seed 표현을 위한 Transform
 
-    private SpriteRenderer graphic_Sickness;                        // Sickness 표현을 위한 SpriteRenderer
+    private GameObject graphic_Sickness;                            // Sickness 표현을 위한 GameObject
 
     private WPField wpField;                                        // 밭의 정보를 저장하는 변수입니다.
 
@@ -65,7 +65,7 @@ public class WPFieldCtrl : WPActor
 
         graphic_Seed = transform.Find("Graphic_Seed");
 
-        graphic_Sickness = transform.Find("Graphic_Sickness").GetComponent<SpriteRenderer>();
+        graphic_Sickness = transform.Find("Graphic_Sickness").gameObject;
 
         fieldKey = (WPEnum.VariableType)System.Enum.Parse(typeof(WPEnum.VariableType), "eField" + fieldIndex.ToString());
 

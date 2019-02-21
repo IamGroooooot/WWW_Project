@@ -83,6 +83,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4878743407471802}
   - component: {fileID: 212891079670199780}
+  - component: {fileID: 95307447409529852}
   m_Layer: 0
   m_Name: Graphic_Sickness
   m_TagString: Untagged
@@ -398,7 +399,7 @@ Transform:
   m_GameObject: {fileID: 1352572899585352}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 4174263902554606}
   m_RootOrder: 1
@@ -454,6 +455,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4, y: 4}
   m_EdgeRadius: 0
+--- !u!95 &95307447409529852
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1352572899585352}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 27a1175a446f5704f85ae42ab5096710, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114583973879822764
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -851,15 +869,15 @@ SpriteRenderer:
   m_SortingLayerID: 859294473
   m_SortingLayer: 1
   m_SortingOrder: 2
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 32ecddd389fdbff43a7486c2594bfb13, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 3.23, y: 3.31}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
 --- !u!212 &212947995190168920
 SpriteRenderer:
