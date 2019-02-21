@@ -9,85 +9,6 @@ using System.IO;
 
 public class WPUserDataManager : MonoBehaviour {
 
-    public class UserData
-    {
-        public int debt;
-        public int money;
-        public int level;
-        public string dateTime;
-        
-        public List<string> worker = new List<string>();
-        public List<int> fertilizer = new List<int>();
-
-        public UserData()
-        {
-            debt = 0;
-            money = 1000;
-            level = 1;
-            dateTime = WPDateTime.StandardDateTime.ToData();
-            for(int i = 0; i < 12; ++i)
-            {
-                fertilizer.Insert(i, 1);
-            }
-        }
-
-        [JsonConstructor]
-        public UserData(int _debt, int _money, int _level, string _dateTime, List<string> _worker, List<int> _fertilizer)
-        {
-            debt = _debt;
-            money = _money;
-            level = _level;
-            dateTime = _dateTime;
-            worker = _worker;
-            fertilizer = _fertilizer;
-        }
-
-        public static void SaveData(string path, UserData saveData)
-        {
-            try
-            {
-                StreamWriter writer = new StreamWriter(path, false);
-                writer.WriteLine(JsonConvert.SerializeObject(saveData, Formatting.Indented));
-                writer.Close();
-            }
-            catch (IOException e)
-            {
-                WPGameCommon._WPDebug(e);
-            }
-        }
-
-        public static UserData LoadData(string path)
-        {
-            string data = string.Empty;
-            try
-            {
-                StreamReader streamReader = new StreamReader(path);
-                data = streamReader.ReadToEnd();
-                streamReader.Close();
-            }
-            catch (IOException e)
-            {
-                WPGameCommon._WPDebug(e);
-            }
-
-            UserData newData = null;
-
-            if (string.IsNullOrEmpty(data))
-            {
-                WPGameCommon._WPDebug("유저 데이터 초기화");
-                newData = new UserData();
-                SaveData(path, newData);
-            }
-            else
-            {
-                WPGameCommon._WPDebug("유저 데이터 불러옴");
-                newData = JsonConvert.DeserializeObject<UserData>(data);
-            }
-
-            return newData;
-        }
-    }
-
     /////////////////////////////////////////////////////////////////////////
     // Varaibles
     public static WPUserDataManager instance = null;        // for singleton
@@ -114,7 +35,7 @@ public class WPUserDataManager : MonoBehaviour {
         }
     }
 
-    private UserData userData;
+    private WPUserData userData;
 
     /////////////////////////////////////////////////////////////////////////
     // Methods
@@ -130,7 +51,7 @@ public class WPUserDataManager : MonoBehaviour {
 
         if (string.IsNullOrEmpty(DATA_PATH)) DATA_PATH = SetPath() + "UserData.dat";
 
-        userData = UserData.LoadData(DATA_PATH);
+        userData = WPUserData.LoadData(DATA_PATH);
     }
 
     public int Level
@@ -220,7 +141,7 @@ public class WPUserDataManager : MonoBehaviour {
 
     public void SaveData()
     {
-        UserData.SaveData(DATA_PATH, userData);
+        WPUserData.SaveData(DATA_PATH, userData);
     }
 
 }

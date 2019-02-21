@@ -91,8 +91,8 @@ public class WPDateTime {
         return t1.TimeData - t2.TimeData;
     }
 
-    public delegate void EventHandler(WPDateTime dateTime);
-    public event EventHandler OnValueChanged;
+    public delegate void EventHandler_WPDateTime(WPDateTime dateTime);
+    public event EventHandler_WPDateTime OnValueChanged;
 
     private int timeData = -1;
     private int TimeData

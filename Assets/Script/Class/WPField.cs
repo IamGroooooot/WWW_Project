@@ -89,7 +89,7 @@ public class WPField
         //불변 값 + 가변값
         //gold에 비료나 날씨에 의한 버프 넣은 후 
         //마직막에 불변값 계산해서 넣기
-        int comparePrice = Convert.ToInt32(((WPData_Seed)seedData[seedIndex]).ComparePrice);
+        int comparePrice = seedData[seedIndex].ComparePrice;
         return 0;
     }
 
