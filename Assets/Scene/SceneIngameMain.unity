@@ -323,8 +323,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2121846795}
   m_HandleRect: {fileID: 2121846794}
   m_Direction: 0
-  m_Value: 0.0000010172527
-  m_Size: 0.9166667
+  m_Value: 0.0000010172537
+  m_Size: 0.91666675
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2146,21 +2146,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hairPrefabs:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1351631219738570, guid: 9d7de1f63d97be349815fc72dc7e96ee, type: 2}
+  - {fileID: 1460011700402094, guid: c9d6842a03d2e2d48a951dd3a90017e9, type: 2}
+  - {fileID: 1514274066659402, guid: 92e0bba05013a2b478ddfa6b8708667e, type: 2}
+  - {fileID: 1027516567137260, guid: 7b5c7864b399e1944941c23e602d7575, type: 2}
+  - {fileID: 1604178830198516, guid: c3697463983435241b2aeb1a7f04205f, type: 2}
   basedBodyPrefabs:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1117607271158058, guid: 2a9210456a1f9e44c8115100cd5a1ab7, type: 2}
   shirtPrefabs:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1018652432519816, guid: a8c17f9813922824b839d36adc2864b7, type: 2}
+  - {fileID: 1349625109294222, guid: dc3bb6f85fea151439ad5e592d6e1313, type: 2}
+  - {fileID: 1153128409462816, guid: c49e4a53e677eb94db0d8fb9d934b60c, type: 2}
+  - {fileID: 1110557935597838, guid: 8c449854ba1c7e246aafb296487f246e, type: 2}
+  - {fileID: 1393519654969576, guid: 69ee9f5744c1ae14f8ee1d44ff100ffd, type: 2}
+  - {fileID: 1132330850648780, guid: 8568b4699d86b6143a2123a83d95ad2b, type: 2}
   pantsPrefabs:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1106471166963042, guid: 6dec89b323acc2f43a4041d55b965949, type: 2}
+  - {fileID: 1671344392414050, guid: e5cb75fc978aae44a8a91fa232103266, type: 2}
+  - {fileID: 1209652919200578, guid: 7c01cf4652bfa4f43a820022a23af270, type: 2}
+  - {fileID: 1522218129523912, guid: 70287533bd2778a42a32a383693c5f21, type: 2}
+  - {fileID: 1275587654656318, guid: 8f75aa17fb064274fa383188cf8cdf74, type: 2}
+  - {fileID: 1127184397685688, guid: f4ba98ba74f9f21449c759ca40cdc2a6, type: 2}
+  shoesPrefabs:
+  - {fileID: 1504687149647610, guid: a9ca6b2a18503cf4eb0b24665f11eee3, type: 2}
   hairColors:
   - serializedVersion: 2
     rgba: 255
@@ -2176,6 +2184,7 @@ MonoBehaviour:
   basedBodyAchor: {fileID: 0}
   shirtsAchor: {fileID: 0}
   pantsAchor: {fileID: 0}
+  shoesAchor: {fileID: 0}
 --- !u!1 &295095765
 GameObject:
   m_ObjectHideFlags: 0
@@ -6251,7 +6260,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 857613957}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0
+  m_Size: 0.34740004
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
