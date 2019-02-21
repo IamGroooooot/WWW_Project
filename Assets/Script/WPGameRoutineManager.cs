@@ -51,7 +51,8 @@ public class WPGameRoutineManager : MonoBehaviour {
 
     private void SaveTimeData(WPDateTime content)
     {
-        WPGameVariableManager.instance.SaveVariable(WPEnum.VariableType.eUserDate, content.ToData());
+        //WPGameVariableManager.instance.SaveVariable(WPEnum.VariableType.eUserDate, content.ToData());
+        WPUserDataManager.instance.DateTime = content;
     }
 
 }

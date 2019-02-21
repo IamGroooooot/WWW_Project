@@ -13,6 +13,9 @@ public class WPUserDataManager : MonoBehaviour {
     {
         public int debt;
         public int money;
+        public int level;
+        public string dateTime;
+        
         public List<string> worker = new List<string>();
         public List<int> fertilizer = new List<int>();
 
@@ -20,6 +23,8 @@ public class WPUserDataManager : MonoBehaviour {
         {
             debt = 0;
             money = 1000;
+            level = 1;
+            dateTime = WPDateTime.StandardDateTime.ToData();
             for(int i = 0; i < 12; ++i)
             {
                 fertilizer.Insert(i, 1);
@@ -27,10 +32,12 @@ public class WPUserDataManager : MonoBehaviour {
         }
 
         [JsonConstructor]
-        public UserData(int _debt, int _money, List<string> _worker, List<int> _fertilizer)
+        public UserData(int _debt, int _money, int _level, string _dateTime, List<string> _worker, List<int> _fertilizer)
         {
             debt = _debt;
             money = _money;
+            level = _level;
+            dateTime = _dateTime;
             worker = _worker;
             fertilizer = _fertilizer;
         }
@@ -126,6 +133,43 @@ public class WPUserDataManager : MonoBehaviour {
         userData = UserData.LoadData(DATA_PATH);
     }
 
+    public int Level
+    {
+        get
+        {
+            if (userData == null) return 0;
+            if (userData.level == 0) userData.level = 1; 
+            return userData.level;
+        }
+        set
+        {
+            if (userData == null) return;
+            if (value < 1) userData.level = 1;
+            else if (value > 4) userData.level = 4;
+            else userData.level = value;
+            SaveData();
+        }
+    }
+
+    public WPDateTime DateTime
+    {
+        get
+        {
+            if (userData == null) return null;
+            if (string.IsNullOrEmpty(userData.dateTime))
+            {
+                userData.dateTime = WPDateTime.StandardDateTime.ToData();
+            }
+            return WPDateTime.ParseData(userData.dateTime);
+        }
+        set
+        {
+            if (userData == null) return;
+            userData.dateTime = value.ToData();
+            SaveData();
+        }
+    }
+
     public WPWorker GetWorker(int index)
     {
         if (userData == null) return null;
@@ -147,7 +191,7 @@ public class WPUserDataManager : MonoBehaviour {
         if (userData.worker == null) return;
         if (index < 0 || index >= userData.worker.Count) return;
         userData.worker[index] = value.ToString();
-        UserData.SaveData(DATA_PATH, userData);
+        SaveData();
     }
 
     public int GetFertilizer(int index)
@@ -171,6 +215,11 @@ public class WPUserDataManager : MonoBehaviour {
         if (userData.fertilizer == null) return;
         if (index < 0 || index >= userData.fertilizer.Count) return;
         userData.fertilizer[index] = value;
+        SaveData();
+    }
+
+    public void SaveData()
+    {
         UserData.SaveData(DATA_PATH, userData);
     }
 

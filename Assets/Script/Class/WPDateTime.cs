@@ -11,13 +11,12 @@ public class WPDateTime {
         {
             if (now == null)
             {
-                
-                string data = WPGameVariableManager.instance.LoadStringVariable(WPEnum.VariableType.eUserDate);
-                if (string.IsNullOrEmpty(data))
+                WPDateTime userDateTime = WPUserDataManager.instance.DateTime;
+                if (userDateTime == null)
                 {
-                    now = new WPDateTime((int)WPEnum.InitialDate.eInitYear, (int)WPEnum.InitialDate.eInitMonth, (int)WPEnum.InitialDate.eInitDay, (int)WPEnum.InitialDate.eInitHour);
+                    now = StandardDateTime;
                 }
-                else now = ParseData(data);
+                else now = userDateTime;
             }
             return now;
         }
@@ -28,6 +27,14 @@ public class WPDateTime {
     public static bool CheckLeapYear(int year)
     {
         return (((year % 4 == 0 && year % 100 != 0) || year % 400 == 0));
+    }
+
+    public static WPDateTime StandardDateTime
+    {
+        get
+        {
+            return new WPDateTime((int)WPEnum.InitialDate.eInitYear, (int)WPEnum.InitialDate.eInitMonth, (int)WPEnum.InitialDate.eInitDay, (int)WPEnum.InitialDate.eInitHour);
+        }
     }
 
     public static WPEnum.Season GetSeason(int month)
@@ -201,6 +208,13 @@ public class WPDateTime {
     {
         WPDateTime newDateTime = new WPDateTime();
         newDateTime.TimeData = TimeData + timeData;
+        return newDateTime;
+    }
+
+    public WPDateTime AddTimeData(WPDateTime timeData)
+    {
+        WPDateTime newDateTime = new WPDateTime();
+        newDateTime.TimeData = TimeData + timeData.TimeData;
         return newDateTime;
     }
 

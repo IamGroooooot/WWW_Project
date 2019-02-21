@@ -16,6 +16,7 @@ public class WPField
 	private bool isSubscribed = false;
 
 	public WPDateTime startedTime { get; private set; }
+    private WPDateTime sickedTime { get; set; }
 
     public static WPField ParseData(string data)
     {
@@ -117,7 +118,7 @@ public class WPField
 	//isSick!! 시작 시각에 1시간 더하기
 	private void IsSick(WPDateTime content)
 	{
-		//병충해에 걸린 경우 시작한 시각 + 1시간
+
 		this.startedTime = this.startedTime.AddTimeData(1);
 		//WPGameCommon._WPDebug("시작한 시각 : " + startedTime.ToString());
 

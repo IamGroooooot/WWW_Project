@@ -122,13 +122,16 @@ public class WPScrollView_Select : WPScrollView {
         List<WPData_Seed> seedData = WPGameDataManager.instance.GetData<WPData_Seed>(WPEnum.GameData.eSeed);
         for (int index = 0; index < seedData.Count; ++index)
         {
-            WPScrollViewItem_Seed newItem = Instantiate(ui_Item).AddComponent<WPScrollViewItem_Seed>();
-            newItem.SetName(index.ToString());
-            newItem.AddEvent(delegate { OnClick_Seed(Convert.ToInt32(newItem.name)); });
-            newItem.SetText(seedData[index].Name);
-            newItem.SetFocus(index == seedIndex);
-            newItem.SetSprite(seedSpriteData[index]);
-            AddItem(newItem);
+            if (WPUserDataManager.instance.Level >= seedData[index].UnlockLevel)
+            {
+                WPScrollViewItem_Seed newItem = Instantiate(ui_Item).AddComponent<WPScrollViewItem_Seed>();
+                newItem.SetName(index.ToString());
+                newItem.AddEvent(delegate { OnClick_Seed(Convert.ToInt32(newItem.name)); });
+                newItem.SetText(seedData[index].Name);
+                newItem.SetFocus(index == seedIndex);
+                newItem.SetSprite(seedSpriteData[index]);
+                AddItem(newItem);
+            }
         }
         if (seedIndex <= -1) SortItem();
         else SortItem(seedIndex);
