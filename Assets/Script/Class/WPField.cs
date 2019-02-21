@@ -15,7 +15,7 @@ public class WPField
         // simple integrity check
         if (data_1[0] != "WPField") return new WPField();
 
-        string[] dataString = data_1[1].Substring(0, data_1[1].Length).Split(":".ToCharArray(), 5);
+        string[] dataString = data_1[1].Substring(0, data_1[1].Length - 1).Split(":".ToCharArray(), 5);
 
         WPField newField = new WPField(
             Convert.ToInt32(dataString[0]),
@@ -88,7 +88,7 @@ public class WPField
 
         isSick = false;
 
-        progressValue = 0;
+        progressValue = 0f;
 
         checkTime = WPDateTime.ParseData(WPDateTime.Now.ToData());
 
