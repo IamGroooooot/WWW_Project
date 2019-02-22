@@ -92,7 +92,10 @@ public class WPDateTime {
     }
 
     public delegate void EventHandler_WPDateTime(WPDateTime dateTime);
-    public event EventHandler_WPDateTime OnValueChanged;
+    public event EventHandler_WPDateTime OnTimeChanged;
+
+    public delegate void EventHandler_WPDateTime_2(int changedValue);
+    public event EventHandler_WPDateTime_2 OnValueChanged;
 
     private int timeData = -1;
     private int TimeData
@@ -104,12 +107,10 @@ public class WPDateTime {
         set
         {
             //WPGameCommon._WPDebug("New Value : " + value);
-            if(timeData != value)
-            {
-                UpdateInstance(value);
-            }
+            UpdateInstance(value);
+            if (OnValueChanged != null) OnValueChanged(value - timeData);
             timeData = value;
-            if (OnValueChanged != null) OnValueChanged(this);
+            if (OnTimeChanged != null) OnTimeChanged(this);
         }
     }
 

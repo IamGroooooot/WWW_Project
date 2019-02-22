@@ -24,7 +24,7 @@ public class WPField
             Convert.ToInt32(dataString[2]));
 
         newField.isSick = Convert.ToBoolean(dataString[3]);
-        newField.progressValue = Convert.ToSingle(dataString[4]);
+        newField.progress = Convert.ToSingle(dataString[4]);
 
         return newField;
     }
@@ -35,7 +35,19 @@ public class WPField
 
     public bool isSick;             // 병충해에 감염된 상태인 지 판별하는 변수.
 
-    public float progressValue;     // 진행도
+    private float progress;
+    public float Progress
+    {
+        get
+        {
+            return progress;
+        }
+        set
+        {
+            progress = value;
+        }
+    }
+
     public float GrowthRate         // 성장률
     {
         get
@@ -50,7 +62,7 @@ public class WPField
                 }
             }
             if (completeValue <= 0) return 1f;
-            float growthRate = progressValue / completeValue;
+            float growthRate = progress / completeValue;
             if (growthRate > 1) return 1f;
             return growthRate;
         }
@@ -103,12 +115,7 @@ public class WPField
         fertilizerIndex = _fertilizerIndex;
 
         isSick = false;
-
-        progressValue = 0f;
-
-        checkTime = WPDateTime.ParseData(WPDateTime.Now.ToData());
-
-        WPDateTime.Now.OnValueChanged += OnTimeChanged;
+        progress = 0f;
     }
 
     public string ToData()
@@ -118,18 +125,7 @@ public class WPField
             workerIndex,
             fertilizerIndex,
             isSick,
-            progressValue);
-    }
-
-    private void OnTimeChanged(WPDateTime newTime)
-    {
-        int changedValue = WPDateTime.CompareTime(newTime, checkTime);
-        if (!isSick)
-        {
-            WPGameCommon._WPDebug("병충해가 아님, 시간 추가 : " + changedValue);
-            progressValue += changedValue;      // 여기서 일꾼이나 비료 등의 적용을 할 수도 있습니다. ( 1.5배 성장이라던가.. )
-        }
-        checkTime = WPDateTime.ParseData(newTime.ToData());
+            progress);
     }
 
     /// <summary>

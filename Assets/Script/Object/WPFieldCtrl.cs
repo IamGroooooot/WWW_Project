@@ -78,8 +78,6 @@ public class WPFieldCtrl : WPActor
 
         IsSick = wpField.isSick;
 
-        checkTime = WPDateTime.ParseData(WPDateTime.Now.ToData());
-
         WPDateTime.Now.OnValueChanged += OnTimeChanged;
 
     }
@@ -192,20 +190,62 @@ public class WPFieldCtrl : WPActor
         wpField = new WPField();
     }
 
-    private void OnTimeChanged(WPDateTime nowTime)
+    // 로직.
+    // timeCheck는 0이고, changedTime은 WPDateTime.Now가 변한 값이다. 1년이 증가했으면 8640이 될 것이고, 하루가 증가했으면 24가 될 것이다.
+    // timeCycle은 어떠한 이벤트 (여기서는 병충해)가 발생하는 주기이다.
+    // 여기서 해야할 것은, timeCycle 마다 병충해 검사를 하며, 병충해가 아닐 시 밭의 성장도를 증가시킨다.
+    // 처음, timeCheck와 changedTime이 합해진 값이 timeCycle 보다 큰 지 검사한다.
+    // 1. 크지 않으면, 이는 아직 이벤트가 발생할 주기가 되지 않은 것으로 changedTime을 timeCheck에 더한 후 종료한다.
+    // 2. 크면, timeCheck에 changedTime를 합한다. 그리고, 주기 루프문을 돌린다.
+    // 루프문 안에서, 병충해가 아니고 밭에 작물이 심어져 있다면 25% 확률 을 계산하여 병충해 판별을 실시한다.
+    // 루프문이 끝나면, timeCheck는 그 값의 나머지가 된다.
+
+    private int timeCycle = 6;
+    private int timeCheck = 0;
+    private int timeStack = 0;
+    private void OnTimeChanged(int changedTime)
     {
-        for(int timeChangedValue = WPDateTime.CompareTime(nowTime, checkTime);
-            timeChangedValue >= 6;
-            timeChangedValue -= 6)
-        {               // 게임 상의 시간이 6시간이 지날 때마다 병충해 계산 (25%)을 시행하고, 데이터를 저장합니다.
+        WPGameCommon._WPDebug("시간의 변위 : " + changedTime);
+        if(timeCheck + changedTime >= timeCycle)
+        {
+            timeCheck += changedTime;
+            for (int loop = timeCheck / timeCycle; loop > 0; --loop)
+            {
+                if(!IsSick && wpField.IsPlanted)
+                {
+                    int randomValue = UnityEngine.Random.Range(0, 100);
+                    IsSick = randomValue < 25;
+                    if (!IsSick)
+                    {
+                        if(loop == 1)
+                        {
+                            wpField.Progress += (timeCycle - timeStack);
+                            timeStack = 0;
+                        }
+                        else
+                        {
+                            wpField.Progress += timeCycle;
+                        }
+                    }
+                }
+            }
+            timeCheck %= timeCycle;
             if (!IsSick && wpField.IsPlanted)
             {
-                int randomValue = UnityEngine.Random.Range(0, 100);
-                IsSick = randomValue < 25;
+                wpField.Progress += timeCheck;
+                timeStack += timeCheck;
             }
-            SaveFieldData();
-            checkTime = WPDateTime.ParseData(nowTime.ToData());
         }
+        else
+        {
+            if (!IsSick && wpField.IsPlanted)
+            {
+                wpField.Progress += changedTime;
+                timeStack += changedTime;
+            }
+            timeCheck += changedTime;
+        }
+        SaveFieldData();
     }
 
     private IEnumerator growRoutine;

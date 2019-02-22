@@ -44,7 +44,7 @@ public class WPGameRoutineManager : MonoBehaviour {
     {
         instance = this;
 
-        WPDateTime.Now.OnValueChanged += SaveTimeData;
+        WPDateTime.Now.OnTimeChanged += SaveTimeData;
 
         StartCoroutine(MainRoutine());
     }

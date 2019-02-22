@@ -37,7 +37,7 @@ public class WPUIManager_Farm : WPUIManager
         AddNews("테스트 뉴스 33333333333333333 테스트 뉴스 33333333333333333");
 
         TimeUIUpdate(WPDateTime.Now);
-        WPDateTime.Now.OnValueChanged += TimeUIUpdate;
+        WPDateTime.Now.OnTimeChanged += TimeUIUpdate;
         
         StartCoroutine(NewsRoutine());
     }
