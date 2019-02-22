@@ -22,7 +22,7 @@ public class WPUserData {
         dateTime = WPDateTime.StandardDateTime.ToData();
         for (int i = 0; i < 12; ++i)
         {
-            fertilizer.Insert(i, 1);
+            fertilizer.Insert(i, 5);
         }
     }
 

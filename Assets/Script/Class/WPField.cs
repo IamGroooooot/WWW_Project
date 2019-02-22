@@ -7,6 +7,7 @@ public class WPField
 {
     // 모든 객체에서 접근하는 데이터는 static으로 합시다.
 	private static List<WPData_Seed> seedData = WPGameDataManager.instance.GetData<WPData_Seed>(WPEnum.GameData.eSeed);
+    private static List<WPData_Fertilizer> fertilizerData = WPGameDataManager.instance.GetData<WPData_Fertilizer>(WPEnum.GameData.eFertilizer);
 
     public static WPField ParseData(string data)
     {
@@ -41,7 +42,17 @@ public class WPField
         {
             if (seedIndex == -1) return -1f;
             int completeValue = seedData[seedIndex].GrowthTime; // 여기서 비료 등의 적용을 하면 됩니다.
-            return progressValue / completeValue;
+            if(fertilizerIndex != -1)
+            {
+                if(fertilizerData[fertilizerIndex].ItemType == WPEnum.FertilizerType.eGrowth)
+                {
+                    completeValue -= fertilizerData[fertilizerIndex].Value;
+                }
+            }
+            if (completeValue <= 0) return 1f;
+            float growthRate = progressValue / completeValue;
+            if (growthRate > 1) return 1f;
+            return growthRate;
         }
     }
 
