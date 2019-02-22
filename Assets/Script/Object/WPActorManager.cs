@@ -151,34 +151,6 @@ public class WPActorManager : MonoBehaviour
 			
 			return (int)WPEnum.rvType.eTypeSuccess;
 		}
-		else if((int)WPEnum.ActorKey.eActorSickness == actorKey)
-		{
-			// 병충해를 모든 밭에 Respawn함
-			GameObject go = Instantiate(this._sickness, this._baseObject_Sickness) as GameObject;
-			go.name = "병충해"+sicknessIndex.ToString(); 
-
-			if (null == go)
-			{
-				WPGameCommon._WPDebug("Actor_Sickness 스폰에 문제발생!!");
-				return (int)WPEnum.rvType.eTypeFail;
-			}
-
-			float xPos = WPField.FieldPos(sicknessIndex).x;
-			float yPos = WPField.FieldPos(sicknessIndex).y;
-
-			sicknessIndex++;
-
-			// 포지션 세팅, 액터키 세팅
-			go.GetComponent<WPActor>().SetActorPos(xPos, yPos);
-			go.GetComponent<WPActor>().SetActorKey(actorKey);
-			go.transform.position += new Vector3(0,0,-1);			//밭에 터치 안하고 병충해 먼저 터치하도록 pos-1로 바꿈
-
-
-			// 리스트에 반영
-			_actorList_Sickness.Add(go);
-
-			return (int)WPEnum.rvType.eTypeSuccess;
-		}
 		else
 		{
 			return (int)WPEnum.rvType.eTypeFail;
@@ -269,29 +241,5 @@ public class WPActorManager : MonoBehaviour
 		WPGameVariableManager.instance.SaveVariable(WPEnum.VariableType.eUserWorkerCount, this._workerCount);
 	}
 
-	public GameObject GetSicknessByID(int id)
-	{
-         
-		GameObject target = null;
-		foreach (GameObject go in _actorList_Sickness)
-		{
-			if(go.name.Substring(3) == id.ToString())
-			{
-				target = go;
-			}
-		}
-
-        //여기서 해당 id의 WPFieldCtrl의 wpField의 isPlanted가 false면 target =null
-        if(_actorList_Field[id].GetComponent<WPFieldCtrl>().wpField != null)
-        {
-            //식물이 안심어져 있으면 target에 null값 줌
-            if (_actorList_Field[id].GetComponent<WPFieldCtrl>().wpField.IsPlanted)
-            {
-                target = null;
-            }
-        }
-
-        return target;
-	}
 }
 

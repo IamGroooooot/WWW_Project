@@ -33,7 +33,7 @@ public class WPFieldCtrl : WPActor
 
     private GameObject graphic_Sickness;                            // Sickness 표현을 위한 GameObject
 
-    public WPField wpField;                                        // 밭의 정보를 저장하는 변수입니다.
+    private WPField wpField;                                        // 밭의 정보를 저장하는 변수입니다.
 
     // 원래 wpField가 null인지 아닌지를 통해 밭에 작물이 심어져 있는지 확인했으나, 이러면 밭에 작물을 심지 않았을 때 병충해의 유무를 저장할 수가 없게 됩니다.
     // 그래서 밭에 작물이 있는지 없는지 유무를 WPField 객체의 IsPlanted를 통해 판별합니다. (IsPlanted = seedIndex != -1)
@@ -97,17 +97,9 @@ public class WPFieldCtrl : WPActor
         // 작업 중 작물, 남은 시간, 일하는 일꾼, 비료, 일꾼 정보,비료 정보, 골드 표시
         if(!wpField.IsPlanted) // 밭이 비어 있습니다.
         {
-            if (IsSick)     // 병충해에 걸려있습니다.
-            {
-                IsSick = false;
-                yield return null;
-            }
-            else
-            {
-                WPUIManager_Field.instance.GetFieldData(null, this);
-                yield return null; // OnMouseDown을 통한 입력에서 버튼이 바로 눌리는 문제가 있기에 1 프레임 대기
-                WPUIManager_Field.instance.SetActive(true);
-            }
+            WPUIManager_Field.instance.GetFieldData(null, this);
+            yield return null; // OnMouseDown을 통한 입력에서 버튼이 바로 눌리는 문제가 있기에 1 프레임 대기
+            WPUIManager_Field.instance.SetActive(true);
         }
         else
         {
@@ -206,7 +198,7 @@ public class WPFieldCtrl : WPActor
             timeChangedValue >= 6;
             timeChangedValue -= 6)
         {               // 게임 상의 시간이 6시간이 지날 때마다 병충해 계산 (25%)을 시행하고, 데이터를 저장합니다.
-            if (!IsSick)
+            if (!IsSick && wpField.IsPlanted)
             {
                 int randomValue = UnityEngine.Random.Range(0, 100);
                 IsSick = randomValue < 25;
