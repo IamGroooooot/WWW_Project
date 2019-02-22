@@ -83,12 +83,29 @@ public class WPScrollView_Select : WPScrollView {
     public void OnClick_Seed(int index)
     {
         WPData_Seed seedData = WPGameDataManager.instance.GetData<WPData_Seed>(WPEnum.GameData.eSeed)[index];
+        
         if (seedData != null)
         {
             WPGameCommon._WPDebug(seedData.Name + "을(를) 선택하였습니다.");
+            int growthTime = seedData.GrowthTime;
+            if (fertilizerIndex != -1)
+            {
+                WPData_Fertilizer fertilizerData = WPGameDataManager.instance.GetData<WPData_Fertilizer>(WPEnum.GameData.eFertilizer)[fertilizerIndex];
+                if (fertilizerData != null)
+                {
+                    switch (fertilizerData.ItemType)
+                    {
+                        case WPEnum.FertilizerType.eGrowth:
+                            {
+                                growthTime -= fertilizerData.Value;
+                                break;
+                            }
+                    }
+                }
+            }
             WPUIManager_Field.instance.SetText_Time(
                 WPDateTime.Now.AddTimeData(
-                    seedData.GrowthTime
+                    growthTime
                 ).ToString());
             WPUIManager_Field.instance.SetText_Money((
                     seedData.ComparePrice
@@ -109,6 +126,29 @@ public class WPScrollView_Select : WPScrollView {
         if(fertilizerData != null)
         {
             WPGameCommon._WPDebug(fertilizerData.Name + "을(를) 선택하였습니다.");
+            int growthTime = 0;
+            if(seedIndex != -1)
+            {
+                WPData_Seed seedData = WPGameDataManager.instance.GetData<WPData_Seed>(WPEnum.GameData.eSeed)[seedIndex];
+                if(seedData != null)
+                {
+                    growthTime = seedData.GrowthTime;
+                }
+
+                switch (fertilizerData.ItemType)
+                {
+                    case WPEnum.FertilizerType.eGrowth:
+                        {
+                            growthTime -= fertilizerData.Value;
+                            break;
+                        }
+                }
+
+                WPUIManager_Field.instance.SetText_Time(
+                    WPDateTime.Now.AddTimeData(
+                        growthTime
+                    ).ToString());
+            }
         }
         fertilizerIndex = index;
     }

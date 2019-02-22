@@ -59,7 +59,7 @@ public class WPUIManager_Field : WPUIManager {
 
     // 로직 구현 방식입니다.
     // 밭을 누르면 GetFieldData로 해당 밭의 WPField 클래스를 받아오려고 합니다.
-    // 만약 아무것도 심지 않은 상태라면 그 밭의 WPField 클래스는 null 값입니다.
+    // 만약 아무것도 심지 않은 상태라면 그 밭의 WPField 클래스는 null 값입니다. (사실 IsPlanted == false 인 wpfield가 존재하지만, GetFieldData 에 인자로 넘겨주는 과정에서 null 값을 넘겨주게 됩니다.)
     // null 이라면 그 밭은 비어있고, null 이 아니라면 그 클래스를 이용해 ui를 표시합니다.
     // null이라고 해서 새로운 WPField를 바로 생성하지 않습니다. <- 중요.
     // UI에서 선택한 정보는 WPScrollView_Select에 저장됩니다. ( seedIndex, workerIndex, fertilizerIndex )
