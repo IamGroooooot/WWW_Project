@@ -1,0 +1,21 @@
+{
+  "debt": 0,
+  "money": 1000,
+  "level": 1,
+  "dateTime": "WPDateTime(2019:3:7:13)",
+  "worker": [],
+  "fertilizer": [
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5
+  ]
+}

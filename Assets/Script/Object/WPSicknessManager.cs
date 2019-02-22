@@ -33,7 +33,10 @@ public class WPSicknessManager : MonoBehaviour {
 		while (true)
 		{
 			yield return new WaitForSeconds(3f);
-			WPActorManager.instance.GetSicknessByID(Random.Range(0,5)).SetActive(true);
+            if (WPActorManager.instance.GetSicknessByID(Random.Range(0, 5)) != null)
+            {
+                WPActorManager.instance.GetSicknessByID(Random.Range(0, 5)).SetActive(true);
+            }
 		}
 	}
 }

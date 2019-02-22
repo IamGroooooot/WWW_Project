@@ -271,6 +271,7 @@ public class WPActorManager : MonoBehaviour
 
 	public GameObject GetSicknessByID(int id)
 	{
+         
 		GameObject target = null;
 		foreach (GameObject go in _actorList_Sickness)
 		{
@@ -280,8 +281,17 @@ public class WPActorManager : MonoBehaviour
 			}
 		}
 
+        //여기서 해당 id의 WPFieldCtrl의 wpField의 isPlanted가 false면 target =null
+        if(_actorList_Field[id].GetComponent<WPFieldCtrl>().wpField != null)
+        {
+            //식물이 안심어져 있으면 target에 null값 줌
+            if (_actorList_Field[id].GetComponent<WPFieldCtrl>().wpField.IsPlanted)
+            {
+                target = null;
+            }
+        }
 
-		return target;
+        return target;
 	}
 }
 

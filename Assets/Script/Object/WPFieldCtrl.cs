@@ -33,7 +33,7 @@ public class WPFieldCtrl : WPActor
 
     private GameObject graphic_Sickness;                            // Sickness 표현을 위한 GameObject
 
-    private WPField wpField;                                        // 밭의 정보를 저장하는 변수입니다.
+    public WPField wpField;                                        // 밭의 정보를 저장하는 변수입니다.
 
     // 원래 wpField가 null인지 아닌지를 통해 밭에 작물이 심어져 있는지 확인했으나, 이러면 밭에 작물을 심지 않았을 때 병충해의 유무를 저장할 수가 없게 됩니다.
     // 그래서 밭에 작물이 있는지 없는지 유무를 WPField 객체의 IsPlanted를 통해 판별합니다. (IsPlanted = seedIndex != -1)
