@@ -205,7 +205,7 @@ public class WPFieldCtrl : WPActor
     private int timeStack = 0;
     private void OnTimeChanged(int changedTime)
     {
-        WPGameCommon._WPDebug("시간의 변위 : " + changedTime);
+        //WPGameCommon._WPDebug("시간의 변위 : " + changedTime);
         if(timeCheck + changedTime >= timeCycle)
         {
             timeCheck += changedTime;

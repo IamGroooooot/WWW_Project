@@ -35,6 +35,11 @@ public class WPGameRoutineManager : MonoBehaviour {
                 WPDateTime.Now.AddHour(1);
                 
                 timeCounter = 0f;
+                foreach(int newsID in WPGameDataManager.instance.GetData<WPData_Event>(WPEnum.GameData.eEvent)[WPDateTime.Now.Month - 1].GetNewsIDByCount(3))
+                {
+                    WPData_News news = WPGameDataManager.instance.GetData<WPData_News>(WPEnum.GameData.eNews)[newsID];
+                    WPGameCommon._WPDebug(newsID + " // " + news.Name + " : " + news.Description);
+                }
             }
             
         }

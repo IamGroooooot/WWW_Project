@@ -8,7 +8,8 @@ public class WPEnum {
     {
         eSeed,
         eNews,
-        eFertilizer
+        eFertilizer,
+        eEvent
     }
 
 
@@ -50,6 +51,22 @@ public class WPEnum {
         eValue,
         ePrice,
         eDescription
+    }
+
+    public enum Header_News
+    {
+        ERROR = 0,
+        eID,
+        eName,
+        eDescription
+    }
+
+    public enum Header_Event
+    {
+        ERROR = 0,
+        eID,
+        eMonth,
+        eNewsInfo
     }
 
     public enum FertilizerType
@@ -165,6 +182,12 @@ public class WPEnum {
 	/// 이벤트에 대한 ENUM////////////////////////////////////////////////////
 	/// http://www.cien.or.kr/pages/viewpage.action?pageId=15761543
 	/// </summary>
+    /// 
+
+    public enum NewsType
+    {
+
+    }
 
 	// Special Event
 	public enum SpecialEvent

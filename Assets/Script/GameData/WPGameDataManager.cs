@@ -98,6 +98,11 @@ public class WPGameDataManager : MonoBehaviour {
                 {
                     case WPEnum.GameData.eNews:
                         {
+                            if (WPData_News.CheckDataIntegrity(entry))
+                            {
+                                WPData_News newsData = new WPData_News(entry);
+                                csvData.Add(newsData);
+                            }
                             break;
                         }
                     case WPEnum.GameData.eSeed:
@@ -115,6 +120,15 @@ public class WPGameDataManager : MonoBehaviour {
                             {
                                 WPData_Fertilizer fertilizerData = new WPData_Fertilizer(entry);
                                 csvData.Add(fertilizerData);
+                            }
+                            break;
+                        }
+                    case WPEnum.GameData.eEvent:
+                        {
+                            if (WPData_Event.CheckDataIntegrity(entry))
+                            {
+                                WPData_Event eventData = new WPData_Event(entry);
+                                csvData.Add(eventData);
                             }
                             break;
                         }
