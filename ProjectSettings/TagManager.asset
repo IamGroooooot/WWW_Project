@@ -5,8 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Worker
-  - NullWork
   - Field
+  - NullWorker
   layers:
   - Default
   - TransparentFX

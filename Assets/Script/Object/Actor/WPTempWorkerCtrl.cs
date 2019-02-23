@@ -177,6 +177,14 @@ public class WPTempWorkerCtrl : WPActor
 		}
 	}
 
+	//Worker를 가져옴
+	public void SetWorker(WPWorker _worker)
+	{
+		this.wpWorker = _worker;
+		SetImage(wpWorker.appearance);
+		WPGameCommon._WPDebug("Worker is 성공적으로 Set!! ");
+	}
+
 	void OnTriggerEnter2D(Collider2D col)
 	{
 		Debug.Log(col.name);
