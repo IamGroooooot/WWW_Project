@@ -13,6 +13,7 @@ public class WPCustomizationManager : WPUIManager
 
 	//이 정보를 저장할 Worker
 	WPWorker worker;
+	WPFieldCtrl targetFieldCtrl;
 
 	//Prefabs
 	[SerializeField]
@@ -68,7 +69,7 @@ public class WPCustomizationManager : WPUIManager
 	{
 		instance = this;
 
-		Randomzize();
+		Randomize();
 
 		//SetActive(false);
 	}
@@ -78,6 +79,8 @@ public class WPCustomizationManager : WPUIManager
 	{
 		SetActive(false);
 	}
+
+	
 
 	// Save 버튼을 클릭했을 때 호출합니다.
 	private void OnClick_Save()
@@ -348,12 +351,13 @@ public class WPCustomizationManager : WPUIManager
 	}
 
 	//Worker 찾아오는 코드 짜야돼
-	public void GetWorkerData(WPWorker _worker)
+	public void setWorkerOnCustomManager(WPWorker _worker)
 	{
 		worker = _worker;
+		
 	}
 
-	private void SaveWorker2Dictionary()
+	public void SaveWorker2Dictionary()
 	{
 		selectedAppearance = new Dictionary<WPEnum.WorkerAppearanceDetail, int>();
 
@@ -375,7 +379,7 @@ public class WPCustomizationManager : WPUIManager
 		}
 	}
 
-	public void Randomzize()
+	public void Randomize()
 	{
 		ApplyCostume(WPEnum.WorkerAppearanceDetail.eWorkerName,Random.Range(0,worker_Names.Length));
 		ApplyCostume(WPEnum.WorkerAppearanceDetail.eBasedBody,Random.Range(0,basedBodyPrefabs.Length));

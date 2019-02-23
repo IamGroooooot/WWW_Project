@@ -220,7 +220,12 @@ public class WPUIManager_Field : WPUIManager {
     public void OnClick_Worker()
     {
         scrollView_Select.CreateWorkerList();
-        WPGameCommon._WPDebug("일꾼을 선택");
+		int fieldId = System.Convert.ToInt32(targetFieldCtrl.gameObject.name.Substring(5))%10;
+		int farmId = System.Convert.ToInt32(targetFieldCtrl.gameObject.name.Substring(5))/10;
+		int workerId = UnityEngine.Random.Range(0, 5);
+		//Worker가져와서 불러 와야됨
+		WPCustomizationManager.instance.setWorkerOnCustomManager(new WPWorker(farmId,fieldId, workerId,0,null));
+		WPGameCommon._WPDebug("일꾼을 선택");
     }
 
     // Fertilizer 버튼을 클릭했을 때 호출합니다.
@@ -281,5 +286,8 @@ public class WPUIManager_Field : WPUIManager {
     public void OnClick_Close()
     {
         SetActive(false);
-    }
+
+		WPCustomizationManager.instance.setWorkerOnCustomManager(null);
+
+	}
 }

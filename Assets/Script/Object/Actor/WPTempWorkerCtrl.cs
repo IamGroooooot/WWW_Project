@@ -105,7 +105,7 @@ public class WPTempWorkerCtrl : WPActor
 				// 병충해 제거 하고있을 땐 idle 로 바꾸자.
 				base._actorState = WPEnum.ActorState.eActorStateIdle;
 
-				this._currentLimit = Random.Range(2f, movDuration);
+				this._currentLimit = 1f;
 
 				//관리하는 밭이 병충해에 걸린 경우 target을 재설정
 				if (workingField.GetIsSick())
@@ -120,6 +120,7 @@ public class WPTempWorkerCtrl : WPActor
 						//move상태에서 시작한 경우
 						_currentDir = Camera.main.ScreenToWorldPoint(workingField.GetComponent<Transform>().position) - Camera.main.ScreenToWorldPoint(transform.position) - _currentDir;
 					}
+					_currentDir = Vector3.Normalize(_currentDir);
 				}
 			}
 
@@ -127,10 +128,13 @@ public class WPTempWorkerCtrl : WPActor
 		}
 	}
 
+	//WPWorker를 이용해 현재 일하고 있는 field가져옴.
     public void getFieldData()
     {
         if ((this.workingField != null)|| GameObject.Find("Field" + wpWorker.workingFarmIndex.ToString() + wpWorker.workingFieldIndex.ToString())==null) return;
 		this.workingField = GameObject.Find("Field"+ wpWorker.workingFarmIndex.ToString()+ wpWorker.workingFieldIndex.ToString()).GetComponent<WPFieldCtrl>();
     }
 	
+
+
 }
