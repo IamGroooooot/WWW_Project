@@ -137,12 +137,12 @@ public class WPTempWorkerCtrl : WPActor
 					if (this._currentDir.Equals(Vector3.zero))
 					{
 						//Idle상태에서 시작한 경우
-						_currentDir = Camera.main.ScreenToWorldPoint(workingField.GetComponent<Transform>().position) - Camera.main.ScreenToWorldPoint(transform.position);
+						_currentDir = workingField.GetComponent<Transform>().position - transform.position;
 					}
 					else
 					{
 						//move상태에서 시작한 경우
-						_currentDir = Camera.main.ScreenToWorldPoint(workingField.GetComponent<Transform>().position) - Camera.main.ScreenToWorldPoint(transform.position) - _currentDir;
+						_currentDir = workingField.GetComponent<Transform>().position - transform.position - _currentDir;
 					}
 					_currentDir = Vector3.Normalize(_currentDir);
 				}
@@ -160,7 +160,7 @@ public class WPTempWorkerCtrl : WPActor
     }
 
 	//Customzing한 것 불러오기
-	public void SetImage(Dictionary<WPEnum.WorkerAppearanceDetail, int> _appearance)
+	private void SetImage(Dictionary<WPEnum.WorkerAppearanceDetail, int> _appearance)
 	{
 
 		if (wpWorker != null)
@@ -174,6 +174,15 @@ public class WPTempWorkerCtrl : WPActor
 		}else
 		{
 			WPGameCommon._WPDebug("Worker Data 불러오기 실패");
+		}
+	}
+
+	void OnTriggerEnter2D(Collider2D col)
+	{
+		Debug.Log(col.name);
+		if (col.CompareTag("Field"))
+		{
+			col.GetComponent<WPFieldCtrl>().setIsSickFalse();
 		}
 	}
 

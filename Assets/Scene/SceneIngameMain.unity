@@ -8157,7 +8157,7 @@ MonoBehaviour:
   _baseObject: {fileID: 279211615}
   _baseObject_Farm: {fileID: 120190541}
   _baseObject_Sickness: {fileID: 1264215453}
-  _pfTempWorker: {fileID: 1859641126029724, guid: c432d21e45eb02845bf8ce937a576963,
+  _pfTempWorker: {fileID: 1178070422385438, guid: 4865891a1ad97dd45aa5cf45e33bf4e2,
     type: 2}
   _field: {fileID: 1920930125922208, guid: 4973b4b7d5bbe4745869813918d4f54c, type: 2}
   _sickness: {fileID: 1813665534303104, guid: 34425fc7feb1e0342b02bf237d4485d2, type: 2}
@@ -12440,24 +12440,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 212871224313781918, guid: 4865891a1ad97dd45aa5cf45e33bf4e2,
+    - target: {fileID: 61556897396445262, guid: 4865891a1ad97dd45aa5cf45e33bf4e2,
         type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: ab906495c9daa7b40b8460a0dd4fdf03,
-        type: 3}
-    - target: {fileID: 212097090204601214, guid: 4865891a1ad97dd45aa5cf45e33bf4e2,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 53a663153412a4d428f36add14db089d,
-        type: 3}
-    - target: {fileID: 212765312234441916, guid: 4865891a1ad97dd45aa5cf45e33bf4e2,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 4e7551a7195ff614cb631f70db8d06d9,
-        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4865891a1ad97dd45aa5cf45e33bf4e2, type: 2}
   m_IsPrefabParent: 0

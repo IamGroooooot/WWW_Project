@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Worker
   - NullWork
+  - Field
   layers:
   - Default
   - TransparentFX
