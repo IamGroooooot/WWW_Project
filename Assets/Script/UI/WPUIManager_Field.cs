@@ -53,7 +53,7 @@ public class WPUIManager_Field : WPUIManager {
         button_Action.onClick.AddListener(OnClick_Action);
         button_Worker.onClick.AddListener(OnClick_Worker);
         button_Fertilizer.onClick.AddListener(OnClick_Fertilizer);
-
+        WPGameCommon._WPDebug("UIManager_Field 초기화");
         SetActive(false);
     }
 
@@ -297,7 +297,7 @@ public class WPUIManager_Field : WPUIManager {
     public void OnClick_Close()
     {
         SetActive(false);
-		SendCustomizedWorker();
+		//SendCustomizedWorker();
 	}
 
 	//커스터마이징 된 워커 정보를 NullWorker라는 태그를 가진 게임 오브젝트에 보내고 기존에 사용한 워커 정보를 초기화 시킨다

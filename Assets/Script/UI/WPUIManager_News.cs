@@ -34,7 +34,7 @@ public class WPUIManager_News : WPUIManager {
         }
 
         this.transform.Find("Button_Close").GetComponent<Button>().onClick.AddListener(OnClick_Close);
-
+        WPGameCommon._WPDebug("UIManager_News 초기화");
         SetActive(false);
     }
 
@@ -51,6 +51,7 @@ public class WPUIManager_News : WPUIManager {
     private void OnClick_Month(int month)
     {
         WPGameCommon._WPDebug("이번 달 : " + month);
+        scrollView_News.CreateNewsList(new WPDateTime(WPDateTime.Now.Year, month, 1, 1));
     }
 
     /// <summary>
@@ -74,6 +75,7 @@ public class WPUIManager_News : WPUIManager {
                 button_Month[month - 1].gameObject.SetActive(WPDateTime.Now.Month >= month);
             }
             SetText_Year(WPDateTime.Now.Year.ToString());
+            scrollView_News.CreateNewsList(WPDateTime.Now);
         }
         else
         {

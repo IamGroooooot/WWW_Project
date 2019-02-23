@@ -36,6 +36,8 @@ public class WPTempWorkerCtrl : WPActor
 	/// InitValues
 	/// 오버라이드 해서 사용.
 	/// </summary>
+    /// 
+    /*
     protected override void InitValue()
     {
 		base.InitValue();
@@ -82,7 +84,7 @@ public class WPTempWorkerCtrl : WPActor
 
 		SetImage(wpWorker.appearance);
 
-	}
+	}*/
 
 	/// <summary>
 	/// override : 로밍 state 정의

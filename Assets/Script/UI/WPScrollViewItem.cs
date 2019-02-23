@@ -80,10 +80,10 @@ public class WPScrollViewItem : MonoBehaviour {
     public void SetPosition(Vector2 position)
     {
         if (rectTransform == null) return;
-
         rectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, position.x, GetWidth());
-        rectTransform.offsetMax = new Vector2(rectTransform.offsetMax.x, 0);
-        rectTransform.offsetMin = new Vector2(rectTransform.offsetMin.x, 0);
+        rectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, position.y, GetHeight());
+        //rectTransform.offsetMax = new Vector2(rectTransform.offsetMax.x, position.y);
+        //rectTransform.offsetMin = new Vector2(rectTransform.offsetMin.x, position.y);
     }
 
     /// <summary>
@@ -101,7 +101,7 @@ public class WPScrollViewItem : MonoBehaviour {
     public float GetWidth()
     {
         if (rectTransform == null) return 0;
-        return rectTransform.sizeDelta.x;
+        return rectTransform.rect.width;
     }
 
     /// <summary>
@@ -110,7 +110,7 @@ public class WPScrollViewItem : MonoBehaviour {
     public float GetHeight()
     {
         if (rectTransform == null) return 0;
-        return rectTransform.sizeDelta.y;
+        return rectTransform.rect.height;
     }
 
 }

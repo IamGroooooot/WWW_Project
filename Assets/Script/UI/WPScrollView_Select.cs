@@ -27,6 +27,7 @@ public class WPScrollView_Select : WPScrollView {
         seedSpriteData = LoadSeedData();
         workerSpriteData = LoadWorkerData();
         fertilizerSpriteData = LoadFertilizerData();
+        WPGameCommon._WPDebug("ScrollView_Select 초기화");
     }
 
     protected override void OnEnabled()
@@ -207,7 +208,7 @@ public class WPScrollView_Select : WPScrollView {
             }
         }
         if (fertilizerIndex <= -1) SortItemToHorizontal();
-        else SortItemToHorizontal(seedIndex);
+        else SortItemToHorizontal(fertilizerIndex);
     }
     
 
