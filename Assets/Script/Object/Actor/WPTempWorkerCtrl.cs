@@ -10,6 +10,7 @@ public class WPTempWorkerCtrl : WPActor
     // 관리 중인 밭
     private int myFieldIndex;
     WPFieldCtrl workingField;
+	WPWorker wpWorker;
     //public bool 
 
 
@@ -41,7 +42,23 @@ public class WPTempWorkerCtrl : WPActor
 
 		// 초기 방향 정해주기.
 		this._currentDir = Vector3.zero;
-    }
+
+		//WorkerData가져오기 
+
+		//임시
+		if (wpWorker == null)
+		{
+			wpWorker = new WPWorker();
+			wpWorker.workingFarmIndex = 0;
+			wpWorker.workingFieldIndex = 0;
+		}
+
+
+		getFieldData();
+		//setImage
+
+
+	}
 
 	/// <summary>
 	/// override : 로밍 state 정의
@@ -50,30 +67,24 @@ public class WPTempWorkerCtrl : WPActor
 	{
 		this._moveTimeAcc += Time.deltaTime;
 
-        //관리하는 밭이 병충해에 걸린 경우 target을 재설정
-        if(workingField.GetIsSick()){
-            if (this._currentDir.Equals(Vector3.zero))
-            {
-                //
-                _currentDir = transform.position - workingField.GetComponent<Transform>().position;
-            }
-            else
-            {
-                _currentDir = transform.position - workingField.GetComponent<Transform>().position - _currentDir;
-            }
-        }
-        else
-        {
-            //아닌 경우 그냥 로밍
-        }
-
+		//일하는 field를 가져온다.
+		if (workingField == null)
+		{
+			getFieldData();
+			return;
+		}
+		
 		this.transform.Translate(this._currentDir * this.movSpeed * Time.deltaTime);
 		
 		if (this._currentLimit < _moveTimeAcc)
 		{
-
-			// 이건 좀 이상하다. 일단 참고만하고 바꾸도록 하자
-			if (WPEnum.ActorState.eActorStateIdle == base._actorState)
+			//병충해에 걸린 경우 ActorState를 병충해추적 상태로 바꿈.
+			if (workingField.GetIsSick())
+			{
+				base._actorState = WPEnum.ActorState.eActorTrkingSickness;
+			}
+				// 이건 좀 이상하다. 일단 참고만하고 바꾸도록 하자
+				if (WPEnum.ActorState.eActorStateIdle == base._actorState)
 			{
 				//Idle 인 상태였을 떈 move 상태로 바꿔주자.
 				base._actorState = WPEnum.ActorState.eActorStateMoving;
@@ -90,15 +101,36 @@ public class WPTempWorkerCtrl : WPActor
 				this._currentLimit = Random.Range(0f, stopDuration);
 
 				this._currentDir = Vector3.zero;
+			}else if(WPEnum.ActorState.eActorTrkingSickness==base._actorState){
+				// 병충해 제거 하고있을 땐 idle 로 바꾸자.
+				base._actorState = WPEnum.ActorState.eActorStateIdle;
+
+				this._currentLimit = Random.Range(2f, movDuration);
+
+				//관리하는 밭이 병충해에 걸린 경우 target을 재설정
+				if (workingField.GetIsSick())
+				{
+					if (this._currentDir.Equals(Vector3.zero))
+					{
+						//Idle상태에서 시작한 경우
+						_currentDir = Camera.main.ScreenToWorldPoint(workingField.GetComponent<Transform>().position) - Camera.main.ScreenToWorldPoint(transform.position);
+					}
+					else
+					{
+						//move상태에서 시작한 경우
+						_currentDir = Camera.main.ScreenToWorldPoint(workingField.GetComponent<Transform>().position) - Camera.main.ScreenToWorldPoint(transform.position) - _currentDir;
+					}
+				}
 			}
 
             this._moveTimeAcc = 0;
 		}
 	}
 
-    public void getFieldData(WPFieldCtrl wPFieldCtrl)
+    public void getFieldData()
     {
-        if (this.workingField != null) return;
-        this.workingField = wPFieldCtrl;
+        if ((this.workingField != null)|| GameObject.Find("Field" + wpWorker.workingFarmIndex.ToString() + wpWorker.workingFieldIndex.ToString())==null) return;
+		this.workingField = GameObject.Find("Field"+ wpWorker.workingFarmIndex.ToString()+ wpWorker.workingFieldIndex.ToString()).GetComponent<WPFieldCtrl>();
     }
+	
 }

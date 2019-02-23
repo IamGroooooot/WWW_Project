@@ -138,7 +138,7 @@ public class WPEnum {
 		eActorStateNone = 0,            // 아무상태도 아님
 		eActorStateIdle = 1,            // 대기상태
 		eActorStateMoving = 2,			// 움직이는 상태
-
+		eActorTrkingSickness =3,		// 병충해를 제거하려고 움직이는 상태
         eSeed_Empty,
 
 

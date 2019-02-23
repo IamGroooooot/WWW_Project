@@ -9,9 +9,9 @@ using UnityEngine;
 
 public class WPWorker {
     //private static List<Dictionary<string, object>> seedData = WPGameDataManager.instance.GetData(WPEnum.GameData.eWorker);
-	public int workingFarmIndex { get; private set; }										
-	public int workingFieldIndex { get; private set; }										
-    public int workerIndex { get; private set; }											//WorkerData 정보
+	public int workingFarmIndex { get; set; }										
+	public int workingFieldIndex { get; set; }										
+    public int workerIndex { get; set; }											//WorkerData 정보
     public float requiredExperience { get; private set; }									//필요한 경험치
 	public Dictionary<WPEnum.WorkerAppearanceDetail, int> appearance { get; set; }			//외형 정보
 

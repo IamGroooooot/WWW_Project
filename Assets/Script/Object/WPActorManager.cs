@@ -71,17 +71,17 @@ public class WPActorManager : MonoBehaviour
 	{
 		WPGameCommon._WPDebug("!! Actor 전체스폰 시작 !!");
 
-		// 일꾼 세팅 파트
-		for (int workerIdx = 0; workerIdx < this._workerCount; workerIdx++)
-        {
-			this.SpawnActor((int)WPEnum.ActorKey.eActorWorkerTemp);
-        }
-		
-		// 밭 세팅 파트
+		// 밭 세팅 파트// 밭이 제일 먼저 세팅돼야 됩니다.
 		for (int i = 0; i < this._farmFieldCount; i++)
         {
 			this.SpawnActor((int)WPEnum.ActorKey.eActorFarmField);
         }
+
+		// 일꾼 세팅 파트
+		for (int workerIdx = 0; workerIdx < this._workerCount; workerIdx++)
+		{
+			this.SpawnActor((int)WPEnum.ActorKey.eActorWorkerTemp);
+		}
 
 		// 병충해 세팅 파트
 		for (int i = 0; i < this._sicknessCount; i++)
