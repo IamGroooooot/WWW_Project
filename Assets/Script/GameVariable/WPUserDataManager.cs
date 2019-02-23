@@ -139,6 +139,40 @@ public class WPUserDataManager : MonoBehaviour {
         SaveData();
     }
 
+    public List<int> GetNewsDataByDateTime(WPDateTime nowTime)
+    {
+        if (userData == null) return null;
+        if (userData.newsData == null) return null;
+        int nowYear = nowTime.Year - WPDateTime.STANDARD_YEAR + 1;
+        int nowMonth = nowTime.Month;
+
+        WPGameCommon._WPDebug("현재 년도차 : " + nowYear + " 현재 월차 : " + nowMonth);
+
+        if (userData.newsData.Count < nowYear)
+        {
+            WPGameCommon._WPDebug("년 데이터 부재, 새로 생성 + " + nowYear);
+            for (int yearLoop = userData.newsData.Count; yearLoop < nowYear; ++yearLoop)
+            {
+                userData.newsData.Insert(yearLoop, new List<List<int>>());
+                for (int monthLoop = userData.newsData[yearLoop].Count; monthLoop < (yearLoop < nowYear ? 12 : nowMonth); ++monthLoop)
+                {
+                    userData.newsData[yearLoop].Insert(monthLoop, WPGameDataManager.instance.GetData<WPData_Event>(WPEnum.GameData.eEvent)[monthLoop].GetNewsIDByCount(3));
+                }
+            }
+        }
+
+        if(userData.newsData[nowYear - 1].Count < nowMonth)
+        {
+            WPGameCommon._WPDebug("월 데이터 부재, 새로 생성 + " + nowMonth);
+            for (int monthLoop = userData.newsData[nowYear - 1].Count; monthLoop < nowMonth; ++monthLoop)
+            {
+                userData.newsData[nowYear - 1].Insert(monthLoop, WPGameDataManager.instance.GetData<WPData_Event>(WPEnum.GameData.eEvent)[monthLoop].GetNewsIDByCount(3));
+            }
+        }
+        SaveData();
+        return userData.newsData[nowYear - 1][nowMonth - 1];
+    }
+
     public void SaveData()
     {
         WPUserData.SaveData(DATA_PATH, userData);

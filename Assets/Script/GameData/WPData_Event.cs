@@ -26,7 +26,7 @@ public class WPData_Event : WPData
             {
                 case WPEnum.Header_Event.ERROR:
                     {
-                        WPGameCommon._WPDebug("WPData_News // Wrong Header! :" + keyValuePair.Key);
+                        WPGameCommon._WPDebug("WPData_Event // Wrong Header! :" + keyValuePair.Key);
                         return false;
                     }
                 case WPEnum.Header_Event.eID:
@@ -36,12 +36,12 @@ public class WPData_Event : WPData
                         string datum = keyValuePair.Value.ToString();
                         if (string.IsNullOrEmpty(datum))
                         {
-                            WPGameCommon._WPDebug("WPData_News // Empty Value! :" + keyValuePair.Key);
+                            WPGameCommon._WPDebug("WPData_Event // Empty Value! :" + keyValuePair.Key);
                             return false;
                         }
                         if (!int.TryParse(datum, out checkInt))
                         {
-                            WPGameCommon._WPDebug("WPData_News // Wrong Value! :" + keyValuePair.Key + " : " + datum);
+                            WPGameCommon._WPDebug("WPData_Event // Wrong Value! :" + keyValuePair.Key + " : " + datum);
                             return false;
                         }
                         checkCount++;
@@ -52,7 +52,7 @@ public class WPData_Event : WPData
                         string datum = keyValuePair.Value.ToString();
                         if (string.IsNullOrEmpty(datum))
                         {
-                            WPGameCommon._WPDebug("WPData_News // Empty Value! :" + keyValuePair.Key);
+                            WPGameCommon._WPDebug("WPData_Event // Empty Value! :" + keyValuePair.Key);
                             return false;
                         }
                         checkCount++;
@@ -61,7 +61,7 @@ public class WPData_Event : WPData
             }
         }
 
-        if (checkCount < 3) WPGameCommon._WPDebug("WPData_News // Invalid Data! :" + checkCount);
+        if (checkCount < 3) WPGameCommon._WPDebug("WPData_Event // Invalid Data! :" + checkCount);
 
         return checkCount == 3;
     }
@@ -76,8 +76,6 @@ public class WPData_Event : WPData
         List<string> newsItem = new List<string>();
 
         newsItem.AddRange(NewsInfo.Split(','));
-
-        WPGameCommon._WPDebug("뉴스 데이터 개수 : " + newsItem.Count);
 
         int maxChance = 0;
 

@@ -32,12 +32,11 @@ public class WPUIManager_Farm : WPUIManager
         newsMask = transform.Find("Mask_News");
         timeText = transform.Find("Image_Time").GetComponentInChildren<Text>();
 
-        AddNews("테스트 뉴스 1");
-        AddNews("테스트 뉴스 2");
-        AddNews("테스트 뉴스 33333333333333333 테스트 뉴스 33333333333333333");
-
         TimeUIUpdate(WPDateTime.Now);
-        WPDateTime.Now.OnTimeChanged += TimeUIUpdate;
+        NewsUIUpdate(WPDateTime.Now);
+
+        checkTime = WPDateTime.ParseData(WPDateTime.Now.ToData());
+        WPDateTime.Now.OnTimeChanged += OnTimeChanged;
         
         StartCoroutine(NewsRoutine());
     }
@@ -76,6 +75,29 @@ public class WPUIManager_Farm : WPUIManager
         {
             timeText.text = content.ToString();
         }
+    }
+
+    public void NewsUIUpdate(WPDateTime content)
+    {
+        List<int> newsID = WPUserDataManager.instance.GetNewsDataByDateTime(content);
+        ClearNews();
+        for(int i = 0; i < newsID.Count; ++i)
+        {
+            AddNews(WPGameDataManager.instance.GetData<WPData_News>(WPEnum.GameData.eNews)[newsID[i]].Description);
+            WPGameCommon._WPDebug("뉴스 추가 : " + WPGameDataManager.instance.GetData<WPData_News>(WPEnum.GameData.eNews)[newsID[i]].Description);
+        }
+        WPGameCommon._WPDebug("뉴스 개수 " + newsContent.Count);
+    }
+
+    private WPDateTime checkTime;
+    public void OnTimeChanged(WPDateTime newTime)
+    {
+        TimeUIUpdate(newTime);
+        if(checkTime.Year != newTime.Year || checkTime.Month != newTime.Month)
+        {
+            NewsUIUpdate(newTime);
+        }
+        checkTime = WPDateTime.ParseData(newTime.ToData());
     }
 
     // News 애니메이션을 위한 Coroutine입니다.

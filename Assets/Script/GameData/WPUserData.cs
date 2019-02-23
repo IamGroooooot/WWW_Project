@@ -14,20 +14,24 @@ public class WPUserData {
     public List<string> worker = new List<string>();
     public List<int> fertilizer = new List<int>();
 
+    public List<List<List<int>>> newsData = new List<List<List<int>>>();
+
     public WPUserData()
     {
         debt = 0;
         money = 1000;
         level = 1;
         dateTime = WPDateTime.StandardDateTime.ToData();
+
         for (int i = 0; i < 12; ++i)
         {
             fertilizer.Insert(i, 5);
         }
+        newsData.Add(new List<List<int>>());
     }
 
     [JsonConstructor]
-    public WPUserData(int _debt, int _money, int _level, string _dateTime, List<string> _worker, List<int> _fertilizer)
+    public WPUserData(int _debt, int _money, int _level, string _dateTime, List<string> _worker, List<int> _fertilizer, List<List<List<int>>> _newsData)
     {
         debt = _debt;
         money = _money;
@@ -35,6 +39,7 @@ public class WPUserData {
         dateTime = _dateTime;
         worker = _worker;
         fertilizer = _fertilizer;
+        newsData = _newsData;
     }
 
     public static void SaveData(string path, WPUserData saveData)
