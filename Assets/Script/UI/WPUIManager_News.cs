@@ -12,7 +12,7 @@ public class WPUIManager_News : WPUIManager {
     private WPImageText imageText_Year;                 // 년도
     private Button[] button_Month = new Button[12];     // 월을 표시하는 버튼
 
-    private WPScrollView scrollView_News;
+    private WPScrollView_News scrollView_News;          // 뉴스들을 표시하는 스크롤 뷰
 
     /////////////////////////////////////////////////////////////////////////
     // Methods
@@ -23,6 +23,8 @@ public class WPUIManager_News : WPUIManager {
         instance = this;
 
         imageText_Year = transform.Find("ImageText_Year").GetComponent<WPImageText>();
+        scrollView_News = transform.Find("ScrollView_News").GetComponent<WPScrollView_News>();
+
         for(int month = 1; month <= 12; ++month)
         {
             Button targetButton = transform.Find("UI_Month").Find("Button_" + month).GetComponent<Button>();
@@ -67,11 +69,11 @@ public class WPUIManager_News : WPUIManager {
         {
             WPVariable.timeScale_NewsUI = 0f;
             WPVariable.timeScale_WPDateTime = 0f;
-            
             for(int month = 1; month <= 12; ++month)
             {
                 button_Month[month - 1].gameObject.SetActive(WPDateTime.Now.Month >= month);
             }
+            SetText_Year(WPDateTime.Now.Year.ToString());
         }
         else
         {

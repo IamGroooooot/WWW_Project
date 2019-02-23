@@ -173,8 +173,8 @@ public class WPScrollView_Select : WPScrollView {
                 AddItem(newItem);
             }
         }
-        if (seedIndex <= -1) SortItem();
-        else SortItem(seedIndex);
+        if (seedIndex <= -1) SortItemToHorizontal();
+        else SortItemToHorizontal(seedIndex);
     }
 
     public void CreateWorkerList()
@@ -206,8 +206,8 @@ public class WPScrollView_Select : WPScrollView {
                 AddItem(newItem);
             }
         }
-        if (fertilizerIndex <= -1) SortItem();
-        else SortItem(seedIndex);
+        if (fertilizerIndex <= -1) SortItemToHorizontal();
+        else SortItemToHorizontal(seedIndex);
     }
     
 

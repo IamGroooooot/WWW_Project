@@ -38,9 +38,9 @@ public class WPScrollView : MonoBehaviour {
     }
 
     /// <summary>
-    /// Item들을 정렬합니다.
+    /// Item들을 수평으로 정렬합니다.
     /// </summary>
-    public void SortItem()
+    public void SortItemToHorizontal()
     {
         if (scrollView == null) return;
         RectTransform content = scrollView.content;
@@ -59,10 +59,31 @@ public class WPScrollView : MonoBehaviour {
     }
 
     /// <summary>
-    /// Item들을 정렬합니다. index 번 Item이 보이도록 정렬합니다. 
+    /// Item들을 수직으로 정렬합니다.
+    /// </summary>
+    public void SortItemToVertical()
+    {
+        if (scrollView == null) return;
+        RectTransform content = scrollView.content;
+
+        float contentHeight = 0;
+        for (int i = 0; i < content.childCount; ++i)
+        {
+            WPScrollViewItem item = content.GetChild(i).GetComponent<WPScrollViewItem>();
+            if (item == null) continue;
+            item.SetPosition(new Vector2(0, contentHeight));
+            contentHeight += item.GetHeight();
+        }
+        content.sizeDelta = new Vector2(content.sizeDelta.x, contentHeight);
+        content.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 0, content.rect.height);
+        scrollView.StopMovement();
+    }
+
+    /// <summary>
+    /// Item들을 수평으로 정렬합니다. index 번 Item이 보이도록 정렬합니다. 
     /// </summary>
     /// /// <param name="index"></param>
-    public void SortItem(int index)
+    public void SortItemToHorizontal(int index)
     {
         if (scrollView == null) return;
         RectTransform content = scrollView.content;

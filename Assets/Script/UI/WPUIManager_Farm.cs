@@ -164,8 +164,6 @@ public class WPUIManager_Farm : WPUIManager
                 if (WPVariable.timeScale_NewsUI <= 0f) timeCount = 0f;              // newsDelay 만큼 대기합니다.
             }
 
-
-
             if (newsRectTransform.rect.width > maskSize.x)                          // 텍스트의 길이가 긴 경우 애니메이션을 호출합니다.
             {
                 float newsTravel = maskSize.x - newsRectTransform.rect.width;       // 텍스트의 이동거리 newsTravel를 구합니다.
