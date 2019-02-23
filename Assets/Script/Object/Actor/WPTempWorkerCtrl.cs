@@ -8,10 +8,16 @@ public class WPTempWorkerCtrl : WPActor
     /////////////////////////////////////////////////////////////////////////
     // Varaibles
     // 관리 중인 밭
-    private int myFieldIndex;
     WPFieldCtrl workingField;
 	WPWorker wpWorker;
-    //public bool 
+
+	//Sprite
+	SpriteRenderer hair;
+	SpriteRenderer basedBody;
+	SpriteRenderer shirts;
+	SpriteRenderer pants;
+	SpriteRenderer shoes;
+
 
 
     // 움직임 관련 변수. 일단 하드코딩
@@ -51,12 +57,30 @@ public class WPTempWorkerCtrl : WPActor
 			wpWorker = new WPWorker();
 			wpWorker.workingFarmIndex = 0;
 			wpWorker.workingFieldIndex = 0;
+			wpWorker.appearance = new Dictionary<WPEnum.WorkerAppearanceDetail, int>();
+
+			wpWorker.appearance.Add(WPEnum.WorkerAppearanceDetail.eWorkerName, 0);
+			wpWorker.appearance.Add(WPEnum.WorkerAppearanceDetail.eBasedBody, 0);
+			wpWorker.appearance.Add(WPEnum.WorkerAppearanceDetail.eHair, 0);
+			wpWorker.appearance.Add(WPEnum.WorkerAppearanceDetail.eHairColor, 0);
+			wpWorker.appearance.Add(WPEnum.WorkerAppearanceDetail.eShirt, 0);
+			wpWorker.appearance.Add(WPEnum.WorkerAppearanceDetail.ePants, 0);
+			wpWorker.appearance.Add(WPEnum.WorkerAppearanceDetail.eShoes, 0);
+
 		}
 
 
-		getFieldData();
-		//setImage
+		GetFieldData();
 
+		//setImage
+		hair = gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
+		basedBody = gameObject.transform.GetChild(1).GetComponent<SpriteRenderer>();
+		shirts = gameObject.transform.GetChild(2).GetComponent<SpriteRenderer>();
+		pants = gameObject.transform.GetChild(3).GetComponent<SpriteRenderer>();
+		shoes = gameObject.transform.GetChild(4).GetComponent<SpriteRenderer>();
+
+
+		SetImage(wpWorker.appearance);
 
 	}
 
@@ -70,7 +94,7 @@ public class WPTempWorkerCtrl : WPActor
 		//일하는 field를 가져온다.
 		if (workingField == null)
 		{
-			getFieldData();
+			GetFieldData();
 			return;
 		}
 		
@@ -129,12 +153,28 @@ public class WPTempWorkerCtrl : WPActor
 	}
 
 	//WPWorker를 이용해 현재 일하고 있는 field가져옴.
-    public void getFieldData()
+    private void GetFieldData()
     {
         if ((this.workingField != null)|| GameObject.Find("Field" + wpWorker.workingFarmIndex.ToString() + wpWorker.workingFieldIndex.ToString())==null) return;
 		this.workingField = GameObject.Find("Field"+ wpWorker.workingFarmIndex.ToString()+ wpWorker.workingFieldIndex.ToString()).GetComponent<WPFieldCtrl>();
     }
-	
 
+	//Customzing한 것 불러오기
+	public void SetImage(Dictionary<WPEnum.WorkerAppearanceDetail, int> _appearance)
+	{
+
+		if (wpWorker != null)
+		{
+
+			hair.sprite = WPCustomizationManager.instance.hairPrefabs[_appearance[WPEnum.WorkerAppearanceDetail.eHair]].GetComponent<SpriteRenderer>().sprite;
+			basedBody.sprite = WPCustomizationManager.instance.basedBodyPrefabs[_appearance[WPEnum.WorkerAppearanceDetail.eBasedBody]].GetComponent<SpriteRenderer>().sprite;
+			shirts.sprite = WPCustomizationManager.instance.shirtPrefabs[_appearance[WPEnum.WorkerAppearanceDetail.eShirt]].GetComponent<SpriteRenderer>().sprite;
+			pants.sprite = WPCustomizationManager.instance.pantsPrefabs[_appearance[WPEnum.WorkerAppearanceDetail.ePants]].GetComponent<SpriteRenderer>().sprite;
+			shoes.sprite = WPCustomizationManager.instance.shoesPrefabs[_appearance[WPEnum.WorkerAppearanceDetail.eShoes]].GetComponent<SpriteRenderer>().sprite;
+		}else
+		{
+			WPGameCommon._WPDebug("Worker Data 불러오기 실패");
+		}
+	}
 
 }

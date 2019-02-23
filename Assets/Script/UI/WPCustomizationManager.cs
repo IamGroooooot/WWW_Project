@@ -17,15 +17,15 @@ public class WPCustomizationManager : WPUIManager
 	
 	//Prefabs
 	[SerializeField]
-	private GameObject[] hairPrefabs;
+	public GameObject[] hairPrefabs;
 	[SerializeField]
-	private GameObject[] basedBodyPrefabs;
+	public GameObject[] basedBodyPrefabs;
 	[SerializeField]
-	private GameObject[] shirtPrefabs;
+	public GameObject[] shirtPrefabs;
 	[SerializeField]
-	private GameObject[] pantsPrefabs;
+	public GameObject[] pantsPrefabs;
 	[SerializeField]
-	private GameObject[] shoesPrefabs;
+	public GameObject[] shoesPrefabs;
 
 	//Hair Colors
 	[SerializeField]

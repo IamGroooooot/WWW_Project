@@ -431,8 +431,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Save and Close
-
+  m_Text: 'Close
 
 '
 --- !u!222 &51675574
@@ -9953,7 +9952,7 @@ GameObject:
   - component: {fileID: 1262884943}
   - component: {fileID: 1262884942}
   m_Layer: 5
-  m_Name: Save (1)
+  m_Name: Close
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9975,7 +9974,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 294.0001, y: -1186}
+  m_AnchoredPosition: {x: -68, y: -1186}
   m_SizeDelta: {x: 320, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1262884942
@@ -10018,7 +10017,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 294046887}
-        m_MethodName: OnClick_Save
+        m_MethodName: OnClick_Close
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11324,6 +11323,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Save
 
+
 '
 --- !u!222 &1432771484
 CanvasRenderer:
@@ -12371,6 +12371,24 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 212871224313781918, guid: 4865891a1ad97dd45aa5cf45e33bf4e2,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ab906495c9daa7b40b8460a0dd4fdf03,
+        type: 3}
+    - target: {fileID: 212097090204601214, guid: 4865891a1ad97dd45aa5cf45e33bf4e2,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 53a663153412a4d428f36add14db089d,
+        type: 3}
+    - target: {fileID: 212765312234441916, guid: 4865891a1ad97dd45aa5cf45e33bf4e2,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4e7551a7195ff614cb631f70db8d06d9,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4865891a1ad97dd45aa5cf45e33bf4e2, type: 2}
   m_IsPrefabParent: 0
