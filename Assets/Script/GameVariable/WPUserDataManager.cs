@@ -150,12 +150,12 @@ public class WPUserDataManager : MonoBehaviour {
 
         if (userData.newsData.Count < nowYear)
         {
-            WPGameCommon._WPDebug("년 데이터 부재, 새로 생성 + " + nowYear);
-            for (int yearLoop = userData.newsData.Count; yearLoop < nowYear; ++yearLoop)
+            for (int yearLoop = 0; yearLoop < nowYear; ++yearLoop)
             {
-                userData.newsData.Insert(yearLoop, new List<List<int>>());
-                for (int monthLoop = userData.newsData[yearLoop].Count; monthLoop < (yearLoop < nowYear ? 12 : nowMonth); ++monthLoop)
+                if (yearLoop >= userData.newsData.Count) userData.newsData.Insert(yearLoop, new List<List<int>>());
+                for (int monthLoop = userData.newsData[yearLoop].Count; monthLoop < (yearLoop < (nowYear - 1) ? 12 : nowMonth); ++monthLoop)
                 {
+                    WPGameCommon._WPDebug(yearLoop + "년차 " + (monthLoop + 1) + "월차 데이터 부재, 새로 생성");
                     userData.newsData[yearLoop].Insert(monthLoop, WPGameDataManager.instance.GetData<WPData_Event>(WPEnum.GameData.eEvent)[monthLoop].GetNewsIDByCount(3));
                 }
             }
@@ -163,9 +163,9 @@ public class WPUserDataManager : MonoBehaviour {
 
         if(userData.newsData[nowYear - 1].Count < nowMonth)
         {
-            WPGameCommon._WPDebug("월 데이터 부재, 새로 생성 + " + nowMonth);
             for (int monthLoop = userData.newsData[nowYear - 1].Count; monthLoop < nowMonth; ++monthLoop)
             {
+                WPGameCommon._WPDebug((nowYear - 1) + "년차 " + (monthLoop + 1) + "월차 데이터 부재, 새로 생성");
                 userData.newsData[nowYear - 1].Insert(monthLoop, WPGameDataManager.instance.GetData<WPData_Event>(WPEnum.GameData.eEvent)[monthLoop].GetNewsIDByCount(3));
             }
         }
