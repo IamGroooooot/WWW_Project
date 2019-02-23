@@ -6,8 +6,11 @@ using System;
 
 public class WPFieldCtrl : WPActor
 {
-    /////////////////////////////////////////////////////////////////////////
-    // Varaibles
+	/////////////////////////////////////////////////////////////////////////
+	// Varaibles
+	// Worker생성할 때 사용하기 위한 문자열
+	public static string justClickedField;
+
     private static string DATA_PATH = "Image/Seed/";
     private static List<WPData_Seed> seedData;
 
@@ -84,8 +87,11 @@ public class WPFieldCtrl : WPActor
 
     private void OnMouseDown()
     {
-        //밭 작업 중 창
-        if (EventSystem.current.IsPointerOverGameObject()) return; // UI를 통과해 클릭하는 것을 방지
+		// Worker생성하기 위해 사용
+		justClickedField = this.gameObject.name;
+
+		//밭 작업 중 창
+		if (EventSystem.current.IsPointerOverGameObject()) return; // UI를 통과해 클릭하는 것을 방지
         StartCoroutine(OpenUI()); 
     }
 

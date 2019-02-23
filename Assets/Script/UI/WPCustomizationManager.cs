@@ -12,9 +12,9 @@ public class WPCustomizationManager : WPUIManager
 	public static WPCustomizationManager instance = null;     // singleton
 
 	//이 정보를 저장할 Worker
-	WPWorker worker;
+	public WPWorker worker;
 	WPFieldCtrl targetFieldCtrl;
-
+	
 	//Prefabs
 	[SerializeField]
 	private GameObject[] hairPrefabs;
@@ -71,19 +71,23 @@ public class WPCustomizationManager : WPUIManager
 
 		Randomize();
 
-		//SetActive(false);
+		SetActive(false);
 	}
 
 	// Close 버튼을 클릭했을 때 호출합니다.
-	private void OnClick_Close()
+	public void OnClick_Close()
 	{
-		SetActive(false);
+		WPAnchorCtrl.instance.SetActive(false);
+		base.SetActive(false);
+		WPUIManager_Field.instance.SetActive(true);
+
+
 	}
 
 	
 
 	// Save 버튼을 클릭했을 때 호출합니다.
-	private void OnClick_Save()
+	public void OnClick_Save()
 	{
 		SaveWorker2Dictionary();
 	}
@@ -131,7 +135,7 @@ public class WPCustomizationManager : WPUIManager
 		}
 		ApplyCostume(WPEnum.WorkerAppearanceDetail.eBasedBody, basedBody_Id);
 	}
-	public void OnClick_OnBasedBody_BackBtn()
+	public void OnClick_BasedBody_BackBtn()
 	{
 		if (basedBody_Id > 0)
 		{
@@ -354,10 +358,15 @@ public class WPCustomizationManager : WPUIManager
 	public void setWorkerOnCustomManager(WPWorker _worker)
 	{
 		worker = _worker;
-		
+
+		//이미지 보이게 하기
+		if (worker != null)
+		{
+			WPAnchorCtrl.instance.SetActive(true);
+		}
 	}
 
-	public void SaveWorker2Dictionary()
+	private void SaveWorker2Dictionary()
 	{
 		selectedAppearance = new Dictionary<WPEnum.WorkerAppearanceDetail, int>();
 
@@ -372,11 +381,13 @@ public class WPCustomizationManager : WPUIManager
 		//Worker에 저장하는 코드
 		if (worker != null)
 		{
+			WPGameCommon._WPDebug("커스터 마이징 저장 완료!!");
 			worker.appearance = selectedAppearance;
 		}else
 		{
 			WPGameCommon._WPDebug("현재 가진 worker instance없음!! ");
 		}
+
 	}
 
 	public void Randomize()

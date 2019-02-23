@@ -219,14 +219,25 @@ public class WPUIManager_Field : WPUIManager {
     // Worker 버튼을 클릭했을 때 호출합니다.
     public void OnClick_Worker()
     {
-        scrollView_Select.CreateWorkerList();
-		int fieldId = System.Convert.ToInt32(targetFieldCtrl.gameObject.name.Substring(5))%10;
-		int farmId = System.Convert.ToInt32(targetFieldCtrl.gameObject.name.Substring(5))/10;
+		//Worker가 없는 식물이 심어져있는 경우
+		if (targetField != null)
+		{
+			if(targetField.workerIndex == -1)
+			{
+				return;
+			}
+		}
+		
+		scrollView_Select.CreateWorkerList();
+		int fieldId = System.Convert.ToInt32(WPFieldCtrl.justClickedField.Substring(5))%10;
+		int farmId = System.Convert.ToInt32(WPFieldCtrl.justClickedField.Substring(5))/10;
 		int workerId = UnityEngine.Random.Range(0, 5);
 		//Worker가져와서 불러 와야됨
+		WPCustomizationManager.instance.SetActive(true);
 		WPCustomizationManager.instance.setWorkerOnCustomManager(new WPWorker(farmId,fieldId, workerId,0,null));
 		WPGameCommon._WPDebug("일꾼을 선택");
-    }
+		this.SetActive(false);
+	}
 
     // Fertilizer 버튼을 클릭했을 때 호출합니다.
     public void OnClick_Fertilizer()
@@ -286,8 +297,14 @@ public class WPUIManager_Field : WPUIManager {
     public void OnClick_Close()
     {
         SetActive(false);
+		//Worker전달 해줘야됨
 
-		WPCustomizationManager.instance.setWorkerOnCustomManager(null);
+		//WorkerCustumizing 초기화
+		if (WPCustomizationManager.instance != null)
+		{
+			WPCustomizationManager.instance.setWorkerOnCustomManager(null);
+		}
+		
 
 	}
 }
