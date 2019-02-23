@@ -106,11 +106,6 @@ public class WPActor : MonoBehaviour
 				RoamingMoveFunc();
 				yield return new WaitForFixedUpdate();
 			}
-			else if (WPEnum.ActorMoveType.eActorTrackSickness == this._moveType)
-			{
-				
-
-			}
 			else
 			{
 				WPGameCommon._WPDebug("올바르지 않은 ActorMoveType! 확인해야한다! : " + this._moveType.ToString());
@@ -125,9 +120,9 @@ public class WPActor : MonoBehaviour
 	protected virtual void RoamingMoveFunc() {}
 
     /// <summary>
-    /// 수확중인 작물 파기. 즉 밭 리셋
+    /// worker를 자기가 관리하는 밭의 병충해를 제거하게 함.
     /// </summary>
-    protected virtual void DestroyField() { }
+    protected virtual void TrackSickness() { }
 
 
 }

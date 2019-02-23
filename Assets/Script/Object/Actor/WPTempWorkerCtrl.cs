@@ -5,11 +5,16 @@ using UnityEngine;
 // 지호화이팅
 public class WPTempWorkerCtrl : WPActor
 {
-	/////////////////////////////////////////////////////////////////////////
-	// Varaibles
+    /////////////////////////////////////////////////////////////////////////
+    // Varaibles
+    // 관리 중인 밭
+    private int myFieldIndex;
+    WPFieldCtrl workingField;
+    //public bool 
 
-	// 움직임 관련 변수. 일단 하드코딩
-	private float movSpeed = 10f;
+
+    // 움직임 관련 변수. 일단 하드코딩
+    private float movSpeed = 10f;
 	private float stopDuration = 2f;
 	private float movDuration = 3f;
 
@@ -45,6 +50,23 @@ public class WPTempWorkerCtrl : WPActor
 	{
 		this._moveTimeAcc += Time.deltaTime;
 
+        //관리하는 밭이 병충해에 걸린 경우 target을 재설정
+        if(workingField.GetIsSick()){
+            if (this._currentDir.Equals(Vector3.zero))
+            {
+                //
+                _currentDir = transform.position - workingField.GetComponent<Transform>().position;
+            }
+            else
+            {
+                _currentDir = transform.position - workingField.GetComponent<Transform>().position - _currentDir;
+            }
+        }
+        else
+        {
+            //아닌 경우 그냥 로밍
+        }
+
 		this.transform.Translate(this._currentDir * this.movSpeed * Time.deltaTime);
 		
 		if (this._currentLimit < _moveTimeAcc)
@@ -70,7 +92,13 @@ public class WPTempWorkerCtrl : WPActor
 				this._currentDir = Vector3.zero;
 			}
 
-			this._moveTimeAcc = 0;
+            this._moveTimeAcc = 0;
 		}
 	}
+
+    public void getFieldData(WPFieldCtrl wPFieldCtrl)
+    {
+        if (this.workingField != null) return;
+        this.workingField = wPFieldCtrl;
+    }
 }

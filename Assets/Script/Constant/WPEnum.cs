@@ -115,7 +115,6 @@ public class WPEnum {
     {
         eMoveNone = 0,                  // 안 움직이는 상태
         eMoveRoaming = 1,               // 로밍. 무작위로 움직이는 상태
-		eActorTrackSickness = 2,
 	}
 	
 	// return value 타입
@@ -139,12 +138,8 @@ public class WPEnum {
 		eActorStateNone = 0,            // 아무상태도 아님
 		eActorStateIdle = 1,            // 대기상태
 		eActorStateMoving = 2,			// 움직이는 상태
-		eActorTrackSickness=3,
 
         eSeed_Empty,
-        eSeedGrowth_30,
-        eSeedGrowth_60,
-        eSeedGrowth_100,
 
 
 	}
