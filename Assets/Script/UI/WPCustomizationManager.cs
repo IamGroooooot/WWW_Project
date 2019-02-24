@@ -94,12 +94,7 @@ public class WPCustomizationManager : WPUIManager
     //for Debug
     void Update()
     {
-
-        if (worker != null && worker.appearance != null)
-        {
-            Debug.Log("worker Data"+hairPrefabs[worker.appearance[WPEnum.WorkerAppearanceDetail.eHair]].ToString());
-            Debug.Log("UI Data"+hairPrefabs[selectedAppearance[WPEnum.WorkerAppearanceDetail.eHair]].ToString());
-        }
+        
     }
 
 	// Close 버튼을 클릭했을 때 호출합니다.
@@ -409,7 +404,7 @@ public class WPCustomizationManager : WPUIManager
 		//Worker에 저장하는 코드
 		if (worker != null)
 		{
-			WPGameCommon._WPDebug("커스터 마이징 저장 완료!!"+hairPrefabs[selectedAppearance[WPEnum.WorkerAppearanceDetail.eHair]].ToString());
+			WPGameCommon._WPDebug("커스터 마이징 저장 완료!!");
 			worker.appearance = selectedAppearance;
 		}else
 		{

@@ -322,7 +322,6 @@ public class WPUIManager_Field : WPUIManager {
 		{
             //targetWorker의 이미지를 SET해줌
             targetWorker.GetComponent<WPTempWorkerCtrl>().SetWorker(WPCustomizationManager.instance.worker);
-            Debug.Log("나의 일꾼의 머리 : "+WPCustomizationManager.instance.worker.appearance[WPEnum.WorkerAppearanceDetail.eHair].ToString());
             //targetWorker의 태그와 이름 재설정
 			targetWorker.tag = "Worker";
 			targetWorker.name = WPFieldCtrl.justClickedField + "_Worker";

@@ -191,7 +191,7 @@ public class WPTempWorkerCtrl : WPActor
     {
         this.wpWorker = _worker;
         SetImage(wpWorker.appearance);
-        WPGameCommon._WPDebug("Worker SET!! " + WPCustomizationManager.instance.hairPrefabs[wpWorker.appearance[WPEnum.WorkerAppearanceDetail.eHair]].ToString());
+        WPGameCommon._WPDebug("Worker SET!!");
 	}
 
 	void OnTriggerEnter2D(Collider2D col)
