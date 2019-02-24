@@ -74,12 +74,15 @@ public class WPTempWorkerCtrl : WPActor
 
 		GetFieldData();
 
+        
+
 		//setImage
 		hair = gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
 		basedBody = gameObject.transform.GetChild(1).GetComponent<SpriteRenderer>();
 		shirts = gameObject.transform.GetChild(2).GetComponent<SpriteRenderer>();
 		pants = gameObject.transform.GetChild(3).GetComponent<SpriteRenderer>();
 		shoes = gameObject.transform.GetChild(4).GetComponent<SpriteRenderer>();
+
 
 
 		SetImage(wpWorker.appearance);
@@ -168,13 +171,16 @@ public class WPTempWorkerCtrl : WPActor
 
 		if (wpWorker != null)
 		{
-
 			hair.sprite = WPCustomizationManager.instance.hairPrefabs[_appearance[WPEnum.WorkerAppearanceDetail.eHair]].GetComponent<SpriteRenderer>().sprite;
 			basedBody.sprite = WPCustomizationManager.instance.basedBodyPrefabs[_appearance[WPEnum.WorkerAppearanceDetail.eBasedBody]].GetComponent<SpriteRenderer>().sprite;
 			shirts.sprite = WPCustomizationManager.instance.shirtPrefabs[_appearance[WPEnum.WorkerAppearanceDetail.eShirt]].GetComponent<SpriteRenderer>().sprite;
 			pants.sprite = WPCustomizationManager.instance.pantsPrefabs[_appearance[WPEnum.WorkerAppearanceDetail.ePants]].GetComponent<SpriteRenderer>().sprite;
 			shoes.sprite = WPCustomizationManager.instance.shoesPrefabs[_appearance[WPEnum.WorkerAppearanceDetail.eShoes]].GetComponent<SpriteRenderer>().sprite;
-		}else
+            
+
+
+        }
+        else
 		{
 			WPGameCommon._WPDebug("Worker Data 불러오기 실패");
 		}
@@ -190,7 +196,6 @@ public class WPTempWorkerCtrl : WPActor
 
 	void OnTriggerEnter2D(Collider2D col)
 	{
-		Debug.Log(col.name);
 		if (col.CompareTag("Field"))
 		{
 			col.GetComponent<WPFieldCtrl>().IsSick = false;

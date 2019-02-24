@@ -236,7 +236,8 @@ public class WPUIManager_Field : WPUIManager {
 		WPCustomizationManager.instance.SetActive(true);
 		WPCustomizationManager.instance.setWorkerOnCustomManager(new WPWorker(farmId,fieldId, workerId,0,null));
 		WPGameCommon._WPDebug("일꾼을 선택");
-		this.SetActive(false);
+        //이 UI 멀리 보냄
+        SetInvisible(true);
 	}
 
     // Fertilizer 버튼을 클릭했을 때 호출합니다.

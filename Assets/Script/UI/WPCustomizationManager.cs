@@ -79,7 +79,7 @@ public class WPCustomizationManager : WPUIManager
 	{
 		WPAnchorCtrl.instance.SetActive(false);
 		base.SetActive(false);
-		WPUIManager_Field.instance.SetActive(true);
+		WPUIManager_Field.instance.SetInvisible(false);
 
 
 	}

@@ -35,4 +35,16 @@ public class WPUIManager : MonoBehaviour
     {
         gameObject.SetActive(param);
     }
+
+    public virtual void SetInvisible(bool param)
+    {
+        if (param)
+        {
+            gameObject.GetComponent<RectTransform>().localPosition = new Vector3(10000, 10000);
+        }
+        else
+        {
+            gameObject.GetComponent<RectTransform>().localPosition = new Vector3(0, 0);
+        }
+    }
 }
