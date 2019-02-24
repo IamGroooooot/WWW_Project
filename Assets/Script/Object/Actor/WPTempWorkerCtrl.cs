@@ -37,7 +37,7 @@ public class WPTempWorkerCtrl : WPActor
 	/// 오버라이드 해서 사용.
 	/// </summary>
     /// 
-    /*
+    
     protected override void InitValue()
     {
 		base.InitValue();
@@ -84,7 +84,7 @@ public class WPTempWorkerCtrl : WPActor
 
 		SetImage(wpWorker.appearance);
 
-	}*/
+	}
 
 	/// <summary>
 	/// override : 로밍 state 정의
@@ -106,7 +106,7 @@ public class WPTempWorkerCtrl : WPActor
 		{
 			//병충해에 걸린 경우 ActorState를 병충해추적 상태로 바꿈.
             // 그냥 WPFieldCtrl.IsSick 쓰세요.
-			if (workingField.GetIsSick())
+			if (workingField.IsSick)
 			{
 				base._actorState = WPEnum.ActorState.eActorTrkingSickness;
 			}
@@ -135,7 +135,7 @@ public class WPTempWorkerCtrl : WPActor
 				this._currentLimit = 1f;
 
 				//관리하는 밭이 병충해에 걸린 경우 target을 재설정
-				if (workingField.GetIsSick())
+				if (workingField.IsSick)
 				{
 					if (this._currentDir.Equals(Vector3.zero))
 					{
@@ -193,7 +193,7 @@ public class WPTempWorkerCtrl : WPActor
 		Debug.Log(col.name);
 		if (col.CompareTag("Field"))
 		{
-			col.GetComponent<WPFieldCtrl>().setIsSickFalse();
+			col.GetComponent<WPFieldCtrl>().IsSick = false;
 		}
 	}
 

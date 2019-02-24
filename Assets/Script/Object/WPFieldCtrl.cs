@@ -207,16 +207,6 @@ public class WPFieldCtrl : WPActor
         wpField = new WPField();
     }
 
-    public bool GetIsSick()
-    {
-        return this.IsSick;
-    }
-
-	public void setIsSickFalse()
-	{
-		this.IsSick = false;
-	}
-
 	// 로직.
 	// timeCheck는 0이고, changedTime은 WPDateTime.Now가 변한 값이다. 1년이 증가했으면 8640이 될 것이고, 하루가 증가했으면 24가 될 것이다.
 	// timeCycle은 어떠한 이벤트 (여기서는 병충해)가 발생하는 주기이다.
