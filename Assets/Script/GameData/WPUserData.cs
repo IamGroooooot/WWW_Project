@@ -15,6 +15,7 @@ public class WPUserData {
     public List<int> fertilizer = new List<int>();
 
     public List<List<List<int>>> newsData = new List<List<List<int>>>();
+    public List<List<string>> fieldData = new List<List<string>>();
 
     public WPUserData()
     {
@@ -27,11 +28,20 @@ public class WPUserData {
         {
             fertilizer.Insert(i, 5);
         }
-        newsData.Add(new List<List<int>>());
+        
+        for(int i = 0; i < 4; ++i)
+        {
+            List<string> fieldString = new List<string>();
+            for(int loop = 0; loop < 6; ++loop)
+            {
+                fieldString.Insert(loop, string.Empty);
+            }
+            fieldData.Insert(i, fieldString);
+        }
     }
 
     [JsonConstructor]
-    public WPUserData(int _debt, int _money, int _level, string _dateTime, List<string> _worker, List<int> _fertilizer, List<List<List<int>>> _newsData)
+    public WPUserData(int _debt, int _money, int _level, string _dateTime, List<string> _worker, List<int> _fertilizer, List<List<List<int>>> _newsData, List<List<string>> _fieldData)
     {
         debt = _debt;
         money = _money;
@@ -40,6 +50,7 @@ public class WPUserData {
         worker = _worker;
         fertilizer = _fertilizer;
         newsData = _newsData;
+        fieldData = _fieldData;
     }
 
     public static void SaveData(string path, WPUserData saveData)

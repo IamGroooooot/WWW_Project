@@ -105,6 +105,7 @@ public class WPTempWorkerCtrl : WPActor
 		if (this._currentLimit < _moveTimeAcc)
 		{
 			//병충해에 걸린 경우 ActorState를 병충해추적 상태로 바꿈.
+            // 그냥 WPFieldCtrl.IsSick 쓰세요.
 			if (workingField.GetIsSick())
 			{
 				base._actorState = WPEnum.ActorState.eActorTrkingSickness;

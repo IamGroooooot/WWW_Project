@@ -18,7 +18,7 @@ public class WPFieldCtrl : WPActor
     private WPEnum.VariableType fieldKey;                           // 데이터 저장을 위한 현재 밭의 키값
 
     private bool isSick;
-    private bool IsSick
+    public bool IsSick
     {
         get
         {
@@ -72,7 +72,16 @@ public class WPFieldCtrl : WPActor
 
         fieldKey = (WPEnum.VariableType)System.Enum.Parse(typeof(WPEnum.VariableType), "eField" + fieldIndex.ToString());
 
+        /*
         string data = WPGameVariableManager.instance.LoadStringVariable(fieldKey);
+
+        if (string.IsNullOrEmpty(data))
+            SetFieldData(new WPField());
+        else
+            SetFieldData(WPField.ParseData(data));
+            */
+
+        string data = WPUserDataManager.instance.GetFieldData(1, fieldIndex);
 
         if (string.IsNullOrEmpty(data))
             SetFieldData(new WPField());
@@ -177,11 +186,13 @@ public class WPFieldCtrl : WPActor
     {
         if (wpField != null)
         {
-            WPGameVariableManager.instance.SaveVariable(fieldKey, wpField.ToData());
+            //WPGameVariableManager.instance.SaveVariable(fieldKey, wpField.ToData());
+            WPUserDataManager.instance.SetFieldData(1, fieldIndex, wpField.ToData());
         }
         else
         {
-            WPGameVariableManager.instance.SaveVariable(fieldKey, "");
+            //WPGameVariableManager.instance.SaveVariable(fieldKey, "");
+            WPUserDataManager.instance.SetFieldData(1, fieldIndex, string.Empty);
         }
     }
 

@@ -59,7 +59,7 @@ public class WPUserDataManager : MonoBehaviour {
         get
         {
             if (userData == null) return 0;
-            if (userData.level == 0) userData.level = 1; 
+            if (userData.level == 0) userData.level = 1;
             return userData.level;
         }
         set
@@ -139,6 +139,25 @@ public class WPUserDataManager : MonoBehaviour {
         SaveData();
     }
 
+    public void SetFieldData(int level, int index, string content)
+    {
+        if (userData == null) return;
+        if (userData.fieldData == null) return;
+        if (level < 0 || level > userData.fieldData.Count) return;
+        if (index < 0 || index >= userData.fieldData[level].Count) return;
+        userData.fieldData[level - 1][index] = content;         // level은 초기값이 1이다.
+        SaveData();
+    }
+
+    public string GetFieldData(int level, int index)
+    {
+        if (userData == null) return null;
+        if (userData.fieldData == null) return null;
+        if (level < 0 || level > userData.fieldData.Count) return null;
+        if (index < 0 || index >= userData.fieldData[level].Count) return null;
+        return userData.fieldData[level - 1][index];
+    }
+
     public List<int> GetNewsDataByDateTime(WPDateTime nowTime)
     {
         if (userData == null) return null;
@@ -159,17 +178,19 @@ public class WPUserDataManager : MonoBehaviour {
                     userData.newsData[yearLoop].Insert(monthLoop, WPGameDataManager.instance.GetData<WPData_Event>(WPEnum.GameData.eEvent)[monthLoop].GetNewsIDByCount(3));
                 }
             }
+            SaveData();
         }
 
-        if(userData.newsData[nowYear - 1].Count < nowMonth)
+        if (userData.newsData[nowYear - 1].Count < nowMonth)
         {
             for (int monthLoop = userData.newsData[nowYear - 1].Count; monthLoop < nowMonth; ++monthLoop)
             {
                 WPGameCommon._WPDebug((nowYear - 1) + "년차 " + (monthLoop + 1) + "월차 데이터 부재, 새로 생성");
                 userData.newsData[nowYear - 1].Insert(monthLoop, WPGameDataManager.instance.GetData<WPData_Event>(WPEnum.GameData.eEvent)[monthLoop].GetNewsIDByCount(3));
             }
+            SaveData();
         }
-        SaveData();
+
         return userData.newsData[nowYear - 1][nowMonth - 1];
     }
 
