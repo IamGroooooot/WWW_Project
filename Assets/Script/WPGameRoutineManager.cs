@@ -44,7 +44,8 @@ public class WPGameRoutineManager : MonoBehaviour {
     {
         instance = this;
 
-        WPDateTime.Now.OnTimeChanged += SaveTimeData;
+        checkTime = WPDateTime.ParseData(WPDateTime.Now.ToData());
+        WPDateTime.Now.OnTimeChanged += OnTimeChanged;
 
         StartCoroutine(MainRoutine());
     }
@@ -53,6 +54,17 @@ public class WPGameRoutineManager : MonoBehaviour {
     {
         //WPGameVariableManager.instance.SaveVariable(WPEnum.VariableType.eUserDate, content.ToData());
         WPUserDataManager.instance.DateTime = content;
+    }
+
+    private WPDateTime checkTime;
+    private void OnTimeChanged(WPDateTime content)
+    {
+        SaveTimeData(content);
+        if(content.Week != checkTime.Week)
+        {
+            WPGameCommon._WPDebug("주가 바뀌었습니다!");
+            checkTime = WPDateTime.ParseData(content.ToData());
+        }
     }
 
 }

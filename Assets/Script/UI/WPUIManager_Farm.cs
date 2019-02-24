@@ -15,7 +15,10 @@ public class WPUIManager_Farm : WPUIManager
     private float newsDelay = 2f;                               // 뉴스 사이의 간격 ( 출현할 때 대기하고 애니메이션이 끝날 때 대기합니다. )
     private float newsSpeed = 400f;                             // 뉴스가 움직이는 속도 ( pixel per second )
 
-    private Text timeText;
+    private Image image_Weather;
+
+    private WPImageText imageText_Time;
+
 
     /////////////////////////////////////////////////////////////////////////
     // Methods
@@ -30,7 +33,10 @@ public class WPUIManager_Farm : WPUIManager
         this.transform.Find("Button_Choose").GetComponent<Button>().onClick.AddListener(OnClick_Choose);
 
         newsMask = transform.Find("Mask_News");
-        timeText = transform.Find("Image_Time").GetComponentInChildren<Text>();
+
+        image_Weather = transform.Find("Image_Weather").GetComponent<Image>();
+
+        imageText_Time = transform.Find("ImageText_Time").GetComponent<WPImageText>();
 
         TimeUIUpdate(WPDateTime.Now);
         NewsUIUpdate(WPDateTime.Now);
@@ -71,9 +77,9 @@ public class WPUIManager_Farm : WPUIManager
 	/// </summary>
     public void TimeUIUpdate(WPDateTime content)
     {
-        if (timeText != null)
+        if (imageText_Time != null)
         {
-            timeText.text = content.ToString();
+            imageText_Time.SetText(content.ToString());
         }
     }
 

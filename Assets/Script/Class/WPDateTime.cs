@@ -22,7 +22,9 @@ public class WPDateTime {
         }
     }
 
-    public const int STANDARD_YEAR = 2019;                // TimeData를 연도-월-일-시간으로 계산하는 데 필요한 기준년도입니다. TimeData가 0인 WPTimeData 객체는 2019년 1월 1일 0시를 가리킵니다.
+    public const int STANDARD_YEAR = 2019;                  // TimeData를 연도-월-일-시간으로 계산하는 데 필요한 기준년도입니다. TimeData가 0인 WPTimeData 객체는 2019년 1월 1일 0시를 가리킵니다.
+    private const int STANDARD_DAYOFWEEK = 2;               // 2019년 1월 1일은 화요일이다.
+    private static string[] DAYOFWEEKSTRING = { "SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT" };
 
     public static bool CheckLeapYear(int year)
     {
@@ -119,6 +121,22 @@ public class WPDateTime {
     public int Day { get; private set; }
     public int Hour { get; private set; }
 
+    public int DayOfWeek
+    {
+        get
+        {
+            return ((TimeData / 24) + STANDARD_DAYOFWEEK) % 7;
+        }
+    }
+
+    public int Week
+    {
+        get
+        {
+            return ((TimeData / 24) + STANDARD_DAYOFWEEK) / 7;
+        }
+    }
+
     public bool isLeapYear
     {
         get
@@ -178,7 +196,7 @@ public class WPDateTime {
     // ToString()은 해당 객체를 연도-월-일 시간 AMPM으로 나타냅니다. UI에서 사용합니다.
     public new string ToString()
     {
-        string dateString = string.Format("{0} / {1} / {2} ", Year, Month, Day);
+        string dateString = string.Format("{0} / {1} / {2} {3} ", Year, Month, Day, DAYOFWEEKSTRING[DayOfWeek]);
         string timeString = string.Empty;
         if (0 == Hour)
         {
@@ -406,7 +424,6 @@ public class WPDateTime {
         }
 
         Hour = tempTimeData;
-
     }
 
 }
