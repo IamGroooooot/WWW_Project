@@ -40,6 +40,7 @@ public class WPUIManager_Farm : WPUIManager
 
         TimeUIUpdate(WPDateTime.Now);
         NewsUIUpdate(WPDateTime.Now);
+        WeatherUIUpdate(WPDateTime.Now);
 
         checkTime = WPDateTime.ParseData(WPDateTime.Now.ToData());
         WPDateTime.Now.OnTimeChanged += OnTimeChanged;
@@ -72,6 +73,13 @@ public class WPUIManager_Farm : WPUIManager
 
     }
 
+
+    public void SetSprite_Weather(Sprite content)
+    {
+        if (image_Weather == null) return;
+        image_Weather.sprite = content;
+    }
+
     /// <summary>
 	/// Time UI를 content으로 업데이트합니다.
 	/// </summary>
@@ -95,6 +103,16 @@ public class WPUIManager_Farm : WPUIManager
         WPGameCommon._WPDebug("뉴스 개수 " + newsContent.Count);
     }
 
+    public void WeatherUIUpdate(WPDateTime content)
+    {
+        WPGameCommon._WPDebug("날씨 UI 변경!");
+
+        string name = System.Enum.GetName(typeof(WPEnum.Weather), WPUserDataManager.instance.Weather).Substring(1);
+        string path = "Image/Weather/weather_" + name;
+
+        SetSprite_Weather(WPResourceManager.instance.GetResource<Sprite>(path));
+    }
+
     private WPDateTime checkTime;
     public void OnTimeChanged(WPDateTime newTime)
     {
@@ -102,6 +120,10 @@ public class WPUIManager_Farm : WPUIManager
         if(checkTime.Year != newTime.Year || checkTime.Month != newTime.Month)
         {
             NewsUIUpdate(newTime);
+        }
+        if (newTime.Week != checkTime.Week)
+        {
+            WeatherUIUpdate(newTime);
         }
         checkTime = WPDateTime.ParseData(newTime.ToData());
     }

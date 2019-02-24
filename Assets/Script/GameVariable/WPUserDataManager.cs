@@ -54,12 +54,42 @@ public class WPUserDataManager : MonoBehaviour {
         userData = WPUserData.LoadData(DATA_PATH);
     }
 
+    public int Debt
+    {
+        get
+        {
+            if (userData == null) return 0;
+            return userData.debt;
+        }
+        set
+        {
+            if (userData == null) return;
+            userData.debt = value;
+            SaveData();
+        }
+    }
+
+    public int Money
+    {
+        get
+        {
+            if (userData == null) return 0;
+            return userData.money;
+        }
+        set
+        {
+            if (userData == null) return;
+            userData.money = value;
+            SaveData();
+        }
+    }
+
     public int Level
     {
         get
         {
             if (userData == null) return 0;
-            if (userData.level == 0) userData.level = 1;
+            if (userData.level <= 0) userData.level = 1;
             return userData.level;
         }
         set
@@ -68,6 +98,23 @@ public class WPUserDataManager : MonoBehaviour {
             if (value < 1) userData.level = 1;
             else if (value > 4) userData.level = 4;
             else userData.level = value;
+            SaveData();
+        }
+    }
+
+    public WPEnum.Weather Weather
+    {
+        get
+        {
+            if (userData == null) return WPEnum.Weather.ERROR;
+            if (userData.weather <= 0 || userData.weather > System.Enum.GetValues(typeof(WPEnum.Weather)).Length) return WPEnum.Weather.ERROR;
+            return (WPEnum.Weather)userData.weather;
+        }
+        set
+        {
+            if (userData == null) return;
+            if (value <= 0 || (int)value > System.Enum.GetValues(typeof(WPEnum.Weather)).Length) return;
+            userData.weather = (int)value;
             SaveData();
         }
     }

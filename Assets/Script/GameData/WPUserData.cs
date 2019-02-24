@@ -9,6 +9,7 @@ public class WPUserData {
     public int debt;
     public int money;
     public int level;
+    public int weather;
     public string dateTime;
 
     public List<string> worker = new List<string>();
@@ -22,6 +23,7 @@ public class WPUserData {
         debt = 0;
         money = 1000;
         level = 1;
+        weather = 1;
         dateTime = WPDateTime.StandardDateTime.ToData();
 
         for (int i = 0; i < 12; ++i)
@@ -41,11 +43,12 @@ public class WPUserData {
     }
 
     [JsonConstructor]
-    public WPUserData(int _debt, int _money, int _level, string _dateTime, List<string> _worker, List<int> _fertilizer, List<List<List<int>>> _newsData, List<List<string>> _fieldData)
+    public WPUserData(int _debt, int _money, int _level, int _weather, string _dateTime, List<string> _worker, List<int> _fertilizer, List<List<List<int>>> _newsData, List<List<string>> _fieldData)
     {
         debt = _debt;
         money = _money;
         level = _level;
+        weather = _weather;
         dateTime = _dateTime;
         worker = _worker;
         fertilizer = _fertilizer;

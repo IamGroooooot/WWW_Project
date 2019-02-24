@@ -56,6 +56,67 @@ public class WPGameRoutineManager : MonoBehaviour {
         WPUserDataManager.instance.DateTime = content;
     }
 
+    private void ChangeWeather(WPDateTime nowTime)
+    {
+        WPGameCommon._WPDebug("날씨 변경!");
+        int random = Random.Range(0, 100);
+        switch (nowTime.Season)
+        {
+            case WPEnum.Season.eSpring:
+                {
+                    if(random < 60)
+                    {
+                        WPUserDataManager.instance.Weather = WPEnum.Weather.eSunny;
+                    }
+                    else
+                    {
+                        WPUserDataManager.instance.Weather = WPEnum.Weather.eRain;
+                    }
+                    break;
+                }
+            case WPEnum.Season.eSummer:
+                {
+                    if(random < 30)
+                    {
+                        WPUserDataManager.instance.Weather = WPEnum.Weather.eSunny;
+                    }
+                    else if(30 <= random && random < 60)
+                    {
+                        WPUserDataManager.instance.Weather = WPEnum.Weather.eDrought;
+                    }
+                    else
+                    {
+                        WPUserDataManager.instance.Weather = WPEnum.Weather.eRain;
+                    }
+                    break;
+                }
+            case WPEnum.Season.eAutumn:
+                {
+                    if(random < 70)
+                    {
+                        WPUserDataManager.instance.Weather = WPEnum.Weather.eSunny;
+                    }
+                    else
+                    {
+                        WPUserDataManager.instance.Weather = WPEnum.Weather.eRain;
+                    }
+                    break;
+                }
+            case WPEnum.Season.eWinter:
+                {
+                    if(random < 50)
+                    {
+                        WPUserDataManager.instance.Weather = WPEnum.Weather.eSunny;
+                    }
+                    else
+                    {
+                        WPUserDataManager.instance.Weather = WPEnum.Weather.eCold;
+                    }
+                    break;
+                }
+        }
+    }
+
     private WPDateTime checkTime;
     private void OnTimeChanged(WPDateTime content)
     {
@@ -63,6 +124,7 @@ public class WPGameRoutineManager : MonoBehaviour {
         if(content.Week != checkTime.Week)
         {
             WPGameCommon._WPDebug("주가 바뀌었습니다!");
+            ChangeWeather(content);
             checkTime = WPDateTime.ParseData(content.ToData());
         }
     }

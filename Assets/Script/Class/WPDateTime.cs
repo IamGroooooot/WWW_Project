@@ -23,8 +23,8 @@ public class WPDateTime {
     }
 
     public const int STANDARD_YEAR = 2019;                  // TimeData를 연도-월-일-시간으로 계산하는 데 필요한 기준년도입니다. TimeData가 0인 WPTimeData 객체는 2019년 1월 1일 0시를 가리킵니다.
-    private const int STANDARD_DAYOFWEEK = 2;               // 2019년 1월 1일은 화요일이다.
-    private static string[] DAYOFWEEKSTRING = { "SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT" };
+    private const int STANDARD_DAYOFWEEK = 1;               // 2019년 1월 1일은 화요일이다.
+    private static string[] DAYOFWEEKSTRING = { "MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN" };
 
     public static bool CheckLeapYear(int year)
     {
@@ -134,6 +134,14 @@ public class WPDateTime {
         get
         {
             return ((TimeData / 24) + STANDARD_DAYOFWEEK) / 7;
+        }
+    }
+
+    public WPEnum.Season Season
+    {
+        get
+        {
+            return GetSeason(Month);
         }
     }
 
