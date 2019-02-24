@@ -36,7 +36,14 @@ public class WPFieldCtrl : WPActor
 
     private GameObject graphic_Sickness;                            // Sickness 표현을 위한 GameObject
 
-	private WPField wpField;                                        // 밭의 정보를 저장하는 변수입니다.
+    private WPField wpField;                                        // 밭의 정보를 저장하는 변수입니다.
+    public WPField WpField
+    {
+        get
+        {
+            return wpField;
+        }
+    }
 
     // 원래 wpField가 null인지 아닌지를 통해 밭에 작물이 심어져 있는지 확인했으나, 이러면 밭에 작물을 심지 않았을 때 병충해의 유무를 저장할 수가 없게 됩니다.
     // 그래서 밭에 작물이 있는지 없는지 유무를 WPField 객체의 IsPlanted를 통해 판별합니다. (IsPlanted = seedIndex != -1)
@@ -96,9 +103,7 @@ public class WPFieldCtrl : WPActor
 
     private void OnMouseDown()
     {
-		// Worker생성하기 위해 사용
-		justClickedField = this.gameObject.name;
-
+		
 		//밭 작업 중 창
 		if (EventSystem.current.IsPointerOverGameObject()) return; // UI를 통과해 클릭하는 것을 방지
         StartCoroutine(OpenUI()); 
@@ -107,8 +112,11 @@ public class WPFieldCtrl : WPActor
     private IEnumerator OpenUI()
     {
         WPGameCommon._WPDebug("밭을 클릭 : " + gameObject.name);
+        // Worker생성하기 위해 사용
+        justClickedField = this.gameObject.name;
+
         // 작업 중 작물, 남은 시간, 일하는 일꾼, 비료, 일꾼 정보,비료 정보, 골드 표시
-        if(!wpField.IsPlanted) // 밭이 비어 있습니다.
+        if (!wpField.IsPlanted) // 밭이 비어 있습니다.
         {
             WPUIManager_Field.instance.GetFieldData(null, this);
             yield return null; // OnMouseDown을 통한 입력에서 버튼이 바로 눌리는 문제가 있기에 1 프레임 대기

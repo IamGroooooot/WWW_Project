@@ -171,6 +171,7 @@ public class WPTempWorkerCtrl : WPActor
 
 		if (wpWorker != null)
 		{
+            
 			hair.sprite = WPCustomizationManager.instance.hairPrefabs[_appearance[WPEnum.WorkerAppearanceDetail.eHair]].GetComponent<SpriteRenderer>().sprite;
 			basedBody.sprite = WPCustomizationManager.instance.basedBodyPrefabs[_appearance[WPEnum.WorkerAppearanceDetail.eBasedBody]].GetComponent<SpriteRenderer>().sprite;
 			shirts.sprite = WPCustomizationManager.instance.shirtPrefabs[_appearance[WPEnum.WorkerAppearanceDetail.eShirt]].GetComponent<SpriteRenderer>().sprite;
@@ -185,12 +186,12 @@ public class WPTempWorkerCtrl : WPActor
 		}
 	}
 
-	//Worker를 가져옴
-	public void SetWorker(WPWorker _worker)
-	{
-		this.wpWorker = _worker;
-		SetImage(wpWorker.appearance);
-		WPGameCommon._WPDebug("Worker SET!! ");
+    //Worker를 가져옴
+    public void SetWorker(WPWorker _worker)
+    {
+        this.wpWorker = _worker;
+        SetImage(wpWorker.appearance);
+        WPGameCommon._WPDebug("Worker SET!! " + WPCustomizationManager.instance.hairPrefabs[wpWorker.appearance[WPEnum.WorkerAppearanceDetail.eHair]].ToString());
 	}
 
 	void OnTriggerEnter2D(Collider2D col)

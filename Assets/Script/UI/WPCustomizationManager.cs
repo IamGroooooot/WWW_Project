@@ -53,15 +53,15 @@ public class WPCustomizationManager : WPUIManager
 	GameObject currentShoes;
 	string currentWorkerName;
 
-	public Dictionary<WPEnum.WorkerAppearanceDetail, int> selectedAppearance;
+	private Dictionary<WPEnum.WorkerAppearanceDetail, int> selectedAppearance;
 
-	int worker_Names_Id = 0;
-	int basedBody_Id = 0;
-	int hair_Id = 0;
-	int shirt_Id = 0;
-	int pants_Id = 0;
-	int hairColor_Id = 0;
-	int shoes_Id = 0;
+	int worker_Names_Id ;
+	int basedBody_Id ;
+	int hair_Id ;
+	int shirt_Id ;
+	int pants_Id ;
+	int hairColor_Id ;
+	int shoes_Id ;
 
 	/////////////////////////////////////////////////////////////////////////
 	// Methods
@@ -71,14 +71,42 @@ public class WPCustomizationManager : WPUIManager
 
 		Randomize();
 
-		SetActive(false);
-	}
+    }
+
+    public override void SetInvisible(bool param)
+    {
+        if (param)
+        {
+            gameObject.GetComponent<RectTransform>().localPosition = new Vector3(10000, 10000);
+        }
+        else
+        {
+            gameObject.GetComponent<RectTransform>().localPosition = new Vector3(0, 377);
+        }
+    }
+
+    void Start()
+    {
+        SetInvisible(true);
+        
+    }
+
+    //for Debug
+    void Update()
+    {
+
+        if (worker != null && worker.appearance != null)
+        {
+            Debug.Log("worker Data"+hairPrefabs[worker.appearance[WPEnum.WorkerAppearanceDetail.eHair]].ToString());
+            Debug.Log("UI Data"+hairPrefabs[selectedAppearance[WPEnum.WorkerAppearanceDetail.eHair]].ToString());
+        }
+    }
 
 	// Close 버튼을 클릭했을 때 호출합니다.
 	public void OnClick_Close()
 	{
 		WPAnchorCtrl.instance.SetActive(false);
-		base.SetActive(false);
+		base.SetInvisible(true);
 		WPUIManager_Field.instance.SetInvisible(false);
 
 
@@ -381,7 +409,7 @@ public class WPCustomizationManager : WPUIManager
 		//Worker에 저장하는 코드
 		if (worker != null)
 		{
-			WPGameCommon._WPDebug("커스터 마이징 저장 완료!!");
+			WPGameCommon._WPDebug("커스터 마이징 저장 완료!!"+hairPrefabs[selectedAppearance[WPEnum.WorkerAppearanceDetail.eHair]].ToString());
 			worker.appearance = selectedAppearance;
 		}else
 		{
@@ -392,13 +420,21 @@ public class WPCustomizationManager : WPUIManager
 
 	public void Randomize()
 	{
-		ApplyCostume(WPEnum.WorkerAppearanceDetail.eWorkerName,Random.Range(0,worker_Names.Length));
-		ApplyCostume(WPEnum.WorkerAppearanceDetail.eBasedBody,Random.Range(0,basedBodyPrefabs.Length));
-		ApplyCostume(WPEnum.WorkerAppearanceDetail.eHair,Random.Range(0,hairPrefabs.Length));
-		ApplyCostume(WPEnum.WorkerAppearanceDetail.eHairColor,Random.Range(0,hairColors.Length));
-		ApplyCostume(WPEnum.WorkerAppearanceDetail.eShirt,Random.Range(0,shirtPrefabs.Length));
-		ApplyCostume(WPEnum.WorkerAppearanceDetail.ePants,Random.Range(0,pantsPrefabs.Length));
-		ApplyCostume(WPEnum.WorkerAppearanceDetail.eShoes, Random.Range(0,shoesPrefabs.Length));
+        this.worker_Names_Id = Random.Range(0, worker_Names.Length);
+        this.basedBody_Id = Random.Range(0, basedBodyPrefabs.Length);
+        this.hair_Id = Random.Range(0, hairPrefabs.Length);
+        this.hairColor_Id = Random.Range(0, hairColors.Length);
+        this.shirt_Id = Random.Range(0, shirtPrefabs.Length);
+        this.pants_Id = Random.Range(0, pantsPrefabs.Length);
+        this.shoes_Id = Random.Range(0, shoesPrefabs.Length);
+
+        ApplyCostume(WPEnum.WorkerAppearanceDetail.eWorkerName, worker_Names_Id);
+		ApplyCostume(WPEnum.WorkerAppearanceDetail.eBasedBody, basedBody_Id);
+		ApplyCostume(WPEnum.WorkerAppearanceDetail.eHair, hair_Id);
+		ApplyCostume(WPEnum.WorkerAppearanceDetail.eHairColor, hairColor_Id);
+		ApplyCostume(WPEnum.WorkerAppearanceDetail.eShirt, shirt_Id);
+		ApplyCostume(WPEnum.WorkerAppearanceDetail.ePants, pants_Id);
+		ApplyCostume(WPEnum.WorkerAppearanceDetail.eShoes, shoes_Id);
 	}
 
 	private void ResetTransform(Transform transform)

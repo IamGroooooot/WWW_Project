@@ -212,6 +212,9 @@ public class WPUIManager_Field : WPUIManager {
             targetField = new WPField(seedIndex, workerIndex, fertilizerIndex);
             targetFieldCtrl.SetFieldData(targetField);
             targetFieldCtrl.SaveFieldData();
+
+            //심을 때 Worker도 보내줌
+            SendCustomizedWorker();
             SetActive(false);
         }
     }
@@ -233,8 +236,9 @@ public class WPUIManager_Field : WPUIManager {
 		int farmId = System.Convert.ToInt32(WPFieldCtrl.justClickedField.Substring(5))/10;
 		int workerId = UnityEngine.Random.Range(0, 5);
 		//Worker가져와서 불러 와야됨
-		WPCustomizationManager.instance.SetActive(true);
+		WPCustomizationManager.instance.SetInvisible(false);
 		WPCustomizationManager.instance.setWorkerOnCustomManager(new WPWorker(farmId,fieldId, workerId,0,null));
+        WPCustomizationManager.instance.Randomize();
 		WPGameCommon._WPDebug("일꾼을 선택");
         //이 UI 멀리 보냄
         SetInvisible(true);
@@ -304,18 +308,27 @@ public class WPUIManager_Field : WPUIManager {
 	//커스터마이징 된 워커 정보를 NullWorker라는 태그를 가진 게임 오브젝트에 보내고 기존에 사용한 워커 정보를 초기화 시킨다
 	private void SendCustomizedWorker()
 	{
+        if (targetFieldCtrl == null||targetFieldCtrl.WpField == null || targetFieldCtrl.WpField.seedIndex == -1)
+        {
+            WPCustomizationManager.instance.setWorkerOnCustomManager(null);
+            Debug.Log("밭이 없음 그래서 Worker Set 안함");
+            return;
+        }
+
 		GameObject targetWorker = GameObject.FindGameObjectWithTag("NullWorker");
+        
 		//Worker전달 해줘야됨// 임시로 NullWorker라는 태그 가진 애한테 전달 함.
-		if (targetWorker != null && WPCustomizationManager.instance.worker != null && WPCustomizationManager.instance.worker.appearance != null &&targetFieldCtrl !=null)
+		if (targetWorker != null && WPCustomizationManager.instance.worker != null && WPCustomizationManager.instance.worker.appearance != null )
 		{
             //targetWorker의 이미지를 SET해줌
-			targetWorker.GetComponent<WPTempWorkerCtrl>().SetWorker(WPCustomizationManager.instance.worker);
+            targetWorker.GetComponent<WPTempWorkerCtrl>().SetWorker(WPCustomizationManager.instance.worker);
+            Debug.Log("나의 일꾼의 머리 : "+WPCustomizationManager.instance.worker.appearance[WPEnum.WorkerAppearanceDetail.eHair].ToString());
             //targetWorker의 태그와 이름 재설정
 			targetWorker.tag = "Worker";
 			targetWorker.name = WPFieldCtrl.justClickedField + "_Worker";
 		}
 
-		WPCustomizationManager.instance.setWorkerOnCustomManager(null);
 
-	}
+        WPCustomizationManager.instance.setWorkerOnCustomManager(null);
+    }
 }
