@@ -298,7 +298,7 @@ public class WPUIManager_Field : WPUIManager {
     public void OnClick_Close()
     {
         SetActive(false);
-		//SendCustomizedWorker();
+		SendCustomizedWorker();
 	}
 
 	//커스터마이징 된 워커 정보를 NullWorker라는 태그를 가진 게임 오브젝트에 보내고 기존에 사용한 워커 정보를 초기화 시킨다
@@ -306,9 +306,11 @@ public class WPUIManager_Field : WPUIManager {
 	{
 		GameObject targetWorker = GameObject.FindGameObjectWithTag("NullWorker");
 		//Worker전달 해줘야됨// 임시로 NullWorker라는 태그 가진 애한테 전달 함.
-		if (targetWorker != null && WPCustomizationManager.instance.worker != null && WPCustomizationManager.instance.worker.appearance != null)
+		if (targetWorker != null && WPCustomizationManager.instance.worker != null && WPCustomizationManager.instance.worker.appearance != null &&targetFieldCtrl !=null)
 		{
+            //targetWorker의 이미지를 SET해줌
 			targetWorker.GetComponent<WPTempWorkerCtrl>().SetWorker(WPCustomizationManager.instance.worker);
+            //targetWorker의 태그와 이름 재설정
 			targetWorker.tag = "Worker";
 			targetWorker.name = WPFieldCtrl.justClickedField + "_Worker";
 		}

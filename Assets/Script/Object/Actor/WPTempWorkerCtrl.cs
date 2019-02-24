@@ -165,7 +165,7 @@ public class WPTempWorkerCtrl : WPActor
 		this.workingField = GameObject.Find("Field"+ wpWorker.workingFarmIndex.ToString()+ wpWorker.workingFieldIndex.ToString()).GetComponent<WPFieldCtrl>();
     }
 
-	//Customzing한 것 불러오기
+	//Dictionary로 일꾼 이미지 바꾸기
 	private void SetImage(Dictionary<WPEnum.WorkerAppearanceDetail, int> _appearance)
 	{
 
@@ -177,8 +177,7 @@ public class WPTempWorkerCtrl : WPActor
 			pants.sprite = WPCustomizationManager.instance.pantsPrefabs[_appearance[WPEnum.WorkerAppearanceDetail.ePants]].GetComponent<SpriteRenderer>().sprite;
 			shoes.sprite = WPCustomizationManager.instance.shoesPrefabs[_appearance[WPEnum.WorkerAppearanceDetail.eShoes]].GetComponent<SpriteRenderer>().sprite;
             
-
-
+            
         }
         else
 		{
@@ -191,7 +190,7 @@ public class WPTempWorkerCtrl : WPActor
 	{
 		this.wpWorker = _worker;
 		SetImage(wpWorker.appearance);
-		WPGameCommon._WPDebug("Worker is 성공적으로 Set!! ");
+		WPGameCommon._WPDebug("Worker SET!! ");
 	}
 
 	void OnTriggerEnter2D(Collider2D col)
