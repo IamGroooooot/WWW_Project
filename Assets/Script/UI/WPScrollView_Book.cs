@@ -73,6 +73,8 @@ public class WPScrollView_Book : WPScrollView {
             WPUI_BookItemInfo bookItemInfo = WPUIManager_Book.instance.ui_BookItemInfo;
             bookItemInfo.SetSprite_Item(seedSpriteData[index]);
             bookItemInfo.Name.SetText(seedData.Name);
+            bookItemInfo.GetImageText_Info(0).SetActive(true);
+            bookItemInfo.GetImageText_Info(0).SetText(seedData.Description);
             bookItemInfo.SetActive(true);
         }
     }
@@ -85,6 +87,10 @@ public class WPScrollView_Book : WPScrollView {
             WPUI_BookItemInfo bookItemInfo = WPUIManager_Book.instance.ui_BookItemInfo;
             bookItemInfo.SetSprite_Item(fertilizerSpriteData[index]);
             bookItemInfo.Name.SetText(fertilizerData.Name);
+            bookItemInfo.GetImageText_Info(0).SetActive(true);
+            bookItemInfo.GetImageText_Info(0).SetText(fertilizerData.Description);
+            bookItemInfo.GetImageText_Info(1).SetActive(false);
+            bookItemInfo.GetImageText_Info(2).SetActive(false);
             bookItemInfo.SetActive(true);
         }
     }
