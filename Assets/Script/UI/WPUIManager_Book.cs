@@ -53,8 +53,10 @@ public class WPUIManager_Book : WPUIManager
             }
         }
     }
+
     private Button button_Tab;
     private WPScrollView_Book scrollView_Book;
+    public WPUI_BookItemInfo ui_BookItemInfo { get; private set; }
 
     /////////////////////////////////////////////////////////////////////////
     // Methods
@@ -70,6 +72,9 @@ public class WPUIManager_Book : WPUIManager
         button_Tab.GetComponentInChildren<Text>().text = tabName[TabIndex];
 
         scrollView_Book = transform.Find("ScrollView_Book").GetComponent<WPScrollView_Book>();
+        ui_BookItemInfo = transform.Find("UI_BookItemInfo").GetComponent<WPUI_BookItemInfo>();
+
+        ui_BookItemInfo.SetActive(false);
 
         SetActive(false);
     }
@@ -82,6 +87,7 @@ public class WPUIManager_Book : WPUIManager
 
     private void OnClick_Tab()
     {
+        ui_BookItemInfo.SetActive(false);
         TabIndex++;
     }
 

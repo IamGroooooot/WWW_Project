@@ -92,6 +92,7 @@ public class WPScrollViewItem : MonoBehaviour {
     /// /// <param name="unityAction"></param>
     public void AddEvent(UnityAction unityAction)
     {
+        WPGameCommon._WPDebug("이벤트 추가! " + button.name);
         button.onClick.AddListener(unityAction);
     }
 

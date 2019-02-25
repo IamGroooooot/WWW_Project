@@ -65,12 +65,28 @@ public class WPScrollView_Book : WPScrollView {
 
     private void OnClick_Seed(int index)
     {
+        WPGameCommon._WPDebug("씨앗 클릭! " + index);
+        WPData_Seed seedData = WPGameDataManager.instance.GetData<WPData_Seed>(WPEnum.GameData.eSeed)[index];
 
+        if(seedData != null)
+        {
+            WPUI_BookItemInfo bookItemInfo = WPUIManager_Book.instance.ui_BookItemInfo;
+            bookItemInfo.SetSprite_Item(seedSpriteData[index]);
+            bookItemInfo.Name.SetText(seedData.Name);
+            bookItemInfo.SetActive(true);
+        }
     }
 
     private void OnClick_Fertilizer(int index)
     {
-
+        WPData_Fertilizer fertilizerData = WPGameDataManager.instance.GetData<WPData_Fertilizer>(WPEnum.GameData.eFertilizer)[index];
+        if(fertilizerData != null)
+        {
+            WPUI_BookItemInfo bookItemInfo = WPUIManager_Book.instance.ui_BookItemInfo;
+            bookItemInfo.SetSprite_Item(fertilizerSpriteData[index]);
+            bookItemInfo.Name.SetText(fertilizerData.Name);
+            bookItemInfo.SetActive(true);
+        }
     }
 
     public void CreateSeedList()
