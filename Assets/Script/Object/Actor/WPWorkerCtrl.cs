@@ -17,7 +17,7 @@ public class WPWorkerCtrl : WPActor
     SpriteRenderer shirts;
     SpriteRenderer pants;
     SpriteRenderer shoes;
-
+	TextMesh name;
 
 
     // 움직임 관련 변수. 일단 하드코딩
@@ -83,18 +83,23 @@ public class WPWorkerCtrl : WPActor
 
 
 
-        //setImage
-        hair = gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
-        basedBody = gameObject.transform.GetChild(1).GetComponent<SpriteRenderer>();
-        shirts = gameObject.transform.GetChild(2).GetComponent<SpriteRenderer>();
-        pants = gameObject.transform.GetChild(3).GetComponent<SpriteRenderer>();
-        shoes = gameObject.transform.GetChild(4).GetComponent<SpriteRenderer>();
+		//setImage
+		getWorkerComponents();
 
-
-
-        SetImage(wpWorker.appearance);
+		SetImage(wpWorker.appearance);
 
     }
+
+	//GetComponents
+	void getWorkerComponents()
+	{
+		hair = transform.GetChild(0).GetComponent<SpriteRenderer>();
+		basedBody = transform.GetChild(1).GetComponent<SpriteRenderer>();
+		shirts = transform.GetChild(2).GetComponent<SpriteRenderer>();
+		pants = transform.GetChild(3).GetComponent<SpriteRenderer>();
+		shoes = transform.GetChild(4).GetComponent<SpriteRenderer>();
+		name = transform.GetChild(5).GetComponent<TextMesh>();
+	}
 
     /// <summary>
     /// override : 로밍 state 정의
@@ -185,7 +190,7 @@ public class WPWorkerCtrl : WPActor
             shirts.sprite = WPCustomizationManager.instance.shirtPrefabs[_appearance[WPEnum.WorkerAppearanceDetail.eShirt]].GetComponent<SpriteRenderer>().sprite;
             pants.sprite = WPCustomizationManager.instance.pantsPrefabs[_appearance[WPEnum.WorkerAppearanceDetail.ePants]].GetComponent<SpriteRenderer>().sprite;
             shoes.sprite = WPCustomizationManager.instance.shoesPrefabs[_appearance[WPEnum.WorkerAppearanceDetail.eShoes]].GetComponent<SpriteRenderer>().sprite;
-
+			name.text = WPCustomizationManager.instance.worker_Names[_appearance[WPEnum.WorkerAppearanceDetail.eWorkerName]];
 
         }
         else

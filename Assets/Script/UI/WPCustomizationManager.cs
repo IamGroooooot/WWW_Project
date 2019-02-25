@@ -32,7 +32,8 @@ public class WPCustomizationManager : WPUIManager
 	private Color32[] hairColors;
 
 	//Random Worker Name
-	[SerializeField] private string[] worker_Names;
+	[SerializeField]
+	public string[] worker_Names;
 
 	//Anchors
 	[SerializeField]
@@ -309,6 +310,7 @@ public class WPCustomizationManager : WPUIManager
 			case WPEnum.WorkerAppearanceDetail.eWorkerName:
 				//이름 설정하는 코드 짜기
 				currentWorkerName = worker_Names[id];
+				UpdateUI_Name();
 				break;
 
 			case WPEnum.WorkerAppearanceDetail.eBasedBody:
@@ -375,6 +377,12 @@ public class WPCustomizationManager : WPUIManager
 			default:
 				break;
 		}
+	}
+
+	void UpdateUI_Name()
+	{
+		if(transform.Find("Name_BG")!=null)
+			transform.Find("Name_BG").GetChild(0).GetComponent<UnityEngine.UI.Text>().text = currentWorkerName;
 	}
 
 	//Worker 찾아오는 코드 짜야돼
