@@ -10,7 +10,6 @@ public class WPActorManager : MonoBehaviour
 
 	public Transform _baseObject;						// baseobject. 인스펙터에서 초기화
 	public Transform _baseObject_Farm;                  // baseobject. 인스펙터에서 초기화
-	public Transform _baseObject_Sickness;				// baseobject, 인스펙터에서 초기화
 
 	public GameObject _pfTempWorker;					// 임시 워커 프리팹
 	public GameObject _field;                           // 밭 프리팹
@@ -18,13 +17,10 @@ public class WPActorManager : MonoBehaviour
 
     private int _workerCount;                           // 일꾼 개수. init 초기화
     private int _farmFieldCount;						// 밭 개수. init 초기화
-	private int _sicknessCount;
 
 	private List<GameObject> _actorList_Worker;			// 액터Worker 게임오브젝트를 들고있는 리스트.
 	private List<GameObject> _actorList_Field;          // 액터Field 게임오브젝트를 들고있는 리스트.
-	private List<GameObject> _actorList_Sickness;		// 액터Sickness 게임오브젝트를 들고있는 리스트.
 
-	private int sicknessIndex;
 	private int fieldIndex;
     public static int farmIndex;
 
@@ -52,16 +48,13 @@ public class WPActorManager : MonoBehaviour
 
 		//0으로 초기화
         fieldIndex = 0;
-		sicknessIndex = 0;
 
 		this._actorList_Worker = new List<GameObject>();
         this._actorList_Field = new List<GameObject>();
-		this._actorList_Sickness = new List<GameObject>();
 
         this._workerCount = WPGameVariableManager.instance.LoadIntVariable(WPEnum.VariableType.eUserWorkerCount);
         //this._farmFieldCount = WPGameVariableManager.instance.LoadIntVariable(WPEnum.VariableType.eFarmFieldCount);
         this._farmFieldCount = 6;
-		this._sicknessCount = 6;
     }
 
     /// <summary>
@@ -80,15 +73,18 @@ public class WPActorManager : MonoBehaviour
 		// 일꾼 세팅 파트
 		for (int workerIdx = 0; workerIdx < this._workerCount; workerIdx++)
 		{
-			this.SpawnActor((int)WPEnum.ActorKey.eActorWorkerTemp);
+			this.SpawnActor((int)WPEnum.ActorKey.eActorNullWorker);
 		}
 
-		// 병충해 세팅 파트
-		for (int i = 0; i < this._sicknessCount; i++)
-		{
-			this.SpawnActor((int)WPEnum.ActorKey.eActorSickness);
-		}
+       
 	}
+
+    public void SpawnNullWorker()
+    {
+        this.SpawnActor((int)WPEnum.ActorKey.eActorNullWorker);
+
+
+    }
 
 	/// <summary>
 	/// Actor 타입에 맞게 스폰시키는 함수.
@@ -98,7 +94,7 @@ public class WPActorManager : MonoBehaviour
 	/// <returns></returns>
 	public int SpawnActor(int actorKey)
 	{
-		if ((int)WPEnum.ActorKey.eActorWorkerTemp == actorKey)
+		if ((int)WPEnum.ActorKey.eActorNullWorker == actorKey)
 		{
 			GameObject go = Instantiate(this._pfTempWorker, this._baseObject) as GameObject;
 
@@ -185,7 +181,7 @@ public class WPActorManager : MonoBehaviour
 	public void IncreaseWorker()
     {
 		// 임시워커 스폰 시도
-		int rv = this.SpawnActor((int)WPEnum.ActorKey.eActorWorkerTemp);
+		int rv = this.SpawnActor((int)WPEnum.ActorKey.eActorNullWorker);
 
 		// 스폰에 문제가 있나?
 		if (0 != rv)
@@ -199,28 +195,6 @@ public class WPActorManager : MonoBehaviour
 		// 유저데이터에 작성.
 		WPGameVariableManager.instance.SaveVariable(WPEnum.VariableType.eUserWorkerCount, this._workerCount);
     }
-
-	/// <summary>
-	/// 일꾼 증가시키기. 임시함수
-	/// 적당히 참고만 하고 이 함수는 지우자.
-	/// </summary>
-	public void IncreaseSickness()
-	{
-		// 임시워커 스폰 시도
-		int rv = this.SpawnActor((int)WPEnum.ActorKey.eActorSickness);
-
-		// 스폰에 문제가 있나?
-		if (0 != rv)
-		{
-			return;
-		}
-
-		// 매니저 메모리에 반영 시도
-		this._sicknessCount++;
-
-		// 유저데이터에 작성.
-		WPGameVariableManager.instance.SaveVariable(WPEnum.VariableType.eUserWorkerCount, this._workerCount);
-	}
 
 	/// <summary>
 	/// 일꾼 모두 죽이기. 임시함수

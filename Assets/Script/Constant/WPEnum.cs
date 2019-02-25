@@ -127,7 +127,7 @@ public class WPEnum {
 	// 액터키 모음. 추후 이걸 데이터로 빼는작업 필요.
 	public enum ActorKey
 	{
-		eActorWorkerTemp = 10,			// 임시 워커
+		eActorNullWorker = 10,			// 임시 워커
 		eActorFarmField = 20,			// 밭
 		eActorSickness =30,				// 병충해
 	}

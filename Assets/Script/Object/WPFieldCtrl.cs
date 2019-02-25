@@ -86,7 +86,7 @@ public class WPFieldCtrl : WPActor
             SetFieldData(new WPField());
         else
             SetFieldData(WPField.ParseData(data));
-            */
+        */
 
         string data = WPUserDataManager.instance.GetFieldData(1, fieldIndex);
 

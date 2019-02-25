@@ -83,7 +83,7 @@ public class WPUIManager_Field : WPUIManager {
             Text text = button_Action.GetComponentInChildren<Text>();
             if (text != null) text.text = "엎기";
 
-            WPGameCommon._WPDebug(wpField.seedIndex + ":" + wpField.workerIndex + ":" + wpField.fertilizerIndex);
+            WPGameCommon._WPDebug("Seed Index "+wpField.seedIndex + ":" + "Worker Index " + wpField.workerIndex + ":"+ "Fertilizer Index "+ wpField.fertilizerIndex);
 
             if(wpField.seedIndex != -1)
             {
@@ -231,6 +231,9 @@ public class WPUIManager_Field : WPUIManager {
 			}
 		}
 		
+        //Null Worker Spawn
+
+
 		scrollView_Select.CreateWorkerList();
 		int fieldId = System.Convert.ToInt32(WPFieldCtrl.justClickedField.Substring(5))%10;
 		int farmId = System.Convert.ToInt32(WPFieldCtrl.justClickedField.Substring(5))/10;
@@ -311,7 +314,7 @@ public class WPUIManager_Field : WPUIManager {
         if (targetFieldCtrl == null||targetFieldCtrl.WpField == null || targetFieldCtrl.WpField.seedIndex == -1)
         {
             WPCustomizationManager.instance.setWorkerOnCustomManager(null);
-            Debug.Log("밭이 없음 그래서 Worker Set 안함");
+            Debug.Log("밭이 없음 // Worker Set 안함");
             return;
         }
 
