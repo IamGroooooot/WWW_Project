@@ -215,6 +215,7 @@ public class WPUIManager_Field : WPUIManager {
 
             //심을 때 Worker도 보내줌
             SendCustomizedWorker();
+            
             SetActive(false);
         }
     }
@@ -325,10 +326,12 @@ public class WPUIManager_Field : WPUIManager {
 		{
             //targetWorker의 이미지를 SET해줌
             targetWorker.GetComponent<WPWorkerCtrl>().SetWorker(WPCustomizationManager.instance.worker);
-            //targetWorker의 태그와 이름 재설정
+            //targetWorker의 태그와 이름 재설정, 위치도 재설정, 움직임도 재설정
 			targetWorker.tag = "Worker";
 			targetWorker.name = WPFieldCtrl.justClickedField + "_Worker";
-		}
+            targetWorker.GetComponent<WPWorkerCtrl>().SetActorPos(UnityEngine.Random.Range(-WPVariable.currentFieldSizeX / 2f, WPVariable.currentFieldSizeX / 2f), UnityEngine.Random.Range(-WPVariable.currentFieldSizeY / 2f, WPVariable.currentFieldSizeY / 2f));
+            targetWorker.GetComponent<WPWorkerCtrl>().SetActorMoveType(WPEnum.ActorMoveType.eMoveRoaming);
+        }
 
 
         WPCustomizationManager.instance.setWorkerOnCustomManager(null);
