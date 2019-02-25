@@ -215,6 +215,7 @@ public class WPUIManager_Field : WPUIManager {
 
             //심을 때 Worker도 보내줌
             SendCustomizedWorker();
+            
             SetActive(false);
         }
     }
@@ -230,11 +231,11 @@ public class WPUIManager_Field : WPUIManager {
 				return;
 			}
 		}
-		
-        //Null Worker Spawn
 
+        //If No NullWorker, Spawn Null Worker 
+        WPActorManager.instance.IncreaseNullWorker();
 
-		scrollView_Select.CreateWorkerList();
+        scrollView_Select.CreateWorkerList();
 		int fieldId = System.Convert.ToInt32(WPFieldCtrl.justClickedField.Substring(5))%10;
 		int farmId = System.Convert.ToInt32(WPFieldCtrl.justClickedField.Substring(5))/10;
 		int workerId = UnityEngine.Random.Range(0, 5);
@@ -324,11 +325,13 @@ public class WPUIManager_Field : WPUIManager {
 		if (targetWorker != null && WPCustomizationManager.instance.worker != null && WPCustomizationManager.instance.worker.appearance != null )
 		{
             //targetWorker의 이미지를 SET해줌
-            targetWorker.GetComponent<WPTempWorkerCtrl>().SetWorker(WPCustomizationManager.instance.worker);
-            //targetWorker의 태그와 이름 재설정
+            targetWorker.GetComponent<WPWorkerCtrl>().SetWorker(WPCustomizationManager.instance.worker);
+            //targetWorker의 태그와 이름 재설정, 위치도 재설정, 움직임도 재설정
 			targetWorker.tag = "Worker";
 			targetWorker.name = WPFieldCtrl.justClickedField + "_Worker";
-		}
+            targetWorker.GetComponent<WPWorkerCtrl>().SetActorPos(UnityEngine.Random.Range(-WPVariable.currentFieldSizeX / 2f, WPVariable.currentFieldSizeX / 2f), UnityEngine.Random.Range(-WPVariable.currentFieldSizeY / 2f, WPVariable.currentFieldSizeY / 2f));
+            targetWorker.GetComponent<WPWorkerCtrl>().SetActorMoveType(WPEnum.ActorMoveType.eMoveRoaming);
+        }
 
 
         WPCustomizationManager.instance.setWorkerOnCustomManager(null);
