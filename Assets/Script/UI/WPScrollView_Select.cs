@@ -202,6 +202,7 @@ public class WPScrollView_Select : WPScrollView {
                 newItem.SetName(index.ToString());
                 newItem.AddEvent(delegate { OnClick_Fertilizer(Convert.ToInt32(newItem.name)); });
                 newItem.SetText(fertilizerData[index].Name);
+                newItem.SetText_Count(WPUserDataManager.instance.GetFertilizer(index).ToString());
                 newItem.SetFocus(index == fertilizerIndex);
                 newItem.SetSprite(fertilizerSpriteData[index]);
                 AddItem(newItem);

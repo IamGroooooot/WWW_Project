@@ -30,6 +30,7 @@ public class WPScrollViewItem_Seed : WPScrollViewItem
     protected override void Init()
     {
         base.Init();
+        transform.Find("ImageText_Count").GetComponent<WPImageText>().SetActive(false);
         AddEvent(delegate { OnClick_Item(); });
         ITEMS.Add(this);
     }

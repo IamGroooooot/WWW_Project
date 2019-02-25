@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class WPScrollViewItem_Fertilizer : WPScrollViewItem
 {
-
     private static List<WPScrollViewItem_Fertilizer> ITEMS = new List<WPScrollViewItem_Fertilizer>();
 
     public static WPScrollViewItem_Fertilizer ITEM_FOCUS
@@ -27,9 +27,12 @@ public class WPScrollViewItem_Fertilizer : WPScrollViewItem
         ITEMS = new List<WPScrollViewItem_Fertilizer>();
     }
 
+    private WPImageText imageText_Count;
+
     protected override void Init()
     {
         base.Init();
+        imageText_Count = transform.Find("ImageText_Count").GetComponent<WPImageText>();
         AddEvent(delegate { OnClick_Item(); });
         ITEMS.Add(this);
     }
@@ -37,6 +40,12 @@ public class WPScrollViewItem_Fertilizer : WPScrollViewItem
     private void OnClick_Item()
     {
         ITEM_FOCUS = this;
+    }
+
+    public void SetText_Count(string content)
+    {
+        if (imageText_Count == null) return;
+        imageText_Count.SetText(content);
     }
 
 }
