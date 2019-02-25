@@ -5,7 +5,8 @@ using UnityEngine;
 /// <summary>
 /// 이 클래스매니저는 게임의 흐름을 관리합니다.
 /// </summary>
-public class WPGameRoutineManager : MonoBehaviour {
+public class WPGameRoutineManager : MonoBehaviour
+{
     /////////////////////////////////////////////////////////////////////////
     // Varaibles
     public static WPGameRoutineManager instance = null;
