@@ -36,6 +36,39 @@ public class WPScrollView : MonoBehaviour {
 
         item.transform.SetParent(content);
     }
+    /// <summary>
+    /// Item들을 아이템에 맞게 정렬합니다. 우선, 아이템을 수평으로 쌓아갑니다. 아이템이 수평으로 꽉 차면, 이제 그 아래로 아이템을 내려 또다시 수평으로 정렬합니다.
+    /// </summary>
+    public void SortItemToItem()
+    {
+        if (scrollView == null) return;
+        RectTransform content = scrollView.content;
+        float contentWidth = 0;
+        float contentHeight = 0;
+        float nowWidth = 0;
+        float nowHeight = 0;
+        Vector2 sizeDelta = new Vector2(scrollView.viewport.rect.width, scrollView.viewport.rect.height);
+        WPGameCommon._WPDebug("viewport size : " + sizeDelta);
+        for(int i = 0; i < content.childCount; ++i)
+        {
+            WPScrollViewItem item = content.GetChild(i).GetComponent<WPScrollViewItem>();
+            if (item == null) continue;
+            if (nowWidth + item.GetWidth() > sizeDelta.x)
+            {
+                if (contentWidth < nowWidth) contentWidth = nowWidth;
+                contentHeight += nowHeight;
+                nowWidth = 0;
+                nowHeight = 0;
+            }
+            item.SetPosition(new Vector2(nowWidth, contentHeight));
+            nowWidth += item.GetWidth();
+            if (nowHeight < item.GetHeight()) nowHeight = item.GetHeight();
+        }
+        content.sizeDelta = new Vector2(contentWidth, contentHeight);
+        content.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, content.rect.width);
+        content.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 0, content.rect.height);
+        scrollView.StopMovement();
+    }
 
     /// <summary>
     /// Item들을 수평으로 정렬합니다.

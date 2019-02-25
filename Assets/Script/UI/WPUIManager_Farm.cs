@@ -70,7 +70,7 @@ public class WPUIManager_Farm : WPUIManager
     // Choose 버튼을 클릭했을 때 호출합니다.
     private void OnClick_Choose()
     {
-
+        WPUIManager_Book.instance.SetActive(true);
     }
 
 

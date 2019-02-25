@@ -10,6 +10,7 @@ public class WPUIManager_Book : WPUIManager
     public static WPUIManager_Book instance = null;     // singleton
 
     private Button button_Tab;
+    private WPScrollView_Book scrollView_Book;
 
     /////////////////////////////////////////////////////////////////////////
     // Methods
@@ -21,6 +22,7 @@ public class WPUIManager_Book : WPUIManager
         this.transform.Find("Button_Close").GetComponent<Button>().onClick.AddListener(OnClick_Close);
 
         button_Tab = transform.Find("Button_Tab").GetComponent<Button>();
+        scrollView_Book = transform.Find("ScrollView_Book").GetComponent<WPScrollView_Book>();
 
         SetActive(false);
     }
@@ -29,5 +31,26 @@ public class WPUIManager_Book : WPUIManager
     private void OnClick_Close()
     {
         SetActive(false);
+    }
+
+
+    /// <summary>
+    /// UI를 화면에 param 값에 따라 표시합니다.
+    /// </summary>
+    /// <param name="param"></param>
+    public override void SetActive(bool param)
+    {
+        if (param)
+        {
+            WPVariable.timeScale_NewsUI = 0f;
+            WPVariable.timeScale_WPDateTime = 0f;
+            scrollView_Book.SetActive(true);
+        }
+        else
+        {
+            WPVariable.timeScale_NewsUI = 1f;
+            WPVariable.timeScale_WPDateTime = 1f;
+        }
+        base.SetActive(param);
     }
 }
