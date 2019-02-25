@@ -48,7 +48,6 @@ public class WPScrollView : MonoBehaviour {
         float nowWidth = 0;
         float nowHeight = 0;
         Vector2 sizeDelta = new Vector2(scrollView.viewport.rect.width, scrollView.viewport.rect.height);
-        WPGameCommon._WPDebug("viewport size : " + sizeDelta);
         for(int i = 0; i < content.childCount; ++i)
         {
             WPScrollViewItem item = content.GetChild(i).GetComponent<WPScrollViewItem>();
