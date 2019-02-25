@@ -230,11 +230,11 @@ public class WPUIManager_Field : WPUIManager {
 				return;
 			}
 		}
-		
-        //Null Worker Spawn
 
+        //If No NullWorker, Spawn Null Worker 
+        WPActorManager.instance.IncreaseNullWorker();
 
-		scrollView_Select.CreateWorkerList();
+        scrollView_Select.CreateWorkerList();
 		int fieldId = System.Convert.ToInt32(WPFieldCtrl.justClickedField.Substring(5))%10;
 		int farmId = System.Convert.ToInt32(WPFieldCtrl.justClickedField.Substring(5))/10;
 		int workerId = UnityEngine.Random.Range(0, 5);
@@ -324,7 +324,7 @@ public class WPUIManager_Field : WPUIManager {
 		if (targetWorker != null && WPCustomizationManager.instance.worker != null && WPCustomizationManager.instance.worker.appearance != null )
 		{
             //targetWorker의 이미지를 SET해줌
-            targetWorker.GetComponent<WPTempWorkerCtrl>().SetWorker(WPCustomizationManager.instance.worker);
+            targetWorker.GetComponent<WPWorkerCtrl>().SetWorker(WPCustomizationManager.instance.worker);
             //targetWorker의 태그와 이름 재설정
 			targetWorker.tag = "Worker";
 			targetWorker.name = WPFieldCtrl.justClickedField + "_Worker";

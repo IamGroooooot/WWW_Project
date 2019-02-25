@@ -124,16 +124,16 @@ public class WPEnum {
 		eTypeFail = 1,					// 치명적인 실패
 	}
 
-	// 액터키 모음. 추후 이걸 데이터로 빼는작업 필요.
-	public enum ActorKey
-	{
-		eActorNullWorker = 10,			// 임시 워커
-		eActorFarmField = 20,			// 밭
-		eActorSickness =30,				// 병충해
-	}
+    // 액터키 모음. 추후 이걸 데이터로 빼는작업 필요.
+    public enum ActorKey
+    {
+        eActorNullWorker = 10,          // 임시 워커
+        eActorFarmField = 20,           // 밭
+        eActorWorker = 30,              // 워커
+    }
 
-	// 현재 액터의 상태를 정의해놓음.
-	public enum ActorState
+    // 현재 액터의 상태를 정의해놓음.
+    public enum ActorState
 	{
 		eActorStateNone = 0,            // 아무상태도 아님
 		eActorStateIdle = 1,            // 대기상태
