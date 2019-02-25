@@ -107,6 +107,7 @@ public class WPUIManager_Book : WPUIManager
         {
             WPVariable.timeScale_NewsUI = 1f;
             WPVariable.timeScale_WPDateTime = 1f;
+            ui_BookItemInfo.SetActive(false);
         }
         base.SetActive(param);
     }

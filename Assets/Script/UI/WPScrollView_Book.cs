@@ -65,7 +65,6 @@ public class WPScrollView_Book : WPScrollView {
 
     private void OnClick_Seed(int index)
     {
-        WPGameCommon._WPDebug("씨앗 클릭! " + index);
         WPData_Seed seedData = WPGameDataManager.instance.GetData<WPData_Seed>(WPEnum.GameData.eSeed)[index];
 
         if(seedData != null)
