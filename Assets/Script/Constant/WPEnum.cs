@@ -99,7 +99,14 @@ public class WPEnum {
 
 		eUserDate = 400,                // 게임 상의 시간
 
-		eDebtTimer =500,
+        eDebtTimer = 500,
+
+        eField0 = 800,
+        eField1 = 900,
+        eField2 = 1000,
+        eField3 = 1100,
+        eField4 = 1200,
+        eField5 = 1300,
 	}
 
 	// 재정 상태
