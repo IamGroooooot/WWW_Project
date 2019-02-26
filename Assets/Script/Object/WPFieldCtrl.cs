@@ -126,7 +126,7 @@ public class WPFieldCtrl : WPActor
                 {
                     // 보상 획득하는 코드 짤 것.
                     WPGameCommon._WPDebug("작물이 완성됨.");
-                    wpField.CheckGold();
+                    WPFundsManager.instance.EarnMoney(wpField.CheckGold());
                     ClearFieldData();
                     SaveFieldData();
                     yield return null;

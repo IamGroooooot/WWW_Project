@@ -66,6 +66,18 @@ public class WPFundsManager : MonoBehaviour{
     }
 
     /// <summary>
+    /// 돈을 벌 때
+    /// </summary>
+    /// <param name="money"></param>
+    /// <returns></returns>
+    public void EarnMoney(int money)
+    {
+        WPUserDataManager.instance.Money += money;
+
+    }
+
+
+    /// <summary>
     /// 돈을 갚을 때 
     /// </summary>
     /// <param name="payBackMoney"></param>

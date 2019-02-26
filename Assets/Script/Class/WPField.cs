@@ -140,7 +140,10 @@ public class WPField
         //gold에 비료나 날씨에 의한 버프 넣은 후 
         //마직막에 불변값 계산해서 넣기
         int comparePrice = seedData[seedIndex].ComparePrice;
-        return 0;
+        Debug.Log("comparePrice: "+comparePrice.ToString());
+        int gold = (int)((float)comparePrice *GrowthRate);
+ 
+        return gold;
     }
     /*
 	//병충해 이벤트 구독!
