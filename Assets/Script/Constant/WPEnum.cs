@@ -24,6 +24,12 @@ public class WPEnum {
 		eNot = 5                        // 다름
 	}
 
+    public enum IsAble2Pay
+    {
+        eEnoughMoney,
+        eNoMoney,
+    }
+
     public enum Header_Seed
     {
         ERROR = 0,

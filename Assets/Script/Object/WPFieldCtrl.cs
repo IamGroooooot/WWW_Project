@@ -79,15 +79,6 @@ public class WPFieldCtrl : WPActor
 
         fieldKey = (WPEnum.VariableType)System.Enum.Parse(typeof(WPEnum.VariableType), "eField" + fieldIndex.ToString());
 
-        /*
-        string data = WPGameVariableManager.instance.LoadStringVariable(fieldKey);
-
-        if (string.IsNullOrEmpty(data))
-            SetFieldData(new WPField());
-        else
-            SetFieldData(WPField.ParseData(data));
-        */
-
         string data = WPUserDataManager.instance.GetFieldData(1, fieldIndex);
 
         if (string.IsNullOrEmpty(data))

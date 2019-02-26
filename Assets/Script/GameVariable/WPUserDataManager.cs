@@ -52,6 +52,8 @@ public class WPUserDataManager : MonoBehaviour {
         if (string.IsNullOrEmpty(DATA_PATH)) DATA_PATH = SetPath() + "UserData.dat";
 
         userData = WPUserData.LoadData(DATA_PATH);
+
+
     }
 
     public int Debt

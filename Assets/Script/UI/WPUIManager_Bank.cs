@@ -29,14 +29,28 @@ public class WPUIManager_Bank : WPUIManager {
 
         this.transform.Find("Button_Close").GetComponent<Button>().onClick.AddListener(OnClick_Close);
 
+
+        WPDateTime.Now.OnTimeChanged += UpdateUI;
         SetActive(false);
     }
+    
 
     // Close 버튼을 클릭했을 때 호출합니다.
     private void OnClick_Close()
     {
         SetActive(false);
     }
+
+    private void UpdateUI(WPDateTime content)
+    {
+        Debug.Log("dd");
+        SetText_Money("내 자금: " + WPUserDataManager.instance.Money.ToString());
+        SetText_Debt("빚: " + WPUserDataManager.instance.Debt.ToString());
+        SetText_Interest("다음달 추가될 이자: "+WPFundsManager.instance.GetInterest().ToString());
+        SetText_InterestRate("이자율: " + (WPFundsManager.instance.GetInterestRate()*100).ToString()+"%");
+
+    }
+
 
     /// <summary>
 	/// Money ( 돈 ) UI를 content로 업데이트합니다.
