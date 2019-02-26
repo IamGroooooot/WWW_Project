@@ -232,9 +232,6 @@ public class WPUIManager_Field : WPUIManager {
 			}
 		}
 
-        //If No NullWorker, Spawn Null Worker 
-        WPActorManager.instance.IncreaseNullWorker();
-
         scrollView_Select.CreateWorkerList();
 		int fieldId = System.Convert.ToInt32(WPFieldCtrl.justClickedField.Substring(5))%10;
 		int farmId = System.Convert.ToInt32(WPFieldCtrl.justClickedField.Substring(5))/10;
@@ -306,7 +303,6 @@ public class WPUIManager_Field : WPUIManager {
     public void OnClick_Close()
     {
         SetActive(false);
-		SendCustomizedWorker();
 	}
 
 	//커스터마이징 된 워커 정보를 NullWorker라는 태그를 가진 게임 오브젝트에 보내고 기존에 사용한 워커 정보를 초기화 시킨다
@@ -318,6 +314,9 @@ public class WPUIManager_Field : WPUIManager {
             Debug.Log("밭이 없음 // Worker Set 안함");
             return;
         }
+
+        //If No NullWorker, Spawn Null Worker 
+        WPActorManager.instance.IncreaseNullWorker();
 
 		GameObject targetWorker = GameObject.FindGameObjectWithTag("NullWorker");
         

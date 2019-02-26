@@ -17,7 +17,7 @@ public class WPWorkerCtrl : WPActor
     SpriteRenderer shirts;
     SpriteRenderer pants;
     SpriteRenderer shoes;
-	TextMesh name;
+	TextMesh worker_name;
 
 
     // 움직임 관련 변수. 일단 하드코딩
@@ -98,7 +98,7 @@ public class WPWorkerCtrl : WPActor
 		shirts = transform.GetChild(2).GetComponent<SpriteRenderer>();
 		pants = transform.GetChild(3).GetComponent<SpriteRenderer>();
 		shoes = transform.GetChild(4).GetComponent<SpriteRenderer>();
-		name = transform.GetChild(5).GetComponent<TextMesh>();
+		worker_name = transform.GetChild(5).GetComponent<TextMesh>();
 	}
 
     /// <summary>
@@ -190,7 +190,7 @@ public class WPWorkerCtrl : WPActor
             shirts.sprite = WPCustomizationManager.instance.shirtPrefabs[_appearance[WPEnum.WorkerAppearanceDetail.eShirt]].GetComponent<SpriteRenderer>().sprite;
             pants.sprite = WPCustomizationManager.instance.pantsPrefabs[_appearance[WPEnum.WorkerAppearanceDetail.ePants]].GetComponent<SpriteRenderer>().sprite;
             shoes.sprite = WPCustomizationManager.instance.shoesPrefabs[_appearance[WPEnum.WorkerAppearanceDetail.eShoes]].GetComponent<SpriteRenderer>().sprite;
-			name.text = WPCustomizationManager.instance.worker_Names[_appearance[WPEnum.WorkerAppearanceDetail.eWorkerName]];
+			worker_name.text = WPCustomizationManager.instance.worker_Names[_appearance[WPEnum.WorkerAppearanceDetail.eWorkerName]];
 
         }
         else
