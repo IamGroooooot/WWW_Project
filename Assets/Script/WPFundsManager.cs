@@ -26,6 +26,8 @@ public class WPFundsManager : MonoBehaviour{
         {
             WPUserDataManager.instance.Debt += GetInterest();
             WPGameCommon._WPDebug("이자율 적용! 빚 늘어남");
+            timer = 0;
+            WPGameVariableManager.instance.SaveVariable(WPEnum.VariableType.eDebtTimer, timer);
         }
     }
 
