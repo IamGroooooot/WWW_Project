@@ -15,7 +15,7 @@ public class WPActorManager : MonoBehaviour
     [SerializeField] private GameObject _pfWorker;      // 워커 프립팹
     [SerializeField] private GameObject _field;         // 밭 프리팹
 
-    private int _workerCount;                           // 일꾼 개수. init 초기화
+    public int _workerCount;                           // 일꾼 개수. init 초기화
     private int _farmFieldCount;                        // 밭 개수. init 초기화
 
     private List<GameObject> _actorList_Worker;         // 액터Worker 게임오브젝트를 들고있는 리스트.
@@ -220,11 +220,7 @@ public class WPActorManager : MonoBehaviour
             return;
         }
 
-        // 매니저 메모리에 반영 시도
-        this._workerCount++;
-
-        // 유저데이터에 작성.
-        WPGameVariableManager.instance.SaveVariable(WPEnum.VariableType.eUserWorkerCount, this._workerCount);
+        
     }
 
     /// <summary>

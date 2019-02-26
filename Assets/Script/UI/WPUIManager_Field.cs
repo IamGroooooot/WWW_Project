@@ -232,10 +232,15 @@ public class WPUIManager_Field : WPUIManager {
 			}
 		}
 
+        //If No NullWorker, Spawn Null Worker 
+        WPActorManager.instance.IncreaseNullWorker();
+
+
         scrollView_Select.CreateWorkerList();
 		int fieldId = System.Convert.ToInt32(WPFieldCtrl.justClickedField.Substring(5))%10;
 		int farmId = System.Convert.ToInt32(WPFieldCtrl.justClickedField.Substring(5))/10;
 		int workerId = UnityEngine.Random.Range(0, 5);
+
 		//Worker가져와서 불러 와야됨
 		WPCustomizationManager.instance.SetInvisible(false);
 		WPCustomizationManager.instance.setWorkerOnCustomManager(new WPWorker(farmId,fieldId, workerId,0,null));
@@ -315,8 +320,7 @@ public class WPUIManager_Field : WPUIManager {
             return;
         }
 
-        //If No NullWorker, Spawn Null Worker 
-        WPActorManager.instance.IncreaseNullWorker();
+        
 
 		GameObject targetWorker = GameObject.FindGameObjectWithTag("NullWorker");
         
@@ -330,6 +334,12 @@ public class WPUIManager_Field : WPUIManager {
 			targetWorker.name = WPFieldCtrl.justClickedField + "_Worker";
             targetWorker.GetComponent<WPWorkerCtrl>().SetActorPos(UnityEngine.Random.Range(-WPVariable.currentFieldSizeX / 2f, WPVariable.currentFieldSizeX / 2f), UnityEngine.Random.Range(-WPVariable.currentFieldSizeY / 2f, WPVariable.currentFieldSizeY / 2f));
             targetWorker.GetComponent<WPWorkerCtrl>().SetActorMoveType(WPEnum.ActorMoveType.eMoveRoaming);
+
+            //WorkerCount 늘려줌
+            // 매니저 메모리에 반영 시도 
+            WPActorManager.instance._workerCount++;
+            // 유저데이터에 작성.
+            WPGameVariableManager.instance.SaveVariable(WPEnum.VariableType.eUserWorkerCount, WPActorManager.instance._workerCount);
         }
 
 

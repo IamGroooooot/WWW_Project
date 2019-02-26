@@ -57,6 +57,8 @@ public class WPWorkerCtrl : WPActor
 
         // 초기 방향 정해주기.
         this._currentDir = Vector3.zero;
+        //setImage
+		getWorkerComponents();
 
         //WorkerData가져오기 
 
@@ -83,9 +85,7 @@ public class WPWorkerCtrl : WPActor
 
 
 
-		//setImage
-		getWorkerComponents();
-
+		
 		SetImage(wpWorker.appearance);
 
     }
@@ -174,8 +174,11 @@ public class WPWorkerCtrl : WPActor
     //WPWorker를 이용해 현재 일하고 있는 field가져옴.
     private void GetFieldData()
     {
-        if ((this.workingField != null) || GameObject.Find("Field" + wpWorker.workingFarmIndex.ToString() + wpWorker.workingFieldIndex.ToString()) == null) return;
+        if ( GameObject.Find("Field" + wpWorker.workingFarmIndex.ToString() + wpWorker.workingFieldIndex.ToString()) == null) 
+            return;
+
         this.workingField = GameObject.Find("Field" + wpWorker.workingFarmIndex.ToString() + wpWorker.workingFieldIndex.ToString()).GetComponent<WPFieldCtrl>();
+        Debug.Log("asdsdasd:"+wpWorker.workingFieldIndex.ToString());
     }
 
     //Dictionary로 일꾼 이미지 바꾸기
@@ -204,6 +207,7 @@ public class WPWorkerCtrl : WPActor
     {
         this.wpWorker = _worker;
         SetImage(wpWorker.appearance);
+        GetFieldData();
         WPGameCommon._WPDebug("Worker SET!!");
     }
 
