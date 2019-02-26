@@ -99,14 +99,7 @@ public class WPEnum {
 
 		eUserDate = 400,                // 게임 상의 시간
 
-		eQuest1 = 700,					// 퀘스트 달성량. 최대 퀘스트 수락량?? - 지호묻기
-
-        eField0 = 800,
-        eField1 = 900,
-        eField2 = 1000,
-        eField3 = 1100,
-        eField4 = 1200,
-        eField5 = 1300,
+		eDebtTimer =500,
 	}
 
 	// 재정 상태

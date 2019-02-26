@@ -43,12 +43,10 @@ public class WPUIManager_Bank : WPUIManager {
 
     private void UpdateUI(WPDateTime content)
     {
-        Debug.Log("dd");
         SetText_Money("내 자금: " + WPUserDataManager.instance.Money.ToString());
         SetText_Debt("빚: " + WPUserDataManager.instance.Debt.ToString());
         SetText_Interest("다음달 추가될 이자: "+WPFundsManager.instance.GetInterest().ToString());
         SetText_InterestRate("이자율: " + (WPFundsManager.instance.GetInterestRate()*100).ToString()+"%");
-
     }
 
 
