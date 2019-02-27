@@ -49,6 +49,25 @@ public class WPUIManager_Bank : WPUIManager {
         SetText_InterestRate("이자율: " + (WPFundsManager.instance.GetInterestRate()*100).ToString()+"%");
     }
 
+    public void BorrowClicked1000()
+    {
+        WPFundsManager.instance.BorrowMoney(1000);
+    }
+
+    public void BorrowClicked100()
+    {
+        WPFundsManager.instance.BorrowMoney(100);
+    }
+
+    public void PayBackClicked50()
+    {
+        WPFundsManager.instance.PayBackDebt(50);
+    }
+
+    public void PayBackClicked500()
+    {
+        WPFundsManager.instance.PayBackDebt(500);
+    }
 
     /// <summary>
 	/// Money ( 돈 ) UI를 content로 업데이트합니다.
