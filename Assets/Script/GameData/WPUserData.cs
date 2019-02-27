@@ -73,15 +73,18 @@ public class WPUserData {
     public static WPUserData LoadData(string path)
     {
         string data = string.Empty;
-        try
+        if (File.Exists(path))
         {
-            StreamReader streamReader = new StreamReader(path);
-            data = streamReader.ReadToEnd();
-            streamReader.Close();
-        }
-        catch (IOException e)
-        {
-            WPGameCommon._WPDebug(e);
+            try
+            {
+                StreamReader streamReader = new StreamReader(path);
+                data = streamReader.ReadToEnd();
+                streamReader.Close();
+            }
+            catch (IOException e)
+            {
+                WPGameCommon._WPDebug(e);
+            }
         }
 
         WPUserData newData = null;

@@ -27,6 +27,14 @@ public class WPUIManager_Field : WPUIManager {
     private WPField targetField;                        
     private WPFieldCtrl targetFieldCtrl;                // 활용할 밭 객체
 
+    public bool IsActive
+    {
+        get
+        {
+            return gameObject.activeSelf;
+        }
+    }
+
     // private string SelectedSeed;                        //선택한 식물
     /////////////////////////////////////////////////////////////////////////
     // Methods
