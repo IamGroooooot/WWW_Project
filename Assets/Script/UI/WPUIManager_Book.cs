@@ -9,6 +9,7 @@ public class WPUIManager_Book : WPUIManager
     // Varaibles
     public static WPUIManager_Book instance = null;     // singleton
 
+
     private static string[] tabName = {"식 물", "비 료" };
 
     private int tabIndex = 0;
@@ -57,6 +58,14 @@ public class WPUIManager_Book : WPUIManager
     private Button button_Tab;
     private WPScrollView_Book scrollView_Book;
     public WPUI_BookItemInfo ui_BookItemInfo { get; private set; }
+
+        public bool IsActive
+    {
+        get
+        {
+            return gameObject.activeSelf;
+        }
+    }
 
     /////////////////////////////////////////////////////////////////////////
     // Methods

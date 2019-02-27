@@ -19,7 +19,6 @@ public class WPUIManager_Farm : WPUIManager
 
     private WPImageText imageText_Time;
 
-
     /////////////////////////////////////////////////////////////////////////
     // Methods
 

@@ -96,7 +96,8 @@ public class WPFieldCtrl : WPActor
     {
 		
 		//밭 작업 중 창
-		if (WPUIManager_Field.instance.IsActive) return; // UI를 통과해 클릭하는 것을 방지
+		if (WPUIManager_Field.instance.IsActive || WPUIManager_Bank.instance.IsActive || WPUIManager_Book.instance.IsActive
+        || WPUIManager_News.instance.IsActive) return; // UI를 통과해 클릭하는 것을 방지
         StartCoroutine(OpenUI()); 
     }
 

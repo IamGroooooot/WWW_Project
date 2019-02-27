@@ -14,6 +14,15 @@ public class WPUIManager_News : WPUIManager {
 
     private WPScrollView_News scrollView_News;          // 뉴스들을 표시하는 스크롤 뷰
 
+
+        public bool IsActive
+    {
+        get
+        {
+            return gameObject.activeSelf;
+        }
+    }
+
     /////////////////////////////////////////////////////////////////////////
     // Methods
 

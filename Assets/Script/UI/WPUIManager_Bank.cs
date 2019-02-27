@@ -14,6 +14,14 @@ public class WPUIManager_Bank : WPUIManager {
     private WPImageText imageText_Interest;                         // 이자
     private WPImageText imageText_InterestRate;                     // 이자율
 
+        public bool IsActive
+    {
+        get
+        {
+            return gameObject.activeSelf;
+        }
+    }
+
     /////////////////////////////////////////////////////////////////////////
     // Methods
 
@@ -46,7 +54,7 @@ public class WPUIManager_Bank : WPUIManager {
         SetText_Money("내 자금: " + WPUserDataManager.instance.Money.ToString());
         SetText_Debt("빚: " + WPUserDataManager.instance.Debt.ToString());
         SetText_Interest("다음달 추가될 이자: "+WPFundsManager.instance.GetInterest().ToString());
-        SetText_InterestRate("이자율: " + (WPFundsManager.instance.GetInterestRate()*100).ToString()+"%");
+        SetText_InterestRate("이자율: " + (5).ToString()+"%");
     }
 
     public void BorrowClicked1000()
