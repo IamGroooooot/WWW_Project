@@ -1,0 +1,13 @@
+﻿eID,eName,eDataName,eItemType,eTier,eValue,ePrice,eDescription
+0,사과나무표 비료,fertilizer_Apple,eGrowth,1,240,100,수확 시간이 약간 감소한다.
+1,벚꽃나무표 비료,fertilizer_Blossom,eGrowth,2,480,200,수확 시간이 감소한다.
+2,버드나무표 비료,fertilizer_Willow,eGrowth,3,720,300,수확 시간이 많이 감소한다.
+3,암탉표 비료,fertilizer_Chick,eScore,1,300,1000,수확 점수가 약간 증가한다.
+4,오리표 비료,fertilizer_Duck,eScore,2,400,1000,수확 점수가 증가한다.
+5,강아지표 비료,fertilizer_Doggy,eScore,3,500,1000,수확 점수가 많이 증가한다.
+6,나팔표 비료,fertilizer_Napal,eWorkmanship,1,5,100,수확 시 일꾼의 숙련도가 약간 증가한다.
+7,국화표 비료,fertilizer_Gookhwa,eWorkmanship,2,10,200,수확 시 일꾼의 숙련도가 증가한다.
+8,개나리표 비료,fertilizer_Gaenari,eWorkmanship,3,15,300,수확 시 일꾼의 숙련도가 많이 증가한다.
+9,사슴벌레표 비료,fertilizer_Beetle,eWeatherResist,1,eCold,400,눈이 한가득 쌓여도 작물이 잘 자라게 한다.
+10,애벌레표 비료,fertilizer_Worm,eWeatherResist,1,eRain,400,비가 억수로 와도 작물이 잘 자라게 한다.
+11,쇠똥구리표 비료,fertilizer_Scarab,eWeatherResist,1,eDrought,400,날씨가 가물어도 작물이 잘 자라게 한다.

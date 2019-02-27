@@ -61,15 +61,23 @@ public class WPGameDataManager : MonoBehaviour {
     private void LoadData(WPEnum.GameData _gameData)
     {
         string dataName = _gameData.ToString().Substring(1);
-        string dataPath = Application.streamingAssetsPath + "/" + dataName + ".csv";
-
+        string dataPath = "Data/" + dataName;
+        /*
         if (!File.Exists(dataPath))
+        {
+            WPGameCommon._WPDebug("해당하는 파일이 존재하지 않습니다! : " + dataPath);
+            return;
+        }*/
+
+        TextAsset newData = Resources.Load<TextAsset>(dataPath);
+
+        if (newData == null)
         {
             WPGameCommon._WPDebug("해당하는 파일이 존재하지 않습니다! : " + dataPath);
             return;
         }
 
-        string csvString = File.ReadAllText(dataPath, System.Text.Encoding.UTF8);
+        string csvString = newData.text;
         List<WPData> csvData = new List<WPData>();
 
         string[] lines = Regex.Split(csvString, LINE_SPLIT_RE);
